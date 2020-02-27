@@ -48,3 +48,39 @@ class User(AbstractBaseUser, PermissionsMixin):
     def is_staff(self):
         "Is the user a memeber of staff?"
         return self.is_superuser
+
+class Post(models.Model):
+    uuid = models.UUIDField(
+        primary_key=True,
+        unique=True,
+        editable=False,
+        default=uuid.uuid4,
+        verbose_name='PK'
+    )
+    species = models.CharField(max_length=30)
+    sex = models.BooleanField(default=True) #남자 True, 여자 False
+    miss_date = models.DateTimeField()
+    miss_loc = models.CharField(max_length=100)
+    feature = models.CharField(max_length=200)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(blank=True, null=True)
+    pub_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.image
+
+class Comment(models.Model):
+    uuid = models.UUIDField(
+        primary_key=True,
+        unique=True,
+        editable=False,
+        default=uuid.uuid4,
+        verbose_name='PK'
+    )
+    comment = models.CharField(max_length=150)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    pub_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.comment
