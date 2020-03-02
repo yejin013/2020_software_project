@@ -1,6 +1,8 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
+from django.shortcuts import render, redirect, get_object_or_404
+from django.utils import timezone
+
+from .models import User, Post, Comment
 from django.contrib import auth
 from django.views.decorators.http import require_http_methods
 from .form import RegisterForm
@@ -49,3 +51,22 @@ def register(request):
     elif request.method == 'GET':
         return render(request, 'register.html')
 '''
+
+def create(request):
+    post = Post()
+    post.menu = request.GET['menu']
+    post.species = request.GET['species']
+    post.miss_date = request.GET['miss_date']
+    post.miss_loc = request.GET['miss_loc']
+    post.feature = request.GET['feature']
+    post.request = request.GET['user']
+    post.image = request.GET['image']
+    post.pub_date = timezone.datetime.now()
+    post.save()
+    return redirect('/post/' +str(post.id))
+
+# 포스트한 내용 보여주기
+def post(request, post_id):
+    post = get_object_or_404(Post, PK=post_id)
+    return render(request, 'post.html', {'post':post}) 
+
