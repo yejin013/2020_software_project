@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'abandoned_animal.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME' : 'abandoned_animal',
+        'USER' : 'yejin',
+        'PASSWORD' : '0213',
+        'HOST' : 'localhost',
+        'PORT' : '3306'
     }
 }
 
@@ -105,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
 # TIME_ZONE = 'UTC'
 TIME_ZONE = 'Asia/Seoul'
