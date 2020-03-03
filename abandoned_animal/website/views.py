@@ -3,9 +3,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 
 from .models import User, Post, Comment
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.views.decorators.http import require_http_methods
-from .form import RegisterForm
+from .form import RegisterForm, PostForm
 
 # Create your views here.
 
@@ -62,6 +62,8 @@ def create(request):
     post.request = request.GET['user']
     post.image = request.GET['image']
     post.pub_date = timezone.datetime.now()
+    post.up_date = timezone.datetime.now()
+    post.user = request.user.uuid
     post.save()
     return redirect('/post/' +str(post.id))
 
@@ -70,3 +72,30 @@ def post(request, post_id):
     post = get_object_or_404(Post, PK=post_id)
     return render(request, 'post.html', {'post':post}) 
 
+# 포스트 수정, 구체적 form은 html에 맞춰서 수정 필요
+def edit(request, post_id):
+    post = get_object_or_404(Post, uuid=post_id)
+    if request.user != post.user:
+        messages.warning(request, "권한 없음")
+        return redirect(post)
+    else:
+        if request.method == "POST":
+            form = PostForm(request.POST, instance=post)
+            if form.is_valid():
+                post = form.save(commit=False)
+                post.user = request.user
+                post.up_date = timezone.now()
+                post.save()
+                return redirect('post', PK=post.uuid)
+        else:
+            form = PostForm(instance=post)
+            return render(request, 'html', form)
+
+def delete(request, post_id):
+    post = get_object_or_404(Post, PK=post_id)
+    if request.user != post.user:
+        messages.warning(request, "권한 없음")
+        return redirect(post)
+    else:
+        post.delete()
+    return redirect('/')

@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
 from django.forms import ModelForm
-from .models import User
+from .models import User, Post, Comment
 from django import forms
 
 class RegisterForm(UserCreationForm):
@@ -29,3 +29,8 @@ class ChangeForm(UserChangeForm):
     class Meta:
         model = User
         fields = ('username',)
+
+class PostForm(ModelForm):
+    class Meta:
+        model = Post
+        fields = ['menu', 'species', 'miss_date', 'miss_loc', 'feature', 'image']

@@ -64,6 +64,7 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(blank=True, null=True, verbose_name = '이미지')
     pub_date = models.DateTimeField(auto_now_add=True)
+    up_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.image
