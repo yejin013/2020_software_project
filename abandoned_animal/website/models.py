@@ -22,12 +22,12 @@ class UserManager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser, PermissionsMixin):
-    uuid = models.UUIDField(
+    id = models.UUIDField(
         primary_key=True,
         unique=True,
         editable=False,
         default=uuid.uuid4,
-        verbose_name='PK'
+        verbose_name='pk'
     )
     username = models.CharField(unique=True, max_length=10, verbose_name = '아이디') #아이디
     password = models.CharField(max_length=20, verbose_name = '비밀번호')
@@ -49,12 +49,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.is_superuser
 
 class Post(models.Model):
-    uuid = models.UUIDField(
+    id = models.UUIDField(
         primary_key=True,
         unique=True,
         editable=False,
         default=uuid.uuid4,
-        verbose_name='PK'
+        verbose_name='pk'
     )
     menu = models.BooleanField(verbose_name = '잃어버렸어요 or 발견했어요')
     species = models.CharField(max_length=30, verbose_name = '품종')
@@ -69,7 +69,7 @@ class Post(models.Model):
         return self.image
 
 class Comment(models.Model):
-    uuid = models.UUIDField(
+    id = models.UUIDField(
         primary_key=True,
         unique=True,
         editable=False,
@@ -83,3 +83,19 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
+
+class Animal(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        unique=True,
+        editable=False,
+        default=uuid.uuid4,
+        verbose_name='pk'
+    )
+    age = models.CharField(max_length=10)
+    careaddr = models.CharField(max_length=300)
+    carenm = models.CharField(max_length=100)
+    caretel = models.CharField(max_length=15)
+    colorcd = models.CharField(max_length=20)
+    kindcd = models.CharField(max_length=50)
+    specialmark = models.CharField(max_length=300)
