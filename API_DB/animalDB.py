@@ -3,9 +3,11 @@ from bs4 import BeautifulSoup
 import urllib.request
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 import sqlite3
 import pandas as pd
-
+from abandoned_animal.website.models import Animal
 
 # 본인 serviceKey 입력
 serviceKey = "718617iI2GVV0AWrip1dEkJMt3Jl9GPvl%2Flz28ktLjA7EYSXhYwCFjFlH9LovIRqzDDkAeUy29%2FaugkKim%2Fa%2Fw%3D%3D"
@@ -13,10 +15,9 @@ serviceKey = "718617iI2GVV0AWrip1dEkJMt3Jl9GPvl%2Flz28ktLjA7EYSXhYwCFjFlH9LovIRq
 
 # SQLite3 이용
 def sqlite_append(animalDf):
-    con = sqlite3.connect("c:/projectDB/animalInfo.db")
+    con = sqlite3.connect("c:/" + BASE_DIR+ "/db.sqlite3")
     animalDf.to_sql('animalInfo', con, if_exists='append', index=False) # 저장
     con.close()
-
 
 # API 데이터 파싱 후 sqlite_append 함수 불러오기
 def collect_info():
