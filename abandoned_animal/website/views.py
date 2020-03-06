@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 
-from .models import User, Post, Comment
+from .models import User, Post, Comment, Animal
 from django.contrib import auth, messages
 from django.views.decorators.http import require_http_methods
 from .form import RegisterForm, PostForm
@@ -100,5 +100,6 @@ def delete(request, post_id):
         post.delete()
     return redirect('/')
 
-def all(request):
-    post = get_object_or_404()
+def animalPost(request):
+    animalPost = Animal.objects.all()
+    return render(request, 'html', { 'post' : animalPost }) # 데이터 튜플로 들어감!

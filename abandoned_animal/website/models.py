@@ -84,3 +84,19 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
+
+class Animal(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        unique=True,
+        editable=False,
+        default=uuid.uuid4,
+        verbose_name='pk'
+    )
+    age = models.CharField(max_length=10)
+    careaddr = models.CharField(max_length=300)
+    carenm = models.CharField(max_length=100)
+    caretel = models.CharField(max_length=15)
+    colorcd = models.CharField(max_length=20)
+    kindcd = models.CharField(max_length=50)
+    specialmark = models.CharField(max_length=300)
