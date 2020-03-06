@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- 파란색인 ID 위주로 보면 편할거양 -->
+
+<head>
+    <meta charset="utf-8">
+    <!-- 반응형 웹 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>index</title>
+    
+    <!-- 부트스트랩 core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 커스텀 스티일 -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+    
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- 왼쪽의 사이드바 -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading">(서비스명)</div>
+            <div class="list-group list-group-flush">
+                <a href="#" id="lost_board" class="list-group-item list-group-item-action bg-light">실종신고 게시판</a>
+                <a href="#" id="find_board" class="list-group-item list-group-item-action bg-light">발견신고 게시판</a>
+                <a href="#" id="poster_board" class="list-group-item list-group-item-action bg-light">포스터 게시판</a>
+                <a href="#" id="shelther_info" class="list-group-item list-group-item-action bg-light">주변 보호소 정보</a>
+                <a href="#" id="sevice_info" class="list-group-item list-group-item-action bg-light">(서비스명) 정보</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- 오른쪽의 페이지 -->
+        <div id="page-content-wrapper">
+            <!-- 1. 네비게이션 바 -->
+            <nav id="top_nav" class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <!-- 왼쪽 메뉴 토글 -->
+                <button class="btn btn-light" id="menu_toggle">
+                    <span class="navbar-toggler-icon" alt="메뉴 아이콘"></span>
+                </button>
+                <!-- 요기 조금 이상함 -->
+                <!-- 오른쪽 유저 아이콘 -->
+                <button id="login_toggle" class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <img src="../img/user.svg" alt="유저 아이콘">
+                </button>
+                <!-- 오른쪽 로그인 토글 -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="../img/user.svg" alt="유저 아이콘">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" id="login" href="#">로그인</a>
+                                <a class="dropdown-item" id="signin" href="#">회원가입</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" id="letter" href="#">쪽지함</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 요기 조금 이상함 -->
+            </nav>
+
+            {% block content %}
+            {% endblock %}
+
+        </div>
+        <!-- /#wrapper -->
+
+        <!-- Menu Toggle Script -->
+        <script>
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+        </script>
+
+</body>
+
+</html>
