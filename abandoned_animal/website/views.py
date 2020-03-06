@@ -69,12 +69,12 @@ def create(request):
 
 # 포스트한 내용 보여주기
 def post(request, post_id):
-    post = get_object_or_404(Post, PK=post_id)
+    post = get_object_or_404(Post, id=post_id)
     return render(request, 'post.html', {'post':post}) 
 
 # 포스트 수정, 구체적 form은 html에 맞춰서 수정 필요
 def edit(request, post_id):
-    post = get_object_or_404(Post, uuid=post_id)
+    post = get_object_or_404(Post, id=post_id)
     if request.user != post.user:
         messages.warning(request, "권한 없음")
         return redirect(post)
@@ -86,16 +86,19 @@ def edit(request, post_id):
                 post.user = request.user
                 post.up_date = timezone.now()
                 post.save()
-                return redirect('post', PK=post.uuid)
+                return redirect('post', id=post.uuid)
         else:
             form = PostForm(instance=post)
             return render(request, 'html', form)
 
 def delete(request, post_id):
-    post = get_object_or_404(Post, PK=post_id)
+    post = get_object_or_404(Post, id=post_id)
     if request.user != post.user:
         messages.warning(request, "권한 없음")
         return redirect(post)
     else:
         post.delete()
     return redirect('/')
+
+def all(request):
+    post = get_object_or_404()
