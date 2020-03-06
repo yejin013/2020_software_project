@@ -1,4 +1,5 @@
-{% load static %}
+<!-- {% load static %} -->
+{% load staticfiles }
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,15 +12,14 @@
     <title>index</title>
     
     <!-- 부트스트랩 core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- 커스텀 스티일 -->
-    <link href="../css/simple-sidebar.css" rel="stylesheet">
+    <link href="{% static 'css/simple-sidebar.css' %}" rel="stylesheet">
 
     
     <!-- Bootstrap core JavaScript -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                 <button id="login_toggle" class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
-                    <img src="../img/user.svg" alt="유저 아이콘">
+                    <img src="{% static 'img/user.svg' %}" alt="유저 아이콘">
                 </button>
                 <!-- 오른쪽 로그인 토글 -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -58,7 +58,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../img/user.svg" alt="유저 아이콘">
+                                <img src="{% static 'img/user.svg' %}" alt="유저 아이콘">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" id="login" href="#">로그인</a>
