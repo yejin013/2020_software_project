@@ -9,7 +9,7 @@ from .models import User, Post, Comment
 class ProjectUserAdmin(UserAdmin):
     # 회원 업데이트 폼 연결
     form = ChangeForm
-    list_display = ('username', 'email', 'phone')
+    list_display = ('username', 'phone')
     list_filter = ('is_activate', 'is_superuser')
     fieldsets = (
         ('아이디', {'fields': ('username', 'password')}),

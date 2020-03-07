@@ -12,9 +12,9 @@ from .form import SignupForm
 def signup(request):
     if request.method == "POST":
         username = request.POST['username']
-        password1 = request.POST['password1']
-        password2 = request.POST['password2']
-        phone = request.POST['phone']
+        password1 = request.POST.get('password1', '')
+        password2 = request.POST.get('password2', '')
+        phone = request.POST.get('phone', '')
 
         if password1 != password2:
             return render(request, 'failure.html')
