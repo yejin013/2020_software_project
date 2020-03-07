@@ -56,10 +56,7 @@ class Post(models.Model):
         default=uuid.uuid4,
         verbose_name='pk'
     )
-<<<<<<< HEAD
     menu = models.BooleanField(verbose_name = '잃어버렸어요 or 발견했어요')
-=======
->>>>>>> f/signup
     species = models.CharField(max_length=30, verbose_name = '품종')
     miss_date = models.DateTimeField(verbose_name = '실종 날짜')
     miss_loc = models.CharField(max_length=100, verbose_name = '실종 위치')
@@ -77,7 +74,7 @@ class Comment(models.Model):
         unique=True,
         editable=False,
         default=uuid.uuid4,
-        verbose_name='PK'
+        verbose_name='pk'
     )
     comment = models.CharField(max_length=150, verbose_name = '댓글')
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
