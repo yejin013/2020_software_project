@@ -1,0 +1,70 @@
+{% extends 'menu_template.html' %}
+{% block content %}
+
+<br><br>
+<div class="container">
+    <div class="card mb-3" style="width: auto;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="../img/dog.png" class="card-img" id="animalImg">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <p class="card-text" id="date" style="text-align:right;" id="reportingDate">작성일</p>
+                    <br>
+                    <p class="card-text" id="name">이름</p>
+                    <p class="card-text" id="age">나이</p>
+                    <p class="card-text" id="gender"">성별</p>
+                    <p class=" card-text" id="location">잃어버린 위치(찾은 위치)</p>
+                    <p class="card-text" id="feature">특징</p>
+                    <p class="card-text" id="contact">연락처</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 목록 수정 삭제 버튼 폼 -->
+    <div class="button" align="right">
+        <a class="btn btn-default" href="#" role="button">목록</a>
+        <a class="btn btn-default" href="#" role="button">수정</a>
+        <a class="btn btn-default" href="#" role="button">삭제</a>
+    </div>
+
+    <br><br>
+    <strong>댓글</strong>
+    <p>댓글창 크기 조절....</p>
+    <br><br>
+
+    <!-- 댓글 작성 폼 -->
+    <div class="commentWrite">
+        <form method="post">
+            <img src="../img/black1.gif" alt="유저 아이콘" class="img-circle" id="commentUserImg">
+            <span class="search_in"><input type="text" placeholder="댓글을 입력하세요" id="commentInput"
+                    style="border:none;"></span>
+            <button type="submit" class="btn btn-default">확인</button>
+        </form>
+    </div>
+
+    <!--댓글 출력-->
+    <div class="commentRead">
+        <br>
+        <div class="commentTable">
+            <table>
+                <tr>
+                    <td rowspan="2"><img src="../img/black1.gif" alt="유저 아이콘" class="img-circle" id="commentUserImg"
+                            style="margin-right: 15px;">
+                    </td>
+                    <td>아이디</td>
+                </tr>
+                <tr>
+                    <td>쪽지 주세요~</td>
+                </tr>
+            </table>
+        </div>
+        <div class="button" align="right">
+            <a class="btn btn-default" href="#" role="button">수정</a>
+            <a class="btn btn-default" href="#" role="button">삭제</a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
