@@ -6,11 +6,11 @@ from django.db import models
 # Create your models here.
 
 class UserManager(BaseUserManager):
-    def create_user(self, username, password, phone):
+    def create_user(self, username, password, **kwargs):
         if not username:
             raise ValueError('ID Required')
 
-        user = self.model(username = username, phone = phone)
+        user = self.model(username = username, phone = kwargs)
         user.set_password(password)
         user.save(using=self._db)
         return user
