@@ -6,11 +6,11 @@ from django.db import models
 # Create your models here.
 
 class UserManager(BaseUserManager):
-    def create_user(self, username, password):
+    def create_user(self, username, password, **kwargs):
         if not username:
             raise ValueError('ID Required')
 
-        user = self.model(username = username)
+        user = self.model(username = username, phone = kwargs)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -56,7 +56,10 @@ class Post(models.Model):
         default=uuid.uuid4,
         verbose_name='pk'
     )
+<<<<<<< HEAD
     menu = models.BooleanField(verbose_name = '잃어버렸어요 or 발견했어요')
+=======
+>>>>>>> f/signup
     species = models.CharField(max_length=30, verbose_name = '품종')
     miss_date = models.DateTimeField(verbose_name = '실종 날짜')
     miss_loc = models.CharField(max_length=100, verbose_name = '실종 위치')
