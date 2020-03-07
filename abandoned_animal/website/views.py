@@ -138,6 +138,6 @@ def comment_remove(request, pk):
         comment.delete()
         return redirect('post', pk=comment.post.pk)
 
-def animalPost(request):
-    animalPost = Animal.objects.all()
-    return render(request, 'html', { 'post' : animalPost }) # 데이터 튜플로 들어감!
+# def animalPost(request):
+#     animalPost = Animal.objects.all()
+#     return render(request, 'html', { 'post' : animalPost }) # 데이터 튜플로 들어감!
