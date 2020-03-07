@@ -10,10 +10,6 @@ class SignupForm(UserCreationForm):
     phone = forms.CharField(max_length=11)
     class Meta:
         model = User
-<<<<<<< HEAD
-        widget = {'password':forms.PasswordInput}
-=======
->>>>>>> f/signup
         fields = ['username', 'password1', 'password2', 'phone']
 
     def clean_password2(self):
