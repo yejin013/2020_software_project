@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
@@ -5,52 +6,31 @@ from django.utils import timezone
 from .models import User, Post, Comment, Animal
 from django.contrib import auth, messages
 from django.views.decorators.http import require_http_methods
-from .form import RegisterForm, PostForm
+from django.shortcuts import render, redirect
+from .models import User
+from django.contrib import auth
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+from .form import SignupForm, PostForm, CommentForm
 
 # Create your views here.
 
-def register(request):
+@csrf_exempt
+def signup(request):
     if request.method == "POST":
-        register_form = RegisterForm(request.POST)
+        username = request.POST['username']
+        password1 = request.POST.get('password1', '')
+        password2 = request.POST.get('password2', '')
+        phone = request.POST.get('phone', '')
 
-        if register_form.is_valid():
-            user = register_form.save(commit=False)
-            user.setpassword(register_form.cleaned_data['password'])
-            user.save()
+        if password1 != password2:
+            return render(request, 'failure.html')
 
-            username = user.username
-
-            return render(request, 'register.html', {'username' : username})
-    else:
-        register_form = RegisterForm()
-        return render(request, 'register.html', {'form':register_form})
-'''
-@require_http_methods(['GET', 'POST'])
-def register(request):
-    if request.method == 'POST':
-        registerform = RegisterForm(request.POST)
-        if registerform.is_valid():
-            user = registerform.save(commit=False)  # ajax로 아이디 중복 체크 만들기
-            user.email = registerform.cleaned_data['email']
-            user.password = registerform.cleaned_data['password']
-            user.phone = registerform.cleaned_data['phone']
-            user.save()
-            username = user.username
-            """
-            username = signupform.save(commit=False) #ajax로 아이디 중복 체크 만들기
-            email = signupform.cleaned_data['email']
-            password = signupform.cleaned_data['password']
-            phone = signupform.cleaned_data['phone']
-            new_user = User.objects.create_user(username, email, phone, password=password)
-            new_user.save()
-            """
-            return render(request, 'register.html', {'username' : username})
         else:
-            return HttpResponse("잘못된 접근")
-            # return render(request, '.html', {'signupform':signupform,})
-    elif request.method == 'GET':
-        return render(request, 'register.html')
-'''
+            User.objects.create_user(username=username, password = password1, phone = phone)
+        return render(request, 'home.html')
+    else:
+        return render(request, 'sign.html')
 
 def create(request):
     post = Post()
@@ -70,7 +50,29 @@ def create(request):
 # 포스트한 내용 보여주기
 def post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-    return render(request, 'post.html', {'post':post}) 
+
+    comment_form = CommentForm()
+    comments = post.comments.all()
+    return render(request, 'post.html', {'post':post, 'comment_form':comment_form, 'comments':comments})
+
+def add_comment_to_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.user = request.user.id
+            comment.post = request.post.id
+            comment.pub_date = timezone.datetime.now()
+            comment.up_date = timezone.datetime.now()
+            comment.save()
+            return redirect('post', pk=post.id)
+    else:
+        comment_form = CommentForm()
+        comments = post.comments.all()
+
+    return render(request, 'post.html', {'post':post, 'comment_form':comment_form, 'comments':comments})
 
 # 포스트 수정, 구체적 form은 html에 맞춰서 수정 필요
 def edit(request, post_id):
@@ -99,6 +101,42 @@ def delete(request, post_id):
     else:
         post.delete()
     return redirect('/')
+
+@login_required
+def comment_approve(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.approve()
+    return redirect('post', pk=comment.post.pk)
+
+@login_required
+def comment_update(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    post = get_object_or_404(Post, pk=comment.post.id)
+
+    if request.user != comment.user:
+        messages.warning(request, "권한 없음")
+        return redirect(post)
+
+    if request.method == "POST":
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            return redirect(post)
+    else:
+        form = CommentForm(instance=comment)
+    return render(request, '.html', {'form': form})
+
+@login_required
+def comment_remove(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    post = get_object_or_404(Post, pk=comment.post.id)
+
+    if request.user != comment.user:
+        messages.warning(request, "권한 없음")
+        return redirect(post)
+    else:
+        comment.delete()
+        return redirect('post', pk=comment.post.pk)
 
 def animalPost(request):
     animalPost = Animal.objects.all()
