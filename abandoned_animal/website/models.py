@@ -22,11 +22,10 @@ class UserManager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser, PermissionsMixin):
-    id = models.UUIDField(
+    id = models.AutoField(
         primary_key=True,
         unique=True,
         editable=False,
-        default=uuid.uuid4,
         verbose_name='pk'
     )
     username = models.CharField(unique=True, max_length=10, verbose_name = '아이디') #아이디
@@ -49,32 +48,30 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.is_superuser
 
 class Post(models.Model):
-    id = models.UUIDField(
+    id = models.AutoField(
         primary_key=True,
         unique=True,
         editable=False,
-        default=uuid.uuid4,
         verbose_name='pk'
     )
     menu = models.BooleanField(verbose_name = '잃어버렸어요 or 발견했어요')
     species = models.CharField(max_length=30, verbose_name = '품종')
-    miss_date = models.DateTimeField(verbose_name = '실종 날짜')
+    miss_date = models.DateTimeField(null = True, blank=True, verbose_name = '실종 날짜')
     miss_loc = models.CharField(max_length=100, verbose_name = '실종 위치')
     feature = models.CharField(max_length=200, verbose_name = '특징')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     image = models.ImageField(blank=True, null=True, verbose_name = '이미지')
     pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     up_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
-        return self.image
+        return self.id
 
 class Comment(models.Model):
-    id = models.UUIDField(
+    id = models.AutoField(
         primary_key=True,
         unique=True,
         editable=False,
-        default=uuid.uuid4,
         verbose_name='pk'
     )
     comment = models.CharField(max_length=150, verbose_name = '댓글')
@@ -89,12 +86,12 @@ class Comment(models.Model):
     def approved_comments(self):
         return self.comments.filter(approved_comment=True)
 
+'''
 class Animal(models.Model):
-    id = models.UUIDField(
+    id = models.AutoField(
         primary_key=True,
         unique=True,
         editable=False,
-        default=uuid.uuid4,
         verbose_name='pk'
     )
     age = models.CharField(max_length=10)
@@ -104,3 +101,4 @@ class Animal(models.Model):
     colorcd = models.CharField(max_length=20)
     kindcd = models.CharField(max_length=50)
     specialmark = models.CharField(max_length=300)
+'''

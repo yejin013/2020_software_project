@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 
-from .models import User, Post, Comment, Animal
+from .models import User, Post, Comment
 from django.contrib import auth, messages
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import render, redirect
@@ -53,7 +53,7 @@ def post(request, post_id):
 
     comment_form = CommentForm()
     comments = post.comments.all()
-    return render(request, 'post.html', {'post':post, 'comment_form':comment_form, 'comments':comments})
+    return render(request, 'postCheck.html', {'post':post, 'comment_form':comment_form, 'comments':comments})
 
 def add_comment_to_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
@@ -138,6 +138,6 @@ def comment_remove(request, pk):
         comment.delete()
         return redirect('post', pk=comment.post.pk)
 
-# def animalPost(request):
-#     animalPost = Animal.objects.all()
-#     return render(request, 'html', { 'post' : animalPost }) # 데이터 튜플로 들어감!
+def homePost(request):
+    post = Post.objects.all()
+    return render(request, 'home.html', { 'post' : post }) # 데이터 튜플로 들어감!
