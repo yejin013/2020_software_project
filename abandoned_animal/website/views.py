@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.contrib.auth import authenticate
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from .form import RegisterForm
 
@@ -49,3 +51,18 @@ def register(request):
     elif request.method == 'GET':
         return render(request, 'register.html')
 '''
+@csrf_exempt
+def login(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = auth.authenticate(request,username=username,password=password)
+        if user is not None:
+            auth.login(request,user)
+            return HttpResponse("로그인 성공")
+        else:
+            return render(request,'login.html',{'error':'username or password is incorrect'})
+    else:
+        return render(request,'login.html')
+
+    

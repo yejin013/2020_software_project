@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <!-- title -->
+        <title>이름이 뭐예요?(feat.What's your name?)</title>
+
+        <!-- css 글꼴 -->
+        <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
+        <style>
+            h1{
+                font-family: 'Nanum Gothic', sans-serif;
+            }       
+        </style>
+
+        <!-- css 연결 -->
+        <link rel = "stylesheet" type = "text/css" href = "css/main.css">
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
+    </head>
+
+    <body>
+        <br><br><br><br><br><h1 style = "text-align: center">회원가입</h1><br>
+        <script type = "text/javascript" src = "js/main.js"></script>
+        <!-- 경고창 -->
+        <!--<div class="alert alert-success"> 
+            <a class="close" href="#" data-dismiss="alert">×</a>    
+        </div>   --> 
+        <form style = "text-align: center" method = "post" action = "">
+                <div class = "container">
+                   <table class = "table table-bordered">
+                      <tbody>
+                        <tr>
+                            <th>ID</th>
+                            <td><input type = "text" name = "username" class ="form-control"></td> <br>
+                        </tr>
+                        <tr>
+                            <th>비밀번호</th>
+                            <td><input type = "password" id = "pw" name = "userPw" class = "form-control"></td>
+                        </tr>
+                        <tr>
+                            <th>비밀번호 확인</th>
+                            <td><input type = "password" id = "pwChk"name = "userPwChk" class = "form-control" onchange="fn_pw_check()"></td>
+                        </tr>
+                        <tr>
+                            <th>휴대폰번호</th>
+                            <td><input type="text" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' class = "form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan = "2" style = "text-align: center">
+                                <input type = "submit" value = "완료" class="btn btn-default">
+                                <input type = "button" value = "취소" class="btn btn-default"></a>
+                            </td>
+                        </tr>
+            </form>
+    </body>
+
+</html>

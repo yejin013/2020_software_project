@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
-from django.forms import ModelForm
+from django.db.transaction import commit
 from .models import User
 from django import forms
 
@@ -28,4 +28,5 @@ class ChangeForm(UserChangeForm):
 
     class Meta:
         model = User
-        fields = ('username',)
+        fields = ('username','email','password')
+

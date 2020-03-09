@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <!-- title -->
+        <title>이름이 뭐예요?(feat.What's your name?)</title>
+
+        <!-- css 글꼴 -->
+        <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
+        <style>
+            h1{
+                font-family: 'Nanum Gothic', sans-serif;
+            }       
+        </style>
+
+        <!-- css 연결 -->
+        <link rel = "stylesheet" type = "text/css" href = "css/main.css">
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
+    </head>
+
+    <body>
+        <br><br><br><br><br><h1 style = "text-align: center">로그인</h1><br>
+        <form style = "text-align: center" method = "post" action = "">
+            {% csrf_token}
+            <div class = "col-sm-5" style="float:none; margin:0 auto">
+               <table class = "table table-bordered" >
+                  <tbody>
+                    <tr>
+                      <th>ID</th>
+                      <td><input type = "text" name = "username" class ="form-control"></td> <br>
+                    </tr>
+                    <tr>
+                        <th>PASSWORD</th>
+                        <td><input type = "password" name = "password" class = "form-control"></td>
+                    </tr>
+                    <tr>
+                        <td colspan = "2" style = "text-align: center">
+                            <input type = "submit" value = "로그인" class="btn btn-default">
+                            <!-- herf = ""에 회원가입 파일 주소 넣으면 됩니당 -->
+                            <a href = ""><input type = "button" value = "회원가입" class="btn btn-default"></a>
+                        </td>
+                    </tr>
+                    <!-- 경고창 -->
+                    <!-- <div class="alert alert-success"> 
+                        <a class="close" href="#" data-dismiss="alert">×</a>                
+                    </div>  -->
+        </form>
+    </body>
