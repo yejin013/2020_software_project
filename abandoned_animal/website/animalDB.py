@@ -94,7 +94,7 @@ def collect_info():
         # urlretrieve(poster_src, "popfile/" + careaddr[:4] + ".png")
 
         # Animal(age=age, careaddr=careaddr, carenm=carenm, caretel=caretel, colorcd=colorcd, kindcd=kindcd, specialmark=specialmark).save()
-        Post(menu=True, species=kindcd, miss_date=None, miss_loc=careaddr + carenm, feature = specialmark, image=None).save()
+        Post(menu=True, species=kindcd, miss_date=None, miss_loc=careaddr + carenm, feature = specialmark, image=None, shelter=carenm, shelter_phone=caretel).save()
 '''
         # 데이터프레임으로 넣기
         animalInfo = pd.DataFrame(([[age, careaddr, carenm, caretel, colorcd, kindcd, specialmark]]),

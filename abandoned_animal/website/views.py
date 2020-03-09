@@ -51,9 +51,9 @@ def create(request):
 def post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 
-    comment_form = CommentForm()
     comments = post.comments.all()
-    return render(request, 'postCheck.html', {'post':post, 'comment_form':comment_form, 'comments':comments})
+    return render(request, 'postCheck.html', {'post':post, 'comments':comments})
+    # return render(request, 'postCheck.html', {'post': post})
 
 def add_comment_to_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
@@ -72,7 +72,8 @@ def add_comment_to_post(request, post_id):
         comment_form = CommentForm()
         comments = post.comments.all()
 
-    return render(request, 'post.html', {'post':post, 'comment_form':comment_form, 'comments':comments})
+    # return render(request, 'post.html', {'post':post, 'comment_form':comment_form, 'comments':comments})
+    return render(request, 'post.html', {'post':post})
 
 # 포스트 수정, 구체적 form은 html에 맞춰서 수정 필요
 def edit(request, post_id):
@@ -109,7 +110,7 @@ def comment_approve(request, pk):
     return redirect('post', pk=comment.post.pk)
 
 @login_required
-def comment_update(request, pk):
+def comment_edit(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     post = get_object_or_404(Post, pk=comment.post.id)
 
@@ -127,7 +128,7 @@ def comment_update(request, pk):
     return render(request, '.html', {'form': form})
 
 @login_required
-def comment_remove(request, pk):
+def comment_delete(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     post = get_object_or_404(Post, pk=comment.post.id)
 

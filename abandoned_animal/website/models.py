@@ -60,6 +60,8 @@ class Post(models.Model):
     miss_loc = models.CharField(max_length=100, verbose_name = '실종 위치')
     feature = models.CharField(max_length=200, verbose_name = '특징')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    shelter = models.CharField(max_length=30, verbose_name='보호소')
+    shelter_phone = models.CharField(max_length=20, verbose_name = '보호소 전화번호')
     image = models.ImageField(blank=True, null=True, verbose_name = '이미지')
     pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     up_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
