@@ -10,7 +10,7 @@ import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "abandoned_animal.settings")
 import sqlite3
 import pandas as pd
-from .models import Animal
+from .models import Post
 
 # 본인 serviceKey 입력
 serviceKey = "718617iI2GVV0AWrip1dEkJMt3Jl9GPvl%2Flz28ktLjA7EYSXhYwCFjFlH9LovIRqzDDkAeUy29%2FaugkKim%2Fa%2Fw%3D%3D"
@@ -93,7 +93,8 @@ def collect_info():
         # poster_src = info.find("popfile").text
         # urlretrieve(poster_src, "popfile/" + careaddr[:4] + ".png")
 
-        Animal(age=age, careaddr=careaddr, carenm=carenm, caretel=caretel, colorcd=colorcd, kindcd=kindcd, specialmark=specialmark).save()
+        # Animal(age=age, careaddr=careaddr, carenm=carenm, caretel=caretel, colorcd=colorcd, kindcd=kindcd, specialmark=specialmark).save()
+        Post(menu=True, species=kindcd, miss_date=None, miss_loc=careaddr + carenm, feature = specialmark, image=None, shelter=carenm, shelter_phone=caretel).save()
 '''
         # 데이터프레임으로 넣기
         animalInfo = pd.DataFrame(([[age, careaddr, carenm, caretel, colorcd, kindcd, specialmark]]),
