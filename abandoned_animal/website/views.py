@@ -32,23 +32,29 @@ def signup(request):
     else:
         return render(request, 'sign.html')
 
+@login_required()
 def create(request):
-    post = Post()
-    post.menu = request.GET['menu']
-    post.species = request.GET['species']
-    post.miss_date = request.GET['miss_date']
-    post.miss_loc = request.GET['miss_loc']
-    post.feature = request.GET['feature']
-    post.request = request.GET['user']
-    post.image = request.GET['image']
-    post.pub_date = timezone.datetime.now()
-    post.up_date = timezone.datetime.now()
-    post.user = request.user.uuid
-    post.save()
-    return redirect('/post/' +str(post.id))
+    if request == "POST":
+        post = Post()
+        post.menu = request.GET['menu']
+        post.species = request.GET['species']
+        post.miss_date = request.GET['miss_date']
+        post.miss_loc = request.GET['miss_loc']
+        post.feature = request.GET['feature']
+        post.request = request.GET['user']
+        post.image = request.GET['image']
+        post.pub_date = timezone.datetime.now()
+        post.up_date = timezone.datetime.now()
+        post.user = request.user.id
+        post.save()
+        return render(request, 'postCheck.html', {'post': post})
+
+    else:
+        return render(request, 'postWrite.html')
+
 
 # 포스트한 내용 보여주기
-def post(request, post_id):
+def postCheck(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 
     comments = post.comments.all()
@@ -69,11 +75,10 @@ def add_comment_to_post(request, post_id):
             comment.save()
             return redirect('post', pk=post.id)
     else:
-        comment_form = CommentForm()
         comments = post.comments.all()
 
     # return render(request, 'post.html', {'post':post, 'comment_form':comment_form, 'comments':comments})
-    return render(request, 'post.html', {'post':post})
+    return render(request, 'post.html', {'post':post, 'comments':comments})
 
 # 포스트 수정, 구체적 form은 html에 맞춰서 수정 필요
 def edit(request, post_id):
