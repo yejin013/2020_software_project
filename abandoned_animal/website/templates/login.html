@@ -32,8 +32,9 @@
     <body>
         <br><br><br><br><br><h1 style = "text-align: center">로그인</h1><br>
         <form style = "text-align: center" method = "post" action = "">
+            {% csrf_token}
             <div class = "col-sm-5" style="float:none; margin:0 auto">
-               <table class = "table table-bordered">
+               <table class = "table table-bordered" >
                   <tbody>
                     <tr>
                       <th>ID</th>

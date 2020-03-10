@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import User
 from django.contrib import auth
+from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from .form import SignupForm
@@ -25,21 +26,16 @@ def signup(request):
     else:
         return render(request, 'sign.html')
 
-'''
 @csrf_exempt
-def register(request):
+def login(request):
     if request.method == "POST":
-        registerform = RegisterForm(request.POST)
-
-        if registerform.is_valid():
-            user = registerform.save(commit=False)
-            user.setpassword(registerform.cleaned_data['password'])
-            user.save()
-
-            username = user.username
-            return render(request, 'home.html', {'signupform' : registerform})
-        return render(request, 'failure.html', {'signupform': registerform})
+        username = request.POST['username']
+        password = request.POST['password']
+        user = auth.authenticate(request,username=username,password=password)
+        if user is not None:
+            auth.login(request,user)
+            return HttpResponse("로그인 성공")
+        else:
+            return render(request,'login.html',{'error':'username or password is incorrect'})
     else:
-        register_form = RegisterForm()
-        return render(request, 'sign.html', {'form' : register_form})
-'''
+        return render(request,'login.html')
