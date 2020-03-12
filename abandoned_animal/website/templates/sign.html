@@ -2,6 +2,7 @@
 {% block content %}
     <br><br><br><br><br>
     <h1 style="text-align: center">회원가입</h1><br>
+    <script type="text/javascript" src="../js/main.js"></script>
     <!-- 경고창 -->
     <!--<div class="alert alert-success"> 
             <a class="close" href="#" data-dismiss="alert">×</a>    
@@ -33,7 +34,7 @@
                     <tr>
                         <td colspan="2" style="text-align: center">
                             <input type="submit" value="완료" class="btn btn-default">
-                            <input type="button" value="취소" class="btn btn-default"></a>
+                            <a href = "{% url 'website:login' %}"><input type="button" value="취소" class="btn btn-default"></a>
                         </td>
                     </tr>
     </form>

@@ -4,12 +4,16 @@
 
 <br><br>
 <div class="container">
-    {% if postCheck %}
+    {% if post %}
     <div class="card mb-3" style="width: auto;">
         <div class="row no-gutters">
             <div class="col-md-4">
                 <!-- 예진 : src부분에서 {% static 'img/dog.png' %}를 지우고 DB에서 잃어버린 동물 사진을 받아와야 합니당~ 아직 DB에 동물 사진 없으므로 나중에 할 예정 -->
-                <img src="{% static 'img/dog.png' %}" class="card-img" id="animalImg">
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" class="card-img" id="animalImg">
+                {% else %}
+                    <img src="{% static 'img/dog.png' %}" class="card-img" id="animalImg">
+                {% endif %}
             </div>
             <div class="col-md-8">
                 <div class="card-body">

@@ -9,6 +9,7 @@ from django.views.decorators.http import require_http_methods
 from django.shortcuts import render, redirect
 from .models import User
 from django.contrib import auth
+from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from .form import SignupForm, PostForm, CommentForm
@@ -32,17 +33,31 @@ def signup(request):
     else:
         return render(request, 'sign.html')
 
+@csrf_exempt
+def login(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = auth.authenticate(request,username=username,password=password)
+        if user is not None:
+            auth.login(request,user)
+            return HttpResponse("로그인 성공")
+        else:
+            return render(request,'login.html',{'error':'username or password is incorrect'})
+    else:
+        return render(request,'login.html')
+
 @login_required()
 def create(request):
     if request == "POST":
         post = Post()
-        post.menu = request.GET['menu']
-        post.species = request.GET['species']
-        post.miss_date = request.GET['miss_date']
-        post.miss_loc = request.GET['miss_loc']
-        post.feature = request.GET['feature']
-        post.request = request.GET['user']
-        post.image = request.GET['image']
+        post.menu = request.POST['menu']
+        post.species = request.POST['species']
+        post.miss_date = request.POST['miss_date']
+        post.miss_loc = request.POST['miss_loc']
+        post.feature = request.POST['feature']
+        post.request = request.POST['user']
+        post.image = request.FILES['image']
         post.pub_date = timezone.datetime.now()
         post.up_date = timezone.datetime.now()
         post.user = request.user.id
@@ -51,7 +66,6 @@ def create(request):
 
     else:
         return render(request, 'postWrite.html')
-
 
 # 포스트한 내용 보여주기
 def postCheck(request, post_id):

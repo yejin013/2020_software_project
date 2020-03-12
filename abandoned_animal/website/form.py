@@ -34,7 +34,7 @@ class ChangeForm(UserChangeForm):
 
     class Meta:
         model = User
-        fields = ('username',)
+        fields = ('username', 'password')
 
 class PostForm(ModelForm):
     class Meta:
@@ -45,3 +45,4 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comment
         fields = ['comment']
+

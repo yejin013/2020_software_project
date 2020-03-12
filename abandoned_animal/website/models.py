@@ -1,4 +1,7 @@
+import os
 import uuid as uuid
+
+from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
@@ -62,12 +65,17 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     shelter = models.CharField(max_length=30, verbose_name='보호소')
     shelter_phone = models.CharField(max_length=20, verbose_name = '보호소 전화번호')
-    image = models.ImageField(blank=True, null=True, verbose_name = '이미지')
+    image = models.ImageField(blank=True, null=True, upload_to="", verbose_name = '이미지')
+    # url = models.URLField(blank=True, null=True, max_length=200, verbose_name = '보호소 이미지')
     pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     up_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
-    def __str__(self):
+    def __int__(self):
         return self.id
+
+    def delete(self, *args, **kargs):
+        os.remove(os.path.join(settings.MEDIA_ROOT, self.image.path)) #Trash 파일을 안남기기 위해 객체와 함께 파일 삭제
+        super(Post, self).delete(*args, **kargs) #원래의 delete 함수 실행
 
 class Comment(models.Model):
     id = models.AutoField(

@@ -114,7 +114,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -127,3 +127,7 @@ STATIC_URL = '/static/'
 #     os.path.join(BASE_DIR, 'static'),
 # )
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Media files - 업로드를 하는 URL과 디렉토리 설정
+MEDIA_URL = '/images/' # 업로드 할 경로
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads') #로컬 디렉토리 어디에 저장할 것인지
