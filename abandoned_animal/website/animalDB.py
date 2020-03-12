@@ -3,9 +3,9 @@ from urllib.request import urlretrieve
 from bs4 import BeautifulSoup
 import urllib.request
 import ssl
-import datetime
 
 from django.shortcuts import render
+from django.utils import timezone
 
 ssl._create_default_https_context = ssl._create_unverified_context
 import sqlite3
@@ -55,7 +55,7 @@ def collect_info():
         caretel = info.find("caretel").text
         kindcd = info.find("kindcd").text
         happendt = info.find("happendt").text
-        date = datetime.datetime.strptime(happendt, "%Y%m%d")
+        date = timezone.datetime.strptime(happendt, "%Y%m%d")
         happenplace = info.find("happenplace").text
         specialmark = info.find("specialmark").text
         poster_src = info.find("popfile").text

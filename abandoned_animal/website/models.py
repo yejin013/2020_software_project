@@ -68,7 +68,7 @@ class Post(models.Model):
     image = models.ImageField(blank=True, null=True, upload_to="", verbose_name = '이미지')
     # url = models.URLField(blank=True, null=True, max_length=200, verbose_name = '보호소 이미지')
     pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    up_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    up_date = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     def __int__(self):
         return self.id

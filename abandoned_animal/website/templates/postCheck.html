@@ -30,6 +30,7 @@
 <!--                    <p class="card-text" id="gender"">성별</p>-->
                     <!-- 예진 : 잃어버린 위치(찾은 위치) 지우고 db에서 잃어버린 위치(찾은 위치) 받아오는 코드 넣어주면 돼요~ -->
                     <p class="card-text" id="location">잃어버린 위치(찾은 위치) : {{ post.miss_loc }}</p>
+                    <p class="card-text" id="date">잃어버린 날짜 : {{ post.miss_date }}</p>
                     <!-- 예진 : 특징 지우고 db에서 특징 받아오는 코드 넣어주면 돼요~ -->
                     <p class="card-text" id="feature">특징 : {{ post.feature }}</p>
                     <!-- 예진 : 연락처 지우고 db에서 연락처 받아오는 코드 넣어주면 돼요~ -->
@@ -37,6 +38,7 @@
                     {% else %}
                     <p class="card-text" id="shelter">글작성자 : {{ post.shelter }}</p>
                     <p class="card-text" id="location">잃어버린 위치(찾은 위치) : {{ post.miss_loc }}</p>
+                    <p class="card-text" id="date">잃어버린 날짜 : {{ post.miss_date }}</p>
                     <p class="card-text" id="feature">특징 : {{ post.feature }}</p>
                     <p class="card-text" id="contact">연락처 : {{ post.shelter_phone }}</p>
                     {% endif %}
