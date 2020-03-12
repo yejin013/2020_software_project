@@ -46,7 +46,7 @@
         box-sizing: border-box;
         font-size: 14px;
     }
-    .form #button {
+    .form #login, #signup{
         font-family: 'Noto Serif KR', serif;
         text-transform: uppercase;
         outline: 0;
@@ -59,6 +59,10 @@
         -webkit-transition: all 0.3 ease;
         transition: all 0.3 ease;
         cursor: pointer;
+    }
+
+    .form #signup{
+        margin-top: -15px;
     }
 
     .form .message {
