@@ -1,41 +1,23 @@
-{% extends 'menu_template.html' %}
-{% block content %}
-    <br><br><br><br><br>
-    <h1 style="text-align: center">회원가입</h1><br>
-    <script type="text/javascript" src="../js/main.js"></script>
-    <!-- 경고창 -->
-    <!--<div class="alert alert-success"> 
-            <a class="close" href="#" data-dismiss="alert">×</a>    
-        </div>   -->
-    <form style="text-align: center" method="post" action="">
-        {% csrf_token %}
-        <div class="container">
-            <table class="table table-bordered">
-                <tbody>
-                    <tr>
-                        <th>ID</th>
-                        <td><input type="text" name="username" class="form-control"></td> <br>
-                    </tr>
-                    <tr>
-                        <th>비밀번호</th>
-                        <td><input type="password" id="pw" name="userPw" class="form-control"></td>
-                    </tr>
-                    <tr>
-                        <th>비밀번호 확인</th>
-                        <td><input type="password" id="pwChk" name="userPwChk" class="form-control"
-                                onchange="fn_pw_check()"></td>
-                    </tr>
-                    <tr>
-                        <th>휴대폰번호</th>
-                        <td><input type="text" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'
-                                class="form-control">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="text-align: center">
-                            <input type="submit" value="완료" class="btn btn-default">
-                            <input type="button" value="취소" class="btn btn-default"></a>
-                        </td>
-                    </tr>
-    </form>
-{% endblock content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/sign.css' %}">
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+<div class="sign-page">
+    <div class="form">
+        <h1>회원가입</h1>
+        <form class="sign-form" method="post" action="">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="아이디를 입력하세요">
+            <input type="password" id="pw" name="userPw" placeholder="비밀번호를 입력하세요">
+            <input type="password" id="pwChk" name="userPwChk"
+                onchange="fn_pw_check()" placeholder="다시 한 번 더 입력하세요">
+            <input type="text" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'
+                placeholder="핸드폰 번호를 입력하세요">
+            <p class="message" style="text-align: left;">단, 숫자만 입력해주세요. ex) 01011112222</p>
+            <div class="button">
+                <input type="submit" id="complete" value="완료">
+                <input type="button" value="취소">
+            </div>
+        </form>
+    </div>
+</div>
