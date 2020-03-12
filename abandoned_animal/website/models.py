@@ -1,6 +1,7 @@
 import uuid as uuid
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
+from django.utils import timezone
 from django.db import models
 
 # Create your models here.
@@ -86,7 +87,7 @@ class Comment(models.Model):
         return self.comment
 
     def approved_comments(self):
-        return self.comments.filter(approved_comment=True)
+        return self.comment.filter(approved_comment=True)
 
 '''
 class Animal(models.Model):
@@ -104,3 +105,32 @@ class Animal(models.Model):
     kindcd = models.CharField(max_length=50)
     specialmark = models.CharField(max_length=300)
 '''
+class Message(models.Model):
+    id = models.AutoField(
+        primary_key=True,
+        unique=True,
+        editable=False,
+        verbose_name='pk'
+    )
+
+    sender = models.ForeignKey(User,on_delete=models.CASCADE) #User가 맞는가
+    reciever = models.ForeignKey(User,on_delete=models.CASCADE) #User가 맞는가
+    sentAt = models.DateTimeField(auto_now_add=True)
+    content = models.TextField(max_length=150) #text 길이 정하기
+    isRead = models.BooleanField(default=False)
+
+    objects = models.Manager()
+    
+    class Meta:
+        ordering = ['-sentAt']
+    
+    def __str__(self):
+        return self.content
+
+    def summary(self):
+        return self.content[:20]
+    
+    def save(self,**kwargs):
+        if not self.id:
+            self.sentAt = timezone.now()
+        super(Message, self).save(**kwargs)
