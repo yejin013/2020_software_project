@@ -1,0 +1,35 @@
+<!-- 마이페이지 -->
+<br><br>
+<div class="mypageInfo">
+    <!-- 혜원 : src 부분에 user의 이미지 받아오는 주소 들어가면 됩니당~ -->
+    <img src="{% static 'img/dog.png' %}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="mypagePhoto">
+    <br>
+    <!-- 혜원 : 이름 지우고 db에서 user의 이름 받아오면 됩니당~ -->
+    <p style="text-align: center;">{{user.username}}</p>
+</div>
+
+<div class="container">
+        <br><br>
+        <div class="card-deck" id="mypageCard">
+            <!-- 아현 : location.herf에 내 정보 관리 html 파일명 넣기 -->
+            <div class="card" OnClick="location.href ='http://naver.com'" style="cursor:pointer;">
+                <div class="card-body">
+                    <p class="card-title"><br><br><br><br>
+                        내 정보 관리<br><br><br><br></p>
+                </div>
+            </div>
+            <!-- 아현 : location.herf에 내 게시글 관리 html 파일명 넣기 -->
+            <div class="card" OnClick="location.href ='http://naver.com'" style="cursor:pointer;">
+                <div class="card-body">
+                    <p class="card-title"><br><br><br><br>내 게시글 관리
+                        <br><br><br><br></p>
+                </div>
+            </div>
+            <!-- 아현 : location.href에 쪽지함 html 파일명 넣기 -->
+            <div class="card" OnClick="location.href ='http://naver.com'" style="cursor:pointer;">
+                <div class="card-body">
+                    <p class="card-title"><br><br><br><br>
+                        쪽지함<br><br><br><br></p>
+                </div>
+            </div>
+        </div>
