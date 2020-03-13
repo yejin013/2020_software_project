@@ -31,7 +31,7 @@ def signup(request):
             User.objects.create_user(username=username, password = password1, phone = phone)
         return render(request, 'home.html')
     else:
-        return render(request, 'sign.html')
+        return render(request, 'signup.html')
 
 @csrf_exempt
 def login(request):
