@@ -1,10 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>찾아Zoo</title>
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/simple-sidebar.css" rel="stylesheet">
 </head>
+
 <body>
-    <h2>Home</h2>
+  <div class="d-flex" id="wrapper">
+
+    <!-- 왼쪽의 사이드바 -->
+    <div class="bg-light" id="sidebar-wrapper">
+      <div class="list-group list-group-flush">
+        <span class="list-group-item list-group-item-action bg-light"><br><br></span>
+        <a href="#" id="lost_board" class="list-group-item list-group-item-action bg-light">실종신고 게시판</a>
+        <a href="#" id="find_board" class="list-group-item list-group-item-action bg-light">발견신고 게시판</a>
+        <a href="#" id="poster_board" class="list-group-item list-group-item-action bg-light">포스터 게시판</a>
+        <a href="#" id="shelther_info" class="list-group-item list-group-item-action bg-light">주변 보호소 정보</a>
+        <a href="#" id="sevice_info" class="list-group-item list-group-item-action bg-light">찾아Zoo 정보</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- 오른쪽의 페이지 -->
+    <div id="content-wrapper">
+      <!-- 1. 네비게이션 바 -->
+      <nav class="navbar navbar-light bg-light">
+        <button class="btn btn-light" id="menu-toggle">
+          <span class="navbar-toggler-icon" alt="메뉴 아이콘"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+          <img src="./img/bootstrap-original-logo.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+          찾아Zoo
+        </a>
+        <a class="navbar-user" href="#">
+          <img src="./img/user.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+        </a>
+      </nav>
+
+      <!-- 2. 검색창 -->
+
+
+      <section id="banner" style = "padding: 100px 100px 100px 100px;">
+        <div class="content text-center">
+          <p id="intro" class='text-center'>서로를 찾고 있는 반려동물과 당신의 마음,<br>
+            AI로 똑똑하게 당신의 강아지를 찾아보세요!
+          </p>
+          <ul class="actions">
+            <a href="#nav-tab" class="button scrolly">시작하기</a>
+          </ul>
+        </div>
+      </section>
+
+
+      <!-- 실종/발견 선택 -->
+      <nav id="nav-tab">
+        <div class="nav nav-tabs" id="nav-lost-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-lost-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">잃어버렸어요</a>
+          <a class="nav-item nav-link" id="nav-find-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">발견했어요</a>
+        </div>
+      </nav>
+      <!-- 정보 입력 -->
+      <div class="tab-content" id="nav-input" style = "padding: 50px 0px 50px 0px;">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          <form>
+            <div class="form-group text-center">
+              <label for="exampleFormControlFile1">찾고싶은 반려동물의 사진을 넣어주세요</label>
+              <input type="file" class="form-control-file" id="exampleFormControlFile1">
+            </div>
+          </form>
+        </div>
+        <div class="tab-pane fade" id="nav-find" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <form>
+            <div class="form-group text-center">
+              <label for="exampleFormControlFile1">발견한 동물의 사진을 넣어주세요</label>
+              <input type="file" class="form-control-file" id="exampleFormControlFile1">
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- 3. 결과창 -->
+      <div class="card-group" style = "padding: 50px 0px 50px 0px;">
+
+        <div class="card">
+          <img class="card-img-top" src="..." alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card-img-top" src="..." alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card-img-top" src="..." alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+          </div>
+
+          <div class="card-footer">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </div>
+        </div>
+
+      </div>
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+
+
+
+
+
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
 </body>
+
 </html>
