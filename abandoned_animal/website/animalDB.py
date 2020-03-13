@@ -60,9 +60,7 @@ def collect_info():
         specialmark = info.find("specialmark").text
         poster_src = info.find("popfile").text
 
-        # urlretrieve(poster_src, "popfile/" + careaddr[:4] + ".png")
-
-        Post(menu=True, species=kindcd, miss_date=date, miss_loc=happenplace, feature=specialmark, image=None,
+        Post(menu=True, species=kindcd, miss_date=date, miss_loc=happenplace, feature=specialmark, image_url=poster_src,
              shelter=carenm, shelter_phone=caretel).save()
     '''
         # 데이터프레임으로 넣기

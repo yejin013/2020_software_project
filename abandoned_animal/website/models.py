@@ -1,10 +1,13 @@
 import os
 import uuid as uuid
+from urllib.parse import urlparse
 
 from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
+from django.core.files import File
 from django.db import models
+from .file import download
 
 # Create your models here.
 
@@ -63,9 +66,10 @@ class Post(models.Model):
     miss_loc = models.CharField(max_length=100, verbose_name = '실종 위치')
     feature = models.CharField(max_length=200, verbose_name = '특징')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    shelter = models.CharField(max_length=30, verbose_name='보호소')
-    shelter_phone = models.CharField(max_length=20, verbose_name = '보호소 전화번호')
-    image = models.ImageField(blank=True, null=True, upload_to="", verbose_name = '이미지')
+    shelter = models.CharField(max_length=100, null=True, blank=True, verbose_name='보호소')
+    shelter_phone = models.CharField(max_length=20, null=True, blank=True, verbose_name = '보호소 전화번호')
+    image = models.ImageField(blank=True, null=True, upload_to="image", verbose_name = '이미지')
+    image_url = models.URLField(blank=True, null=True, verbose_name='이미지 url')
     # url = models.URLField(blank=True, null=True, max_length=200, verbose_name = '보호소 이미지')
     pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     up_date = models.DateTimeField(auto_now=True, null=True, blank=True)
@@ -76,6 +80,18 @@ class Post(models.Model):
     def delete(self, *args, **kargs):
         os.remove(os.path.join(settings.MEDIA_ROOT, self.image.path)) #Trash 파일을 안남기기 위해 객체와 함께 파일 삭제
         super(Post, self).delete(*args, **kargs) #원래의 delete 함수 실행
+
+    def save(self, *args, **kwargs):
+        # ImageField에 파일이 없고, url이 존재하는 경우에만 실행
+        if self.image_url and not self.image:
+            image = self.image_url.split("/")[-1]
+            if image:
+                temp_file = download(self.image_url)
+                file_name = urlparse(self.image_url).path.split('/')[-1]
+                self.image.save(file_name, File(temp_file))
+                super().save()
+            else:
+                super().save()
 
 class Comment(models.Model):
     id = models.AutoField(
