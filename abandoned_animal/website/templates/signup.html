@@ -1,0 +1,24 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/sign.css' %}">
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+<div class="signup-page">
+    <div class="form">
+        <h1>회원가입</h1>
+        <form class="signup-form" method="post" action="">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="아이디를 입력하세요">
+            <input type="password" id="pw" name="userPw" placeholder="비밀번호를 입력하세요">
+            <input type="password" id="pwChk" name="userPwChk"
+                onchange="fn_pw_check()" placeholder="다시 한 번 더 입력하세요">
+            <input type="text" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'
+                placeholder="핸드폰 번호를 입력하세요">
+            <p class="message" style="text-align: left;">단, 숫자만 입력해주세요. ex) 01011112222</p>
+            <div class="button">
+                <input type="submit" id="complete" value="완료">
+                <!-- 아현 : 홈으로 돌아가는 코드 넣기 -->
+                <input type="button" value="취소">
+            </div>
+        </form>
+    </div>
+</div>
