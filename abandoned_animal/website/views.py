@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 
-from .models import User, Post, Comment
+from .models import User, Post, Comment, Shelter
 from django.contrib import auth, messages
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import render, redirect
@@ -20,15 +20,15 @@ from .form import SignupForm, PostForm, CommentForm
 def signup(request):
     if request.method == "POST":
         username = request.POST['username']
-        password1 = request.POST.get('password1', '')
-        password2 = request.POST.get('password2', '')
+        pw = request.POST.get('pw', '')
+        pwChk = request.POST.get('pwChk', '')
         phone = request.POST.get('phone', '')
 
-        if password1 != password2:
+        if pw != pwChk:
             return render(request, 'failure.html')
 
         else:
-            User.objects.create_user(username=username, password = password1, phone = phone)
+            User.objects.create_user(username=username, password = pw, phone = phone)
         return render(request, 'home.html')
     else:
         return render(request, 'signup.html')
@@ -70,10 +70,8 @@ def create(request):
 # 포스트한 내용 보여주기
 def postCheck(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-
     comments = post.comments.all()
-    return render(request, 'postCheck.html', {'post':post, 'comments':comments})
-    # return render(request, 'postCheck.html', {'post': post})
+    return render(request, 'postCheck.html', {'post': post, 'comments': comments})
 
 def add_comment_to_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)

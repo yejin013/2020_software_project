@@ -10,7 +10,7 @@ from django.utils import timezone
 ssl._create_default_https_context = ssl._create_unverified_context
 import sqlite3
 import pandas as pd
-from .models import Post
+from .models import Post, Shelter
 
 # 본인 serviceKey 입력
 serviceKey = "718617iI2GVV0AWrip1dEkJMt3Jl9GPvl%2Flz28ktLjA7EYSXhYwCFjFlH9LovIRqzDDkAeUy29%2FaugkKim%2Fa%2Fw%3D%3D"
@@ -60,8 +60,9 @@ def collect_info():
         specialmark = info.find("specialmark").text
         poster_src = info.find("popfile").text
 
-        Post(menu=True, species=kindcd, miss_date=date, miss_loc=happenplace, feature=specialmark, image_url=poster_src,
-             shelter=carenm, shelter_phone=caretel).save()
+        shelter = Shelter.objects.create_shelter(name=carenm, address=careaddr, phone=caretel)
+        Post(menu=True, species=kindcd, miss_date=date, miss_loc=happenplace, feature=specialmark, image_url=poster_src, shelter=shelter).save()
+
     '''
         # 데이터프레임으로 넣기
         animalInfo = pd.DataFrame(([[age, careaddr, caretel, kindcd, happendt, happenplace, specialmark, poster_src]]),

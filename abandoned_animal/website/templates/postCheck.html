@@ -21,7 +21,13 @@
                     <p class="card-text" id="pub_date" style="text-align:right;" id="reportingDate">등록날짜 : {{ post.pub_date }}</p>
                     <p class="card-text" id="up_date" style="text-align:right;" id="updateDate">수정날짜 : {{ post.up_date }}</p>
                     <br>
-                    {% if post.user != None %}
+                    {% if post.shelter %}
+                    <p class="card-text" id="shelter">글작성자 : {{ post.shelter.name }}</p>
+                    <p class="card-text" id="location">잃어버린 위치(찾은 위치) : {{ post.miss_loc }}</p>
+                    <p class="card-text" id="date">잃어버린 날짜 : {{ post.miss_date }}</p>
+                    <p class="card-text" id="feature">특징 : {{ post.feature }}</p>
+                    <p class="card-text" id="contact">연락처 : {{ post.shelter.phone }}</p>
+                    {% else %}
                     <!-- 예진 : 이름 지우고 db에서 이름 받아오는 코드 넣어주면 돼요~ -->
                     <p class="card-text" id="name">글작성자 : {{ post.user.username }}</p>
                     <!-- 예진 : 나이 지우고 db에서 나이 받아오는 코드 넣어주면 돼요~ -->
@@ -35,12 +41,6 @@
                     <p class="card-text" id="feature">특징 : {{ post.feature }}</p>
                     <!-- 예진 : 연락처 지우고 db에서 연락처 받아오는 코드 넣어주면 돼요~ -->
                     <p class="card-text" id="contact">연락처 : {{ post.user.phone }}</p>
-                    {% else %}
-                    <p class="card-text" id="shelter">글작성자 : {{ post.shelter }}</p>
-                    <p class="card-text" id="location">잃어버린 위치(찾은 위치) : {{ post.miss_loc }}</p>
-                    <p class="card-text" id="date">잃어버린 날짜 : {{ post.miss_date }}</p>
-                    <p class="card-text" id="feature">특징 : {{ post.feature }}</p>
-                    <p class="card-text" id="contact">연락처 : {{ post.shelter_phone }}</p>
                     {% endif %}
                 </div>
             </div>
