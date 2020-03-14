@@ -20,15 +20,15 @@ from .form import SignupForm, PostForm, CommentForm
 def signup(request):
     if request.method == "POST":
         username = request.POST['username']
-        pw = request.POST.get('pw', '')
-        pwChk = request.POST.get('pwChk', '')
+        password = request.POST.get('password', '')
+        passwordChk = request.POST.get('passwordChk', '')
         phone = request.POST.get('phone', '')
 
-        if pw != pwChk:
+        if password != passwordChk:
             return render(request, 'failure.html')
 
         else:
-            User.objects.create_user(username=username, password = pw, phone = phone)
+            User.objects.create_user(username=username, password = password, phone = phone)
         return render(request, 'home.html')
     else:
         return render(request, 'signup.html')

@@ -12,16 +12,8 @@ from .file import download
 # Create your models here.
 
 class UserManager(BaseUserManager):
-    def create_user(self, username, password):
-        if not username:
-            raise ValueError('ID Required')
 
-        user = self.model(username = username)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-    def create_user(self, username, password, phone):
+    def create_user(self, username, password, phone=None):
         if not username:
             raise ValueError('ID Required')
 
@@ -45,7 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     username = models.CharField(unique=True, max_length=10, verbose_name = '아이디') #아이디
     password = models.CharField(max_length=20, verbose_name = '비밀번호')
-    phone = models.CharField(max_length=11, verbose_name = '연락처')
+    phone = models.CharField(max_length=11, blank=True, null=True, verbose_name = '연락처')
     image = models.ImageField(blank=True, null=True, upload_to="profile", verbose_name = '이미지')
     pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     # up_date = models.DateTimeField('date updated')
