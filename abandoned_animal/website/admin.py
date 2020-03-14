@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .form import SignupForm, ChangeForm
 
-from .models import User, Post, Comment
+from .models import User, Post, Comment, Shelter
 
 # Register your models here.
 class ProjectUserAdmin(UserAdmin):
@@ -31,3 +31,4 @@ class ProjectUserAdmin(UserAdmin):
 admin.site.register(User)
 admin.site.register(Post)
 admin.site.register(Comment)
+admin.site.register(Shelter)
