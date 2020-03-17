@@ -90,15 +90,17 @@
 
         {% for postRow in post %}
         <div class="card">
-          <img class="card-img-top" src="..." alt="Card image cap">
+          {% if postRow.image %}
+          <img class="card-img-top" src="{{ postRow.image.path }}" alt="Card image cap">
+          {% endif %}
           <div class="card-body">
             <h5 class="card-title">{{ postRow.species }}</h5>
             <p class="card-text">{{ postRow.miss_date }}</p>
             <p class="card-text">{{ postRow.miss_loc }}</p>
-            {% if user %}
-            <p class="card-text">{{ postRow.user }}</p>
+            {% if postRow.user.username == None %}
+              <p class="card-text">{{ postRow.shelter.name }}</p>
             {% else %}
-            <p class="card-text">{{ postRow.shelter.name }}</p>
+              <p class="card-text">{{ postRow.user.username }}</p>
             {% endif %}
           </div>
         </div>
