@@ -85,7 +85,24 @@
       </div>
 
       <!-- 3. 결과창 -->
+      {% if post %}
       <div class="card-group" style = "padding: 50px 0px 50px 0px;">
+
+        {% for postRow in post %}
+        <div class="card">
+          <img class="card-img-top" src="..." alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{ postRow.species }}</h5>
+            <p class="card-text">{{ postRow.miss_date }}</p>
+            <p class="card-text">{{ postRow.miss_loc }}</p>
+            {% if user %}
+            <p class="card-text">{{ postRow.user }}</p>
+            {% else %}
+            <p class="card-text">{{ postRow.shelter.name }}</p>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
 
         <div class="card">
           <img class="card-img-top" src="..." alt="Card image cap">
@@ -122,6 +139,7 @@
         </div>
 
       </div>
+      {% endif %}
 
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">

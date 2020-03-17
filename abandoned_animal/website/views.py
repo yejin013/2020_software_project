@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import User
+from .models import User, Post, Comment, Shelter
 from django.contrib import auth
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
@@ -39,3 +39,7 @@ def login(request):
             return render(request,'login.html',{'error':'username or password is incorrect'})
     else:
         return render(request,'login.html')
+
+def homePost(request):
+    post = Post.objects.all()
+    return render(request, 'home.html', { 'post' : post }) # 데이터 튜플로 들어감!
