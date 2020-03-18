@@ -1,7 +1,7 @@
 {% extends 'menu_template.html' %}
 {% load static %}
 {% block content %}
-
+<link rel="stylesheet" href="{% static 'css/postCheck.css' %}">
 <br><br>
 <div class="container">
     {% if post %}
@@ -22,18 +22,14 @@
                     <p class="card-text" id="up_date" style="text-align:right;" id="updateDate">수정날짜 : {{ post.up_date }}</p>
                     <br>
                     {% if post.shelter %}
-                    <p class="card-text" id="shelter">글작성자 : {{ post.shelter.name }}</p>
+                    <p class="card-text" id="shelter">글작성자 : {{ post.shelter.name }} <button class="btn btn-link" onclick="window.open('address','보호소 위치','width=430,height=500,location=no,status=no,scrollbars=yes');"><img width="20" height="20" style="margin-left: -13px; margin-top: -9px" src="{% static 'img/gps.png' %}"></button></p> 
                     <p class="card-text" id="location">잃어버린 위치(찾은 위치) : {{ post.miss_loc }}</p>
                     <p class="card-text" id="date">잃어버린 날짜 : {{ post.miss_date }}</p>
                     <p class="card-text" id="feature">특징 : {{ post.feature }}</p>
                     <p class="card-text" id="contact">연락처 : {{ post.shelter.phone }}</p>
                     {% else %}
                     <!-- 예진 : 이름 지우고 db에서 이름 받아오는 코드 넣어주면 돼요~ -->
-                    <p class="card-text" id="name">글작성자 : {{ post.user.username }}</p>
-                    <!-- 예진 : 나이 지우고 db에서 나이 받아오는 코드 넣어주면 돼요~ -->
-<!--                    <p class="card-text" id="age">나이</p>-->
-                    <!-- 예진 : 성별 지우고 db에서 성별 받아오는 코드 넣어주면 돼요~ -->
-<!--                    <p class="card-text" id="gender"">성별</p>-->
+                    <p class="card-text" id="name">글작성자 : {{ post.user.username }} <button class="btn btn-link" onclick="window.open('address','쪽지 쓰기','width=430,height=500,location=no,status=no,scrollbars=yes');"><img width="20" height="20" style="margin-left: -13px; margin-top: -9px" src="{% static 'img/email.png' %}"></button></p>
                     <!-- 예진 : 잃어버린 위치(찾은 위치) 지우고 db에서 잃어버린 위치(찾은 위치) 받아오는 코드 넣어주면 돼요~ -->
                     <p class="card-text" id="location">잃어버린 위치(찾은 위치) : {{ post.miss_loc }}</p>
                     <p class="card-text" id="date">잃어버린 날짜 : {{ post.miss_date }}</p>
@@ -61,7 +57,6 @@
 
     <br><br>
     <strong>댓글</strong>
-    <p>댓글창 크기 조절....</p>
     <br><br>
 
     <!-- 댓글 작성 폼 -->
@@ -113,6 +108,7 @@
         </div>
     </div>
     {% empty %}
+    <br>
     <p>댓글이 없습니다.</p>
     {% endfor %}
     {% else %}

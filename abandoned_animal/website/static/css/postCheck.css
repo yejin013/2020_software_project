@@ -1,0 +1,80 @@
+#animalImg{
+    padding-left: 50px;
+}
+
+#commentInput {
+    margin-left: 15px;
+  }
+  
+#commentUserImg {
+    width: 40px;
+    height: 40px;
+  }
+
+
+
+  
+  @media all and (max-width: 320px) {
+    #pub_date, #up_date{
+        font-size: 12px;
+        margin-bottom: -1px;
+    }
+    .search_in{margin: 4px 79px 0 10px;}
+  
+    .search_in input{width:60%}
+  }
+
+  @media all and (min-width: 321px) and (max-width: 768px) {
+    #pub_date, #up_date{
+        font-size: 12px;
+        margin-bottom: -1px;
+    }
+    .search_in{margin: 4px 79px 0 10px;}
+  
+    .search_in input{width:50%}
+
+  }
+
+  @media all and (min-width: 769px) and (max-width: 869px) {
+    #pub_date, #up_date{
+        font-size: 12px;
+        margin-bottom: -1px;
+    }
+        .search_in{margin: 4px 79px 0 10px;}
+  
+    .search_in input{width:50%}
+    }
+
+    @media all and (min-width: 870px) and (max-width: 1024px) {
+        #pub_date, #up_date{
+            font-size: 12px;
+            margin-bottom: -1px;
+        }
+            .search_in{margin: 4px 79px 0 10px;}
+      
+        .search_in input{width:50%}
+        }
+
+  @media all and (min-width: 1025px) and (max-width: 1280px) {
+    #pub_date, #up_date{
+        font-size: 12px;
+        margin-bottom: -1px;
+    }
+
+    .search_in{margin: 4px 79px 0 10px;}
+  
+    .search_in input{width:70%}
+  }
+
+  @media all and (min-width: 1281px){
+    #pub_date, #up_date{
+        font-size: 12px;
+        margin-bottom: -1px;
+    }
+
+    .search_in{margin: 4px 79px 0 10px;}
+  
+    .search_in input{width:80%}
+  }
+
+  
