@@ -118,9 +118,7 @@
                         {% for postRow in post %}
                         <div class="card">
                             {% if postRow.image %}
-                                <img src="{{ post.image.url }}" class="card-img-top" id="animalImg">
-                            {% else %}
-                                <img src="{% static 'img/dog.png' %}" class="card-img" id="animalImg">
+                                <img src="{{ postRow.image.url }}" class="card-img-top" alt="Card image cap">
                             {% endif %}
                             <div class="card-body">
                                 <h5 class="card-title">{{ postRow.species }}</h5>
@@ -131,7 +129,7 @@
                                 {% else %}
                                 <p class="card-text">{{ postRow.user.username }}</p>
                                 {% endif %}
-                                <a href="#" class="btn btn-light">게시글 보기</a>
+                                <a href="{% url 'website:post' postRow.id %}" class="btn btn-light">게시글 보기</a>
                             </div>
                         </div>
                         {% endfor %}
