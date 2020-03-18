@@ -2,96 +2,133 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- 파란색인 ID 위주로 보면 편할거양 -->
-
 <head>
     <meta charset="utf-8">
-    <!-- 반응형 웹 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>index</title>
-    
-    <!-- 부트스트랩 core CSS -->
-    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-    <!-- 커스텀 스티일 -->
-    <link href="{% static 'css/simple-sidebar.css' %}" rel="stylesheet">
 
-    <!-- 폰트 -->
+    <title>home</title>
+    <link href="{% static 'css/home.css' %}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap" rel="stylesheet">
-    <style>
-        body{
-            font-family: 'Noto Serif KR', serif;
-        }
-    </style>
-    
-    <!-- Bootstrap core JavaScript -->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 </head>
 
-<body>
-    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
-    <div class="d-flex" id="wrapper">
-        <!-- 왼쪽의 사이드바 -->
-        <div class="bg-light border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading">찾아Zoo</div>
-            <div class="list-group list-group-flush">
-                <a href="#" id="lost_board" class="list-group-item list-group-item-action bg-light">실종신고 게시판</a>
-                <a href="#" id="find_board" class="list-group-item list-group-item-action bg-light">발견신고 게시판</a>
-                <a href="#" id="poster_board" class="list-group-item list-group-item-action bg-light">포스터 게시판</a>
-                <a href="#" id="shelther_info" class="list-group-item list-group-item-action bg-light">주변 보호소 정보</a>
-                <a href="#" id="sevice_info" class="list-group-item list-group-item-action bg-light">(서비스명) 정보</a>
+<body id="page-top">
+    <div id="wrapper">
+
+        <!-- 1. 왼쪽 사이드바 -->
+        <ul id="Sidebar" class="navbar-nav sidebar sidebar-dark accordion">
+            <!-- 사이드바(서비스명) -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="home.html">
+                <img id="menuicon" src="{% static 'img/logo.svg' %}" width="20px" height="20px" alt="menu">
+                <div id="Service-name" class="sidebar-brand-text mx-3">찾아Zoo</div>
+            </a>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+            <!-- 사이드바(홈) -->
+            <li class="nav-item">
+                <a class="nav-link" href="home.html">
+                    <span>Home</span></a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- 사이드바(제목 : 게시판) -->
+            <div class="sidebar-heading">
+                Board
             </div>
-        </div>
-        <!-- /#sidebar-wrapper -->
+            <!-- 사이드바(실종동물 게시판) -->
+            <li class="nav-item">
+                <a class="nav-link" href="missboard.html">
+                    <span>실종동물 게시판</span></a>
+            </li>
+            <!-- 사이드바(발견동물 게시판) -->
+            <li class="nav-item">
+                <a class="nav-link" href="findboard.html">
+                    <span>발견동물 게시판</span></a>
+            </li>
+            <!-- 사이드바(포스터 게시판) -->
+            <li class="nav-item">
+                <a class="nav-link" href="posterboard.html">
+                    <span>포스터 게시판</span></a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- 사이드바(제목 : 정보) -->
+            <div class="sidebar-heading">
+                Infomation
+            </div>
+            <!-- 사이드바(주변 보호소 정보) -->
+            <li class="nav-item">
+                <a class="nav-link" href="shelter.html">
+                    <span>주변 보호소 정보</span></a>
+            </li>
+            <!-- 사이드바(마이페이지) -->
+            <li class="nav-item">
+                <a class="nav-link" href="mypage.html">
+                    <span>마이페이지</span></a>
+            </li>
+        </ul>
+        <!-- End of Sidebar -->
 
-        <!-- 오른쪽의 페이지 -->
-        <div id="page-content-wrapper">
-            <!-- 1. 네비게이션 바 -->
-            <nav id="top_nav" class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                <!-- 왼쪽 메뉴 토글 -->
-                <button class="btn btn-light" id="menu_toggle">
-                    <span class="navbar-toggler-icon" alt="메뉴 아이콘"></span>
-                </button>
-                <!-- 요기 조금 이상함 -->
-                <!-- 오른쪽 유저 아이콘 -->
-                <button id="login_toggle" class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <img src="{% static 'img/user.svg' %}" alt="유저 아이콘">
-                </button>
-                <!-- 오른쪽 로그인 토글 -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{% static 'img/user.svg' %}" alt="유저 아이콘">
+        <!-- 2. 오른쪽 -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+
+                <!-- 2-1 탑바 -->
+                <nav id="Topbar" class="navbar navbar-expand navbar-light topbar static-top">
+                    <!-- 사이드바 토글 버튼 -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <img id="menuicon" src="{% static 'img/menu.svg' %}" width="20px" height="20px" alt="menu">
+                    </button>
+                    <!-- 탑바 범위 -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- 유저 아이템 -->
+                        <li class="nav-item">
+
+                            <!--로그인 안한경우 : 로그인 / 로그인 한경우 : 마이페이지-->
+                            <a class="nav-link" href="#" id="user" role="button">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> User ID </span>
+                                <img class="img-profile rounded-circle" src="{% static 'img/user.svg' %}">
+                                <!--로그인이 되어 있고, 쪽지가 와있는 경우 표시-->
+                                <span class="badge badge-danger badge-counter">3+</span>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" id="login" href="{% url "website:login" %}">로그인</a>
-                                <a class="dropdown-item" id="signin" href="{% url "website:signup" %}">회원가입</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" id="letter" href="#">쪽지함</a>
-                            </div>
                         </li>
-                    </ul>
-                </div>
-                <!-- 요기 조금 이상함 -->
-            </nav>
 
-            {% block content %}
-            {% endblock %}
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- 2-2. 내용 -->
+                {% block content %}
+                {% endblock %}
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- 2-3 풋터 -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; SSU Software18 made by 강형욱(수현,아현,혜원,예진) </span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
 
         </div>
-        <!-- /#wrapper -->
+        <!-- End of Content Wrapper -->
 
-        <!-- Menu Toggle Script -->
-        <script>
-            $("#menu-toggle").click(function (e) {
-                e.preventDefault();
-                $("#wrapper").toggleClass("toggled");
-            });
-        </script>
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 
 </body>
 
