@@ -118,7 +118,9 @@
                         {% for postRow in post %}
                         <div class="card">
                             {% if postRow.image %}
-                            <img class="card-img-top" src="{{ postRow.image.url }}" alt="Card image">
+                                <img src="{{ post.image.url }}" class="card-img-top" id="animalImg">
+                            {% else %}
+                                <img src="{% static 'img/dog.png' %}" class="card-img" id="animalImg">
                             {% endif %}
                             <div class="card-body">
                                 <h5 class="card-title">{{ postRow.species }}</h5>
