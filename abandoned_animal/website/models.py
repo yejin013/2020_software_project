@@ -86,12 +86,12 @@ class Post(models.Model):
     )
     menu = models.BooleanField(verbose_name = '잃어버렸어요 or 발견했어요')
     species = models.CharField(max_length=30, verbose_name = '품종')
-    miss_date = models.DateTimeField(null = True, blank=True, verbose_name = '실종 날짜')
-    miss_loc = models.CharField(max_length=100, verbose_name = '실종 위치')
+    date = models.DateField(null = True, blank=True, verbose_name = '실종 날짜')
+    location = models.CharField(max_length=100, verbose_name = '실종 위치')
     feature = models.CharField(max_length=200, verbose_name = '특징')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     shelter = models.ForeignKey(Shelter, on_delete=models.CASCADE, null=True, blank=True)
-    image = models.ImageField(blank=True, null=True, upload_to="image", verbose_name = '이미지')
+    image = models.ImageField(blank=True, null=True, upload_to="images", verbose_name = '이미지')
     image_url = models.URLField(blank=True, null=True, verbose_name='이미지 url')
     pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     up_date = models.DateTimeField(auto_now=True, null=True, blank=True)
@@ -114,6 +114,8 @@ class Post(models.Model):
                 super().save()
             else:
                 super().save()
+        else:
+            super().save()
 
 class Comment(models.Model):
     id = models.AutoField(

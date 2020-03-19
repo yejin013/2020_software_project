@@ -1,0 +1,12 @@
+<!-- templates/widgets/picker_date.html -->
+
+{% include "django/forms/widgets/date.html" %}
+
+{{form.media }}
+
+<script>
+    $("#{{widget.attrs.id}}").datepicker({
+        dateFormat: 'yy-mm-dd',
+    });
+    document.querySelector('#{{ widget.attrs.id}}').setAttribute('autocomplete', 'off');
+</script>

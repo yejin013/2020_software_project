@@ -39,10 +39,11 @@ class ChangeForm(UserChangeForm):
 class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields = ['menu', 'species', 'miss_date', 'miss_loc', 'feature', 'image']
+        fields = ['species', 'date', 'location', 'feature', 'image']
 
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
         fields = ['comment']
+
 

@@ -1,18 +1,17 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 
 from .models import User, Post, Comment, Shelter
 from django.contrib import auth, messages
-from django.views.decorators.http import require_http_methods
 from django.shortcuts import render, redirect
 from .models import User
 from django.contrib import auth
-from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
+from django.urls import reverse
 from .form import SignupForm, PostForm, CommentForm
+
 
 # Create your views here.
 
@@ -36,36 +35,49 @@ def signup(request):
 @csrf_exempt
 def login(request):
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username', '')
+        password = request.POST.get('password', '')
         user = auth.authenticate(request,username=username,password=password)
         if user is not None:
             auth.login(request,user)
-            return HttpResponse("로그인 성공")
+            return redirect('website:postLose')
         else:
             return render(request,'login.html',{'error':'username or password is incorrect'})
     else:
         return render(request,'login.html')
 
 @login_required()
-def create(request):
-    if request == "POST":
-        post = Post()
-        post.menu = request.POST['menu']
-        post.species = request.POST['species']
-        post.miss_date = request.POST['miss_date']
-        post.miss_loc = request.POST['miss_loc']
-        post.feature = request.POST['feature']
-        post.request = request.POST['user']
-        post.image = request.FILES['image']
-        post.pub_date = timezone.datetime.now()
-        post.up_date = timezone.datetime.now()
-        post.user = request.user.id
-        post.save()
-        return render(request, 'postCheck.html', {'post': post})
+def postFind(request):
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit = False)
+            post.menu = True
+            post.pub_date = timezone.datetime.now()
+            post.up_date = timezone.datetime.now()
+            post.user = request.user
+            post.save()
+            return redirect(reverse('website:postCheck', args=[str(post.id)]))
 
     else:
-        return render(request, 'postWrite.html')
+        form = PostForm()
+        return render(request, 'postFind.html', {'form' : form})
+
+@login_required
+def postLose(request):
+    form = PostForm(request.POST, request.FILES)
+    if form.is_valid():
+        post = form.save(commit=False)
+        post.menu = True
+        post.pub_date = timezone.datetime.now()
+        post.up_date = timezone.datetime.now()
+        post.user = request.user
+        post.save()
+        return redirect(reverse('website:postCheck', args=[str(post.id)]))
+
+    else:
+        form= PostForm()
+        return render(request, 'postLose.html', {'form':form})
 
 # 포스트한 내용 보여주기
 def postCheck(request, post_id):
