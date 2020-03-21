@@ -16,5 +16,9 @@ urlpatterns = [
     path('detail/delete/<int:post_id>', views.delete, name='delete'),
     path('comment/delete/<int:comment_id>/', views.comment_delete, name="comment_delete"),
     path('comment/edit/<int:comment_id>/', views.comment_edit, name="comment_update"),
+    path('mypage/',views.mypage,name='mypage'),
+    path('mypage/myinfo/',views.myinfo_update,name='myinfo_update'),
+    path('mypage/mypost/',views.listMypost,name='mypost'),
+    path('mypage/mymessage/',views.listMessage,name='mymessage')
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,7 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect,get_object_or_404
+<<<<<<< HEAD
 from .models import User,Message,Post
+=======
+from .models import User, Post, Comment, Shelter
+>>>>>>> f4be26f278c24172c3798bf9d0a0bbf3ab63346c
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 
@@ -23,7 +27,8 @@ from .form import SignupForm, PostForm, CommentForm
 @csrf_exempt
 def signup(request):
     if request.method == "POST":
-        username = request.POST['username']
+        username = request.POST.get('username', '')
+        userID = request.POST.get('userID', '')
         password = request.POST.get('password', '')
         passwordChk = request.POST.get('passwordChk', '')
         phone = request.POST.get('phone', '')
@@ -32,7 +37,7 @@ def signup(request):
             return render(request, 'failure.html')
 
         else:
-            User.objects.create_user(username=username, password = password, phone = phone)
+            User.objects.create_user(username=username, userID=userID, password = password, phone = phone)
         return render(request, 'home.html')
     else:
         return render(request, 'signup.html')
@@ -45,22 +50,36 @@ def login(request):
         user = auth.authenticate(request,username=username,password=password)
         if user is not None:
             auth.login(request,user)
-            return HttpResponse("로그인 성공")
+            request.session['user'] = user.id
+            return redirect('/website')
         else:
-            return render(request,'login.html',{'error':'username or password is incorrect'})
+            return render(request,'login.html',{'error':'아이디 혹은 비밀번호를 잘못 입력하였습니다.'})
+    else:
+        return render(request,'login.html')
+
+<<<<<<< HEAD
+=======
+# 로그인 유지 - 세션에 user정보 존재시
+def home_login(request):
+    userID = request.session.get('user')
+    if userID:
+        user = User.objects.get(id=userID)
+        return render(request,'home.html',{'user': user})
+    else:
+        return render(request,'home.html')
+
+>>>>>>> f4be26f278c24172c3798bf9d0a0bbf3ab63346c
+@login_required
+def mypage(request):
+    user_id = request.session.get('user')
+    if id:
+        user = User.objects.get(id=user_id)
+        return render(request,'mypage_main.html',{'user': user})
     else:
         return render(request,'login.html')
 
 @login_required
-def mypage(request,username):
-    if request.user.authenticated():
-        return HttpResponse('mypage.html')
-    else:
-        return HttpResponse("로그인 필요") 
-        #로그인 안하고 mypage 연결시 어떻게 할건지 결정필요
-
-@login_required
-def update(request):
+def myinfo_update(request):
     if request.method == 'POST':
         user_change_form = ChangeForm(request.POST,instance=request.user)
         if user_change_form.is_valid():
@@ -72,11 +91,12 @@ def update(request):
         #html 이름 변경시 수정 필요
         return render(request,'update.html',{'user_change_form':user_change_form})
 
+@login_required
 def listMypost(request):
+    user_id = request.session.get('user')
     mypostList = Post.objects.filter(user=request.user)
-
     #html 나오면 수정필요 + 이 list도 두가지로 나눌 것인가?
-    return render(request,'listMypost.html')
+    return render(request,'postCheck.html')
 
 # def sendMessage(request):
 #     if request.method == 'POST':
@@ -85,11 +105,13 @@ def listMypost(request):
 #         if form.is_valide():
 #             message = form.save(commit)
 
+@login_required
 def listMessage(request):
-    receivedList = Message.objects.filter(receiver = request.user)
-    sentList = Message.objects.filter(sender = request.user)
+    # receivedList = Message.objects.filter(receiver = request.user)
+    # sentList = Message.objects.filter(sender = request.user)
 
     #쪽지함 List html 나오면 수정
+<<<<<<< HEAD
     return render(request,'쪽지함.html',{'rlist':receivedList,'slist':sentList})
 
 def viewMessage(request,message_id):
@@ -101,6 +123,20 @@ def viewMessage(request,message_id):
 
     #쪽지 1개씩 보는 경우-> html 나오면 수정
     return render(request,'쪽지보기.html',{'message':messages})
+=======
+    return render(request,'msg_receivelist.html')
+
+# def viewMessage(request,message_id):
+#     if not request.user.is_authenticated:
+#         return redirect('signin')
+#     messages = get_object_or_404(Message,pk=message_id)
+#     messages.isRead = True
+#     messages.save()
+
+#     #쪽지 1개씩 보는 경우-> html 나오면 수정
+#     return render(request,'쪽지보기.html',{'message':messages})
+
+>>>>>>> f4be26f278c24172c3798bf9d0a0bbf3ab63346c
 def homePost(request):
     post = Post.objects.all()
     return render(request, 'home.html', { 'post' : post }) # 데이터 튜플로 들어감!
