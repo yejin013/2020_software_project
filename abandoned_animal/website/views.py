@@ -1,9 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-<<<<<<< HEAD
 from django.shortcuts import render, redirect,get_object_or_404
 from .models import User,Message,Post
-=======
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 
@@ -12,17 +10,13 @@ from django.contrib import auth, messages
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import render, redirect
 from .models import User, Post, Comment, Shelter
->>>>>>> c7c8b88f35a40c423356836e1a90cad92af39f96
 from django.contrib import auth
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
-<<<<<<< HEAD
 from .form import SignupForm,ChangeForm
-=======
 from .form import SignupForm, PostForm, CommentForm
->>>>>>> c7c8b88f35a40c423356836e1a90cad92af39f96
 
 # Create your views here.
 
@@ -57,7 +51,6 @@ def login(request):
     else:
         return render(request,'login.html')
 
-<<<<<<< HEAD
 @login_required
 def mypage(request,username):
     if request.user.authenticated():
@@ -108,7 +101,6 @@ def viewMessage(request,message_id):
 
     #쪽지 1개씩 보는 경우-> html 나오면 수정
     return render(request,'쪽지보기.html',{'message':messages})
-=======
 def homePost(request):
     post = Post.objects.all()
     return render(request, 'home.html', { 'post' : post }) # 데이터 튜플로 들어감!
@@ -221,4 +213,3 @@ def comment_delete(request, pk):
     else:
         comment.delete()
         return redirect('post', pk=comment.post.pk)
->>>>>>> c7c8b88f35a40c423356836e1a90cad92af39f96

@@ -5,11 +5,8 @@ from urllib.parse import urlparse
 from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
-<<<<<<< HEAD
 from django.utils import timezone
-=======
 from django.core.files import File
->>>>>>> c7c8b88f35a40c423356836e1a90cad92af39f96
 from django.db import models
 from .file import download
 
@@ -136,54 +133,36 @@ class Comment(models.Model):
         return self.comment
 
     def approved_comments(self):
-<<<<<<< HEAD
         return self.comment.filter(approved_comment=True)
 
-'''
-class Animal(models.Model):
-    id = models.AutoField(
-        primary_key=True,
-        unique=True,
-        editable=False,
-        verbose_name='pk'
-    )
-    age = models.CharField(max_length=10)
-    careaddr = models.CharField(max_length=300)
-    carenm = models.CharField(max_length=100)
-    caretel = models.CharField(max_length=15)
-    colorcd = models.CharField(max_length=20)
-    kindcd = models.CharField(max_length=50)
-    specialmark = models.CharField(max_length=300)
-'''
-class Message(models.Model):
-    id = models.AutoField(
-        primary_key=True,
-        unique=True,
-        editable=False,
-        verbose_name='pk'
-    )
 
-    sender = models.ForeignKey(User,on_delete=models.CASCADE) #User가 맞는가
-    reciever = models.ForeignKey(User,on_delete=models.CASCADE) #User가 맞는가
-    sentAt = models.DateTimeField(auto_now_add=True)
-    content = models.TextField(max_length=150) #text 길이 정하기
-    isRead = models.BooleanField(default=False)
+# class Message(models.Model):
+#     id = models.AutoField(
+#         primary_key=True,
+#         unique=True,
+#         editable=False,
+#         verbose_name='pk'
+#     )
 
-    objects = models.Manager()
-    
-    class Meta:
-        ordering = ['-sentAt']
-    
-    def __str__(self):
-        return self.content
+#     sender = models.ForeignKey(User,on_delete=models.CASCADE) #User가 맞는가
+#     reciever = models.ForeignKey(User,on_delete=models.CASCADE) #User가 맞는가
+#     sentAt = models.DateTimeField(auto_now_add=True)
+#     content = models.TextField(max_length=150) #text 길이 정하기
+#     isRead = models.BooleanField(default=False)
 
-    def summary(self):
-        return self.content[:20]
+#     objects = models.Manager()
     
-    def save(self,**kwargs):
-        if not self.id:
-            self.sentAt = timezone.now()
-        super(Message, self).save(**kwargs)
-=======
-        return self.comments.filter(approved_comment=True)
->>>>>>> c7c8b88f35a40c423356836e1a90cad92af39f96
+#     class Meta:
+#         ordering = ['-sentAt']
+    
+#     def __str__(self):
+#         return self.content
+
+#     def summary(self):
+#         return self.content[:20]
+    
+#     def save(self,**kwargs):
+#         if not self.id:
+#             self.sentAt = timezone.now()
+#         super(Message, self).save(**kwargs)
+#         return self.comments.filter(approved_comment=True)
