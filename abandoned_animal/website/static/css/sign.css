@@ -1,15 +1,15 @@
 @import url(https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap);
 
     h1{
-        font-size: 50;
         color: #8B7862;
         font-family: 'Noto Serif KR', serif;
+        padding-bottom: 30px;
     }
 
     .sign-page {
         width: 450px;
+        padding-top: 50px;
         margin: auto;
-        padding: auto;
     }
     
     .form {
@@ -17,8 +17,8 @@
         z-index: 1;
         background: #FFFFFF;
         max-width: 360px;
-        margin: 30px auto 15px;
-        padding: 55px 45px 45px 45px;
+        margin: 0 auto 15px;
+        padding: 45px;
         text-align: center;
         box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     }
@@ -32,12 +32,13 @@
         padding: 15px;
         box-sizing: border-box;
         font-size: 14px;
+        border-radius: 30px;
     }
     .form .button #complete {
         font-family: 'Noto Serif KR', serif;
         text-transform: uppercase;
         outline: 0;
-        background:#CFC39D;
+        background:#c7bc97;
         width: 100%;
         border: 0;
         padding: 15px;
@@ -56,4 +57,12 @@
         margin-top: -5px;
         margin-bottom: 25px;
         padding-left: 15px;
+    }
+
+    select{
+        font-family: 'Noto Serif KR', serif;
+        width: 95%; 
+        margin-bottom: 10px;
+        border-width: 0;
+        color:gray
     }

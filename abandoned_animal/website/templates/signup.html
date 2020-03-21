@@ -1,22 +1,38 @@
 {% load static %}
-
 <link rel="stylesheet" href="{% static 'css/sign.css' %}">
 <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
-<div class="signup-page">
+
+<div class="sign-page">
     <div class="form">
         <h1>회원가입</h1>
-        <form class="signup-form" method="post" action="">
+        <form class="sign-form" method="post" action="">
             {% csrf_token %}
             <input type="text" name="username" placeholder="아이디를 입력하세요">
-            <input type="password" id="password" name="userPw" placeholder="비밀번호를 입력하세요">
-            <input type="password" id="passwordChk" name="userPwChk"
-                onchange="fn_pw_check()" placeholder="다시 한 번 더 입력하세요">
-            <input type="text" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' id="phone" name="phone"
+            <!-- <button type="button" class="id_overlap_button" onclick="id_overlap_check()">중복검사</button> -->
+            <input type="password" id="pw" name="userPw" placeholder="비밀번호를 입력하세요">
+            <input type="password" id="pwChk" name="userPwChk" onchange="fn_pw_check()" placeholder="다시 한 번 더 입력하세요">
+            <select name="findQuestion">
+                <option value="" selected="selected">비밀번호 확인 질문을 선택해주세요</option>
+                <option value="기억에 남는 추억의 장소는?">기억에 남는 추억의 장소는?</option>
+                <option value="자신의 인생 좌우명은?">자신의 인생 좌우명은?</option>
+                <option value="자신의 보물 제1호는?">자신의 보물 제1호는?</option>
+                <option value="가장 기억에 남는 선생님 성함은?">가장 기억에 남는 선생님 성함은?</option>
+                <option value="추억하고 싶은 날짜가 있다면?">추억하고 싶은 날짜가 있다면?</option>
+                <option value="유년시절 가장 생각나는 친구 이름은?">유년시절 가장 생각나는 친구 이름은?</option>
+                <option value="인상 깊게 읽은 책 이름은?">인상 깊게 읽은 책 이름은?</option>
+                <option value="읽은 책 중에서 좋아하는 구절이 있다면?">읽은 책 중에서 좋아하는 구절이 있다면?</option>
+                <option value="자신이 두번째로 존경하는 인물은?">자신이 두번째로 존경하는 인물은?</option>
+                <option value="초등학교 때 기억에 남는 짝궁 이름은?">초등학교 때 기억에 남는 짝궁 이름은?</option>
+                <option value="다시 태어나면 되고 싶은 것은?">다시 태어나면 되고 싶은 것은?</option>
+                <option value="내가 좋아하는 캐릭터는?">내가 좋아하는 캐릭터는?</option>
+                <option value="자신의 반려동물의 이름은?">자신의 반려동물의 이름은?</option>
+            </select>
+            <input type="text" name="findAnswer" placeholder="답변을 입력해주세요">
+            <input type="text" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'
                 placeholder="핸드폰 번호를 입력하세요">
             <p class="message" style="text-align: left;">단, 숫자만 입력해주세요. ex) 01011112222</p>
             <div class="button">
                 <input type="submit" id="complete" value="완료">
-                <!-- 아현 : 홈으로 돌아가는 코드 넣기 -->
                 <input type="button" value="취소">
             </div>
         </form>

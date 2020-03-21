@@ -21,7 +21,7 @@
     }
 
     .login-page {
-        width: 380px;
+        width: 400px;
         padding-top: auto;
         margin: auto;
     }
@@ -45,12 +45,13 @@
         padding: 15px;
         box-sizing: border-box;
         font-size: 14px;
+        border-radius: 30px;
     }
-    .form #login, #signup{
+    .form #login{
         font-family: 'Noto Serif KR', serif;
         text-transform: uppercase;
         outline: 0;
-        background:#CFC39D;
+        background: #c7bc97;
         width: 100%;
         border: 0;
         padding: 15px;
@@ -59,9 +60,23 @@
         -webkit-transition: all 0.3 ease;
         transition: all 0.3 ease;
         cursor: pointer;
+        border-radius: 30px;
     }
 
-    .form #signup{
+    #signup{
+        font-family: 'Noto Serif KR', serif;
+        text-transform: uppercase;
+        outline: 0;
+        background: #c7bc97;
+        width: 100%;
+        border: 0;
+        padding: 15px;
+        color: #FFFFFF;
+        font-size: 14px;
+        -webkit-transition: all 0.3 ease;
+        transition: all 0.3 ease;
+        cursor: pointer;
+        border-radius: 30px;
         margin-top: -15px;
     }
 
@@ -69,11 +84,11 @@
         font-family: 'Noto Serif KR', serif;
         margin: 15px 0 0;
         color: #b3b3b3;
-        font-size: 11px;
+        font-size: 10px;
     }
     .form .message a {
         font-family: 'Noto Serif KR', serif;
         color: #8B7862;
         text-decoration: none;
-        font-size: 13px;
+        font-size: 11.5px;
     }
