@@ -57,8 +57,8 @@ class Post(models.Model):
     )
     menu = models.BooleanField(verbose_name = '잃어버렸어요 or 발견했어요')
     species = models.CharField(max_length=30, verbose_name = '품종')
-    miss_date = models.DateTimeField(null = True, blank=True, verbose_name = '실종 날짜')
-    miss_loc = models.CharField(max_length=100, verbose_name = '실종 위치')
+    date = models.DateTimeField(null = True, blank=True, verbose_name = '실종 날짜')
+    location = models.CharField(max_length=100, verbose_name = '실종 위치')
     feature = models.CharField(max_length=200, verbose_name = '특징')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     shelter = models.CharField(max_length=30, verbose_name='보호소')
@@ -90,21 +90,6 @@ class Comment(models.Model):
         return self.comment.filter(approved_comment=True)
 
 '''
-class Animal(models.Model):
-    id = models.AutoField(
-        primary_key=True,
-        unique=True,
-        editable=False,
-        verbose_name='pk'
-    )
-    age = models.CharField(max_length=10)
-    careaddr = models.CharField(max_length=300)
-    carenm = models.CharField(max_length=100)
-    caretel = models.CharField(max_length=15)
-    colorcd = models.CharField(max_length=20)
-    kindcd = models.CharField(max_length=50)
-    specialmark = models.CharField(max_length=300)
-'''
 class Message(models.Model):
     id = models.AutoField(
         primary_key=True,
@@ -134,3 +119,4 @@ class Message(models.Model):
         if not self.id:
             self.sentAt = timezone.now()
         super(Message, self).save(**kwargs)
+'''
