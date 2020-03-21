@@ -71,7 +71,7 @@ def mypage(request):
         return render(request,'login.html')
 
 @login_required
-def update(request):
+def myinfo_update(request):
     if request.method == 'POST':
         user_change_form = ChangeForm(request.POST,instance=request.user)
         if user_change_form.is_valid():
@@ -83,11 +83,12 @@ def update(request):
         #html 이름 변경시 수정 필요
         return render(request,'update.html',{'user_change_form':user_change_form})
 
-# def listMypost(request):
-#     mypostList = Post.objects.filter(user=request.user)
-
-#     #html 나오면 수정필요 + 이 list도 두가지로 나눌 것인가?
-#     return render(request,'listMypost.html')
+@login_required
+def listMypost(request):
+    user_id = request.session.get('user')
+    mypostList = Post.objects.filter(user=request.user)
+    #html 나오면 수정필요 + 이 list도 두가지로 나눌 것인가?
+    return render(request,'postCheck.html')
 
 # def sendMessage(request):
 #     if request.method == 'POST':
@@ -96,12 +97,13 @@ def update(request):
 #         if form.is_valide():
 #             message = form.save(commit)
 
-# def listMessage(request):
-#     receivedList = Message.objects.filter(receiver = request.user)
-#     sentList = Message.objects.filter(sender = request.user)
+@login_required
+def listMessage(request):
+    # receivedList = Message.objects.filter(receiver = request.user)
+    # sentList = Message.objects.filter(sender = request.user)
 
-#     #쪽지함 List html 나오면 수정
-#     return render(request,'쪽지함.html',{'rlist':receivedList,'slist':sentList})
+    #쪽지함 List html 나오면 수정
+    return render(request,'msg_receivelist.html')
 
 # def viewMessage(request,message_id):
 #     if not request.user.is_authenticated:
