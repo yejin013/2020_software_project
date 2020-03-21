@@ -46,7 +46,7 @@ def login(request):
         user = auth.authenticate(request,username=username,password=password)
         if user is not None:
             auth.login(request,user)
-            request.session['user'] = user.userID
+            request.session['user'] = user.id
             return redirect('/website')
         else:
             return render(request,'login.html',{'error':'아이디 혹은 비밀번호를 잘못 입력하였습니다.'})
@@ -62,12 +62,13 @@ def home_login(request):
     return render(request,'home.html')
 
 @login_required
-def mypage(request,username):
-    if request.user.authenticated():
-        return HttpResponse('mypage.html')
+def mypage(request):
+    user_id = request.session.get('user')
+    if id:
+        user = User.objects.get(id=user_id)
+        return render(request,'mypage_main.html',{'user': user})
     else:
-        return HttpResponse("로그인 필요") 
-        #로그인 안하고 mypage 연결시 어떻게 할건지 결정필요
+        return render(request,'login.html')
 
 @login_required
 def update(request):
