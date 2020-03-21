@@ -46,9 +46,9 @@ def login(request):
         user = auth.authenticate(request,username=username,password=password)
         if user is not None:
             auth.login(request,user)
-            return HttpResponse("로그인 성공")
+            return render(request,'home.html')
         else:
-            return render(request,'login.html',{'error':'username or password is incorrect'})
+            return render(request,'login.html',{'error':'아이디 혹은 비밀번호를 잘못 입력하였습니다.'})
     else:
         return render(request,'login.html')
 
@@ -73,11 +73,11 @@ def update(request):
         #html 이름 변경시 수정 필요
         return render(request,'update.html',{'user_change_form':user_change_form})
 
-def listMypost(request):
-    mypostList = Post.objects.filter(user=request.user)
+# def listMypost(request):
+#     mypostList = Post.objects.filter(user=request.user)
 
-    #html 나오면 수정필요 + 이 list도 두가지로 나눌 것인가?
-    return render(request,'listMypost.html')
+#     #html 나오면 수정필요 + 이 list도 두가지로 나눌 것인가?
+#     return render(request,'listMypost.html')
 
 # def sendMessage(request):
 #     if request.method == 'POST':
@@ -86,22 +86,22 @@ def listMypost(request):
 #         if form.is_valide():
 #             message = form.save(commit)
 
-def listMessage(request):
-    receivedList = Message.objects.filter(receiver = request.user)
-    sentList = Message.objects.filter(sender = request.user)
+# def listMessage(request):
+#     receivedList = Message.objects.filter(receiver = request.user)
+#     sentList = Message.objects.filter(sender = request.user)
 
-    #쪽지함 List html 나오면 수정
-    return render(request,'쪽지함.html',{'rlist':receivedList,'slist':sentList})
+#     #쪽지함 List html 나오면 수정
+#     return render(request,'쪽지함.html',{'rlist':receivedList,'slist':sentList})
 
-def viewMessage(request,message_id):
-    if not request.user.is_authenticated:
-        return redirect('signin')
-    messages = get_object_or_404(Message,pk=message_id)
-    messages.isRead = True
-    messages.save()
+# def viewMessage(request,message_id):
+#     if not request.user.is_authenticated:
+#         return redirect('signin')
+#     messages = get_object_or_404(Message,pk=message_id)
+#     messages.isRead = True
+#     messages.save()
 
-    #쪽지 1개씩 보는 경우-> html 나오면 수정
-    return render(request,'쪽지보기.html',{'message':messages})
+#     #쪽지 1개씩 보는 경우-> html 나오면 수정
+#     return render(request,'쪽지보기.html',{'message':messages})
 
 def homePost(request):
     post = Post.objects.all()

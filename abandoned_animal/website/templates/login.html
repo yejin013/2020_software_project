@@ -8,9 +8,11 @@
         <p style="text-align: center" class="next">똑똑하게 AI로 당신의 강아지를 찾아보세요!</p>
     </div>
     <div class="form">
+        {% csrf_token %}
         <form class="login-form" method="post" action="">
             <input type="text" name="username" placeholder="아이디">
             <input type="password" name="password" placeholder="비밀번호">
+            {{error}}
             <input type="submit" value="로그인" id = "login">
         </form>
             <a href="{% url 'website:signup' %}"><input type="submit" value="회원가입" id = "signup"></a>
