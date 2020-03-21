@@ -59,7 +59,8 @@ def home_login(request):
     if userID:
         user = User.objects.get(id=userID)
         return render(request,'home.html',{'user': user})
-    return render(request,'home.html')
+    else:
+        return render(request,'home.html')
 
 @login_required
 def mypage(request):
