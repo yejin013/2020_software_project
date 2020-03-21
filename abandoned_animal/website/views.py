@@ -13,19 +13,20 @@ from .form import SignupForm,ChangeForm
 @csrf_exempt
 def signup(request):
     if request.method == "POST":
-        username = request.POST['username']
-        password1 = request.POST.get('password1', '')
-        password2 = request.POST.get('password2', '')
+        username = request.POST.get('username', '')
+        userID = request.POST.get('userID', '')
+        password = request.POST.get('password', '')
+        passwordChk = request.POST.get('passwordChk', '')
         phone = request.POST.get('phone', '')
 
-        if password1 != password2:
+        if password != passwordChk:
             return render(request, 'failure.html')
 
         else:
-            User.objects.create_user(username=username, password = password1, phone = phone)
+            User.objects.create_user(username=username, userID=userID, password = password, phone = phone)
         return render(request, 'home.html')
     else:
-        return render(request, 'sign.html')
+        return render(request, 'signup.html')
 
 @csrf_exempt
 def login(request):
