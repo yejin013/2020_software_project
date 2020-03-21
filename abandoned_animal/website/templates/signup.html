@@ -7,11 +7,11 @@
         <h1>회원가입</h1>
         <form class="sign-form" method="post" action="">
             {% csrf_token %}
-            <input type="text" name="username" placeholder="이름을 입력하세요">
-            <input type="text" name="username" placeholder="아이디를 입력하세요">
+            <input type="text" id="username" name="username" placeholder="이름을 입력하세요">
+            <input type="text" name="userID" name="userID" placeholder="아이디를 입력하세요">
             <!-- <button type="button" class="id_overlap_button" onclick="id_overlap_check()">중복검사</button> -->
-            <input type="password" id="pw" name="userPw" placeholder="비밀번호를 입력하세요">
-            <input type="password" id="pwChk" name="userPwChk" onchange="fn_pw_check()" placeholder="다시 한 번 더 입력하세요">
+            <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요">
+            <input type="password" id="passwordChk" name="passwordChk" onchange="fn_pw_check()" placeholder="다시 한 번 더 입력하세요">
             <select name="findQuestion">
                 <option value="" selected="selected">비밀번호 확인 질문을 선택해주세요</option>
                 <option value="기억에 남는 추억의 장소는?">기억에 남는 추억의 장소는?</option>

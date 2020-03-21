@@ -61,7 +61,7 @@ def collect_info():
         poster_src = info.find("popfile").text
 
         shelter = Shelter.objects.create_shelter(name=carenm, address=careaddr, phone=caretel)
-        Post(menu=True, species=kindcd, miss_date=date, miss_loc=happenplace, feature=specialmark, image_url=poster_src, shelter=shelter).save()
+        Post(menu=True, species=kindcd, date=date, location=happenplace, feature=specialmark, image_url=poster_src, shelter=shelter).save()
 
     '''
         # 데이터프레임으로 넣기

@@ -10,19 +10,18 @@ from django.db import models
 from .file import download
 
 # Create your models here.
-
 class UserManager(BaseUserManager):
-    def create_user(self, username, password, phone=None):
-        if not username:
+    def create_user(self, userID, password, phone=None, username=None):
+        if not userID:
             raise ValueError('ID Required')
 
-        user = self.model(username = username, phone=phone)
+        user = self.model(userID = userID, phone=phone, username=username)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, password):
-        user = self.create_user(username, password)
+    def create_superuser(self, userID, password):
+        user = self.create_user(userID, password)
         user.is_superuser = True
         user.save(using=self._db)
         return user
@@ -34,7 +33,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         editable=False,
         verbose_name='pk'
     )
-    username = models.CharField(unique=True, max_length=10, verbose_name = '아이디') #아이디
+    userID = models.CharField(unique=True, max_length=10, verbose_name = '아이디') #아이디
+    username = models.CharField(max_length=10, null=True, blank=True, verbose_name='유저이름')
     password = models.CharField(max_length=20, verbose_name = '비밀번호')
     phone = models.CharField(max_length=11, blank=True, null=True, verbose_name = '연락처')
     image = models.ImageField(blank=True, null=True, upload_to="profile", verbose_name = '이미지')
@@ -43,12 +43,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     # del_date = models.DateTimeField('date deleted')
     is_activate = models.BooleanField(default=True)
 
-    USERNAME_FIELD = 'username'
+    USERNAME_FIELD = 'userID'
 
     objects=UserManager()
 
     def __str__(self):
-        return self.username
+        return self.userID
 
     def is_staff(self):
         "Is the user a memeber of staff?"
@@ -85,8 +85,8 @@ class Post(models.Model):
     )
     menu = models.BooleanField(verbose_name = '잃어버렸어요 or 발견했어요')
     species = models.CharField(max_length=30, verbose_name = '품종')
-    miss_date = models.DateTimeField(null = True, blank=True, verbose_name = '실종 날짜')
-    miss_loc = models.CharField(max_length=100, verbose_name = '실종 위치')
+    date = models.DateTimeField(null = True, blank=True, verbose_name = '실종 날짜')
+    location = models.CharField(max_length=100, verbose_name = '실종 위치')
     feature = models.CharField(max_length=200, verbose_name = '특징')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     shelter = models.ForeignKey(Shelter, on_delete=models.CASCADE, null=True, blank=True)
