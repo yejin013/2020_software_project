@@ -9,6 +9,7 @@
     .sign-page {
         width: 450px;
         padding-top: 50px;
+        padding-bottom: 50px;
         margin: auto;
     }
     
@@ -47,6 +48,10 @@
         -webkit-transition: all 0.3 ease;
         transition: all 0.3 ease;
         cursor: pointer;
+    }
+
+    .form .button #cancle{
+        margin-bottom: -10px;
     }
 
     .form p.message{
