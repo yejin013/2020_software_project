@@ -1,0 +1,20 @@
+@import url(https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap);
+
+    #mypagePhoto{
+        width: 150px;
+        height: 150px;
+        display: block; margin: 0px auto;
+        margin-top: 40px;
+    }
+
+    .mypageInfo p{
+        font-size: 25px;
+        color: #8B7862;
+        font-family: 'Noto Serif KR', serif;
+        margin-bottom: 50px;
+    }
+
+    #mypageCard{
+        width: 300px;
+        height: 300px;
+    }

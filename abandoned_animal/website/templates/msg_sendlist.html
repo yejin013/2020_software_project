@@ -1,0 +1,65 @@
+{% extends 'menu_template.html' %}
+{% load static %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">쪽지함</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">쪽지쓰기</a>
+            <li class="nav-item">
+                <a class="nav-link" href="#">받은쪽지함</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">보낸쪽지함</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- 보낸 쪽지함 -->
+<!-- 혜원 : if문 이용해서 로그인이 되어 있으면 for문 통해서 보낸 쪽지 db 받아오기 -->
+<form style=" text-align: center" method="post" action="">
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table" style="margin-top: 50px;">
+                <tr>
+                    <th style="width: 120px">받는사람</td>
+                    <th>내용</th>
+                    <th style="width: 120px">날짜</th>
+                </tr>
+                <tr>
+                    <!-- if문 이용해서 db가 있으면 -->
+                    <!-- db 받아올 때 받는사람, 내용, 날짜 지우고 하면 돼요~ -->
+                    <td>받는사람</td>
+                    <td>내용</td>
+                    <td>날짜</td>
+                    <!-- db 없으면 empty?문 이용해서 쪽지가 없습니다?? 출력하기 -->
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">4</a></li>
+        <li class="page-item"><a class="page-link" href="#">5</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>
+</nav>
+
+{% endblock content %}

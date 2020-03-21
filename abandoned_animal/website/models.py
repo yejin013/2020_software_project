@@ -91,7 +91,7 @@ class Post(models.Model):
     feature = models.CharField(max_length=200, verbose_name = '특징')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     shelter = models.ForeignKey(Shelter, on_delete=models.CASCADE, null=True, blank=True)
-    image = models.ImageField(blank=True, null=True, upload_to="image", verbose_name = '이미지')
+    image = models.ImageField(blank=True, null=True, upload_to="images", verbose_name = '이미지')
     image_url = models.URLField(blank=True, null=True, verbose_name='이미지 url')
     pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     up_date = models.DateTimeField(auto_now=True, null=True, blank=True)
@@ -164,4 +164,5 @@ class Message(models.Model):
         if not self.id:
             self.sentAt = timezone.now()
         super(Message, self).save(**kwargs)
+<<<<<<< HEAD
 '''
