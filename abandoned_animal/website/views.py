@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect,get_object_or_404
 from .models import User, Post, Comment, Shelter
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
+from django.core.exceptions import ObjectDoesNotExist
 
 from .models import User, Post, Comment, Shelter
 from django.contrib import auth, messages
@@ -11,7 +12,7 @@ from django.views.decorators.http import require_http_methods
 from django.shortcuts import render, redirect
 from .models import User, Post, Comment, Shelter
 from django.contrib import auth
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate,get_user_model
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -61,6 +62,36 @@ def home_login(request):
         return render(request,'home.html',{'user': user})
     else:
         return render(request,'home.html')
+
+def findID(request):
+    Usermodel = get_user_model()
+    if request.method == "POST":
+        username = request.POST['username']
+        phone = request.POST['phone']
+        try:
+            user1 = Usermodel.objects.get(username=username)
+            user2 = Usermodel.objects.get(phone=phone)
+        except ObjectDoesNotExist:  
+            return render(request,'findID.html',{'error':'회원 정보가 존재하지 않습니다.'})
+       
+        if user1 != user2:
+            return render(request,'findID.html',{'error':'회원 정보가 존재하지 않습니다.'})
+        else:
+            return render(request,'answerID.html',{'user':user1})       
+    else:
+        return render(request,'findID.html')
+
+#  def findPW(request):
+#      if request.method == "POST":
+#         username = request.POST.get('username', '')
+#         phone = request.POST.get('phone', '')
+    
+#     user = User.objects.all().filter(username=username,phone=phone)
+#     if userID is not None:
+#         return render(request,'answerID.html',{'user':user})
+#     else:
+#         return render(request,'findID.html',{'error':'회원 정보가 존재하지 않습니다.'})
+# def answerPW(request):
 
 @login_required
 def mypage(request):
