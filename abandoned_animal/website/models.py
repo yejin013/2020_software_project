@@ -5,6 +5,10 @@ from urllib.parse import urlparse
 from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
+<<<<<<< HEAD
+from django.utils import timezone
+=======
+>>>>>>> f4be26f278c24172c3798bf9d0a0bbf3ab63346c
 from django.core.files import File
 from django.db import models
 from .file import download
@@ -134,6 +138,8 @@ class Comment(models.Model):
     def approved_comments(self):
         return self.comment.filter(approved_comment=True)
 
+<<<<<<< HEAD
+=======
 '''
 class Message(models.Model):
     id = models.AutoField(
@@ -142,27 +148,44 @@ class Message(models.Model):
         editable=False,
         verbose_name='pk'
     )
+>>>>>>> f4be26f278c24172c3798bf9d0a0bbf3ab63346c
 
-    sender = models.ForeignKey(User,on_delete=models.CASCADE) #User가 맞는가
-    reciever = models.ForeignKey(User,on_delete=models.CASCADE) #User가 맞는가
-    sentAt = models.DateTimeField(auto_now_add=True)
-    content = models.TextField(max_length=150) #text 길이 정하기
-    isRead = models.BooleanField(default=False)
+# class Message(models.Model):
+#     id = models.AutoField(
+#         primary_key=True,
+#         unique=True,
+#         editable=False,
+#         verbose_name='pk'
+#     )
 
-    objects = models.Manager()
-    
-    class Meta:
-        ordering = ['-sentAt']
-    
-    def __str__(self):
-        return self.content
+#     sender = models.ForeignKey(User,on_delete=models.CASCADE) #User가 맞는가
+#     reciever = models.ForeignKey(User,on_delete=models.CASCADE) #User가 맞는가
+#     sentAt = models.DateTimeField(auto_now_add=True)
+#     content = models.TextField(max_length=150) #text 길이 정하기
+#     isRead = models.BooleanField(default=False)
 
-    def summary(self):
-        return self.content[:20]
+#     objects = models.Manager()
     
+#     class Meta:
+#         ordering = ['-sentAt']
+    
+#     def __str__(self):
+#         return self.content
+
+#     def summary(self):
+#         return self.content[:20]
+    
+<<<<<<< HEAD
+#     def save(self,**kwargs):
+#         if not self.id:
+#             self.sentAt = timezone.now()
+#         super(Message, self).save(**kwargs)
+#         return self.comments.filter(approved_comment=True)
+=======
     def save(self,**kwargs):
         if not self.id:
             self.sentAt = timezone.now()
         super(Message, self).save(**kwargs)
 <<<<<<< HEAD
 '''
+>>>>>>> f4be26f278c24172c3798bf9d0a0bbf3ab63346c
