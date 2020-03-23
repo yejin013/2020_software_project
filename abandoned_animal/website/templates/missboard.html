@@ -2,7 +2,50 @@
 
 {% block content %}
 
+<h4 id="whole_list_head"> 실종동물 게시판 </h4>
+                    <h6 id="whole_list_text"> 실종신고된 동물 리스트 </h6>
+                    <a href="#" class="btn btn-secondary"> 게시글 등록 </a>
 
+                    {% if post %}
+                    <div class="card-deck">
+
+                        {% for postRow in post %}
+                        <div class="card">
+                            {% if postRow.image %}
+                            <img class="card-img-top" src="{{ postRow.image.url }}" alt="Card image">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ postRow.species }}</h5>
+                                <p class="card-text">{{ postRow.miss_date }}</p>
+                                <p class="card-text">{{ postRow.miss_loc }}</p>
+                                {% if postRow.user.username == None %}
+                                <p class="card-text">{{ postRow.shelter.name }}</p>
+                                {% else %}
+                                <p class="card-text">{{ postRow.user.username }}</p>
+                                {% endif %}
+                                <a href="#" class="btn btn-light">게시글 보기</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <!--카드 반복은 어떻게 되는지 까먹지 말고 물어보기-->
+                    </div>
+                    {% endif %}
+                    <!--End of card-deck-->
+
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <!--여기 페이지네이션 href 어떻게 할지 예진이한테 물어보기-->
+                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
 
 
 {% endblock %}
