@@ -49,27 +49,18 @@ def login(request):
 
 def homePost(request):
     post = Post.objects.all()
-    return render(request, 'home.html', { 'post' : post }) # 데이터 튜플로 들어감!
+    return render(request, 'home.html', {'post' : post}) # 데이터 튜플로 들어감!
 
-@login_required()
-def create(request):
-    if request == "POST":
-        post = Post()
-        post.menu = request.POST['menu']
-        post.species = request.POST['species']
-        post.miss_date = request.POST['miss_date']
-        post.miss_loc = request.POST['miss_loc']
-        post.feature = request.POST['feature']
-        post.request = request.POST['user']
-        post.image = request.FILES['image']
-        post.pub_date = timezone.datetime.now()
-        post.up_date = timezone.datetime.now()
-        post.user = request.user.id
-        post.save()
-        return render(request, 'postCheck.html', {'post': post})
+def findBoard(request):
+    post = Post.objects.filter(menu=True)
+    return render(request, 'findBoard.html', {'post' : post})
 
-    else:
-        return render(request, 'postWrite.html')
+def missBoard(request):
+    post = Post.objects.filter(menu=False)
+    return render(request, 'findBoard.html', {'post' : post})
+
+def search(request):
+    return render(request, '')
 
 # 포스트한 내용 보여주기
 def postCheck(request, post_id):

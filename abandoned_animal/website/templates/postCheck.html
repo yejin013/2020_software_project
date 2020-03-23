@@ -23,8 +23,8 @@
                     <br>
                     {% if post.shelter %}
                     <p class="card-text" id="shelter">글작성자 : {{ post.shelter.name }}</p>
-                    <p class="card-text" id="location">잃어버린 위치(찾은 위치) : {{ post.miss_loc }}</p>
-                    <p class="card-text" id="date">잃어버린 날짜 : {{ post.miss_date }}</p>
+                    <p class="card-text" id="location">잃어버린 위치(찾은 위치) : {{ post.location }}</p>
+                    <p class="card-text" id="date">잃어버린 날짜 : {{ post.date }}</p>
                     <p class="card-text" id="feature">특징 : {{ post.feature }}</p>
                     <p class="card-text" id="contact">연락처 : {{ post.shelter.phone }}</p>
                     {% else %}

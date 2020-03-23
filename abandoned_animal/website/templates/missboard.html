@@ -16,14 +16,14 @@
                             {% endif %}
                             <div class="card-body">
                                 <h5 class="card-title">{{ postRow.species }}</h5>
-                                <p class="card-text">{{ postRow.miss_date }}</p>
-                                <p class="card-text">{{ postRow.miss_loc }}</p>
+                                <p class="card-text">{{ postRow.date }}</p>
+                                <p class="card-text">{{ postRow.location }}</p>
                                 {% if postRow.user.username == None %}
                                 <p class="card-text">{{ postRow.shelter.name }}</p>
                                 {% else %}
                                 <p class="card-text">{{ postRow.user.username }}</p>
                                 {% endif %}
-                                <a href="#" class="btn btn-light">게시글 보기</a>
+                                <a href="{% url 'website:postCheck' postRow.id %}" class="btn btn-light">게시글 보기</a>
                             </div>
                         </div>
                         {% endfor %}

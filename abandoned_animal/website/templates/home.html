@@ -7,7 +7,7 @@
     <p id="introtext" class="lead">서로를 찾고 있는 반려동물과 당신의 마음.<br> 똑똑하게 AI로 당신의 강아지를 찾아보세요!</p>
     <p class="lead">
         <!--메인에서 바로 검색할 수 있는가?-->
-        <a class="btn btn-outline-light" href="Search.html" role="button">반려동물 찾기</a>
+        <a class="btn btn-outline-light" href="{% url 'website:search' %}" role="button">반려동물 찾기</a>
     </p>
 </div>
 
@@ -28,20 +28,21 @@
             {% endif %}
             <div class="card-body">
                 <h5 class="card-title">{{ postRow.species }}</h5>
-                <p class="card-text">{{ postRow.miss_date }}</p>
-                <p class="card-text">{{ postRow.miss_loc }}</p>
+                <p class="card-text">{{ postRow.date }}</p>
+                <p class="card-text">{{ postRow.location }}</p>
                 {% if postRow.user.username == None %}
                 <p class="card-text">{{ postRow.shelter.name }}</p>
                 {% else %}
                 <p class="card-text">{{ postRow.user.username }}</p>
                 {% endif %}
-                <a href="{% url 'website:post' postRow.id %}" class="btn btn-light">게시글 보기</a>
+                <a href="{% url 'website:postCheck' postRow.id %}" class="btn btn-light">게시글 보기</a>
             </div>
         </div>
         {% endfor %}
 
     </div>
     {% endif %}
+
     <!--End of card-deck-->
 
     <nav aria-label="Page navigation example">
