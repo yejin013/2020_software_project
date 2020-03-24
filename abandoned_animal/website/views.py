@@ -101,8 +101,7 @@ def add_comment_to_post(request, post_id):
     else:
         comments = post.comments.all()
 
-    # return render(request, 'post.html', {'post':post, 'comment_form':comment_form, 'comments':comments})
-    return render(request, 'post.html', {'post':post, 'comments':comments})
+    return render(request, 'postCheck.html', {'post':post, 'comments':comments})
 
 # 포스트 수정, 구체적 form은 html에 맞춰서 수정 필요
 def edit(request, post_id):
