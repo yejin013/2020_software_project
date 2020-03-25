@@ -1,6 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
 from django.db.transaction import commit
-from .models import User
+from django.forms import ModelForm
+
+from .models import User, Question
 from django import forms
 
 class SignupForm(UserCreationForm):
@@ -26,11 +28,15 @@ class SignupForm(UserCreationForm):
             user.save()
         return user
 
-
 class ChangeForm(UserChangeForm):
     password = ReadOnlyPasswordHashField(label="비밀번호")
 
     class Meta:
         model = User
         fields = ('username', 'password')
+
+class QuestionForm(ModelForm):
+    class Meta:
+        model = Question
+        fields = ['question', 'answer']
 

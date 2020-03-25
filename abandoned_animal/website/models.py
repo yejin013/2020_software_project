@@ -10,6 +10,10 @@ from django.db import models
 from .file import download
 
 # Create your models here.
+class Question(models.Model):
+    question = models.IntegerField()
+    answer = models.CharField(max_length=200)
+
 class UserManager(BaseUserManager):
     def create_user(self, userID, password, phone=None, username=None):
         if not userID:
@@ -39,6 +43,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length=11, blank=True, null=True, verbose_name = '연락처')
     image = models.ImageField(blank=True, null=True, upload_to="profile", verbose_name = '이미지')
     pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    question = models.ForeignKey(Question, null=True, blank=True, on_delete=models.CASCADE)
     # up_date = models.DateTimeField('date updated')
     # del_date = models.DateTimeField('date deleted')
     is_activate = models.BooleanField(default=True)
