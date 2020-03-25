@@ -6,5 +6,10 @@
 </head>
 <body>
     <h2>Home</h2>
+    {% if question %}
+    <h3>{{ question.question }}</h3>
+    {% else %}
+    <h3>NO</h3>
+    {% endif %}
 </body>
 </html>

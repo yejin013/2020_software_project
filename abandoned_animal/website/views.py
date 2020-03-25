@@ -12,19 +12,22 @@ from .form import SignupForm
 @csrf_exempt
 def signup(request):
     if request.method == "POST":
+        userID = request.POST.get('userID', '')
         username = request.POST['username']
         password = request.POST.get('password', '')
         passwordChk = request.POST.get('passwordChk', '')
         phone = request.POST.get('phone', '')
-
+        question = request.POST['question']
+        answer = request.POST.get('answer', '')
         if password != passwordChk:
             return render(request, 'failure.html')
 
         else:
-            User.objects.create_user(username=username, password = password, phone = phone)
-        return render(request, 'home.html')
+            user = User.objects.create_user(userID=userID, username=username, password = password, phone = phone, question = question, answer=answer)
+            print(user.question)
+            return render(request, 'home.html', {'question':question })
     else:
-        return render(request, 'signup.html')
+        return render(request, 'signup_new.html')
 
 @csrf_exempt
 def login(request):
