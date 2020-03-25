@@ -80,29 +80,27 @@ def postLose(request):
         return render(request, 'postLose.html', {'form':form})
 
 # 포스트한 내용 보여주기
+@login_required()
 def postCheck(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     comments = post.comments.all()
-    return render(request, 'postCheck.html', {'post': post, 'comments': comments})
-
-def add_comment_to_post(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
+    user = User.objects.get(userID = request.user.userID)
 
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
-            comment.user = request.user.id
-            comment.post = request.post.id
+            comment.comment = request.POST['comment']
+            comment.user = request.user
+            comment.post = post
             comment.pub_date = timezone.datetime.now()
             comment.up_date = timezone.datetime.now()
             comment.save()
-            return redirect('post', pk=post.id)
+            return render(request, 'postCheck.html', {'post': post, 'comments': comments, 'comment_form': comment_form, 'user': user})
     else:
-        comments = post.comments.all()
+        comment_form = CommentForm()
 
-    # return render(request, 'post.html', {'post':post, 'comment_form':comment_form, 'comments':comments})
-    return render(request, 'post.html', {'post':post, 'comments':comments})
+    return render(request, 'postCheck.html', {'post': post, 'comments': comments, 'comment_form' : comment_form, 'user' : user})
 
 # 포스트 수정, 구체적 form은 html에 맞춰서 수정 필요
 def edit(request, post_id):
@@ -127,10 +125,10 @@ def delete(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     if request.user != post.user:
         messages.warning(request, "권한 없음")
-        return redirect(post)
+        return redirect(reverse('website:postCheck', args=[str(post.id)]))
     else:
         post.delete()
-    return redirect('/')
+        return redirect(reverse('website:homePost'))
 
 @login_required
 def comment_approve(request, pk):
@@ -163,10 +161,10 @@ def comment_delete(request, pk):
 
     if request.user != comment.user:
         messages.warning(request, "권한 없음")
-        return redirect(post)
+        return redirect(reverse('website:postCheck', args=[str(post.id)]))
     else:
         comment.delete()
-        return redirect('post', pk=comment.post.pk)
+        return redirect(reverse('website:postCheck', args=[str(post.id)]))
 
 def homePost(request):
     post = Post.objects.all()
