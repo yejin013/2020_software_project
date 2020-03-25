@@ -1,0 +1,32 @@
+{% load static %}
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+<form style=" text-align: center" method="post" action="">
+    <div class="container">
+        <table class="table" style="margin-top: 20px; width: 380px; height: 380px;">
+            <tr colsapn="2">
+                <td width="120px">받는이</td>
+                <!--예진 : 글쓴이의 아이디 -->
+                <td><p>글쓴이의 아이디</p></td>
+            </tr>
+            <tr colspan="2">
+                <td>내용</td>
+                <form name='form'>
+                    <td><textarea rows="10" class="form-control" placeholder="내용을 입력해주세요" name="contents"
+                            onKeyUp="javascript:fnChkByte(this,'300')"></textarea>
+                        <span style="float: right;">/ 300자</span>
+                        <span id="byteInfo" style="float: right; margin-right: 5px;">0</span>
+                    </td>
+                </form>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <div class="button" align="left" style="margin: 0, 0, 80px, 150px;">
+            <button class="btn btn-default" onClick='window.close()'>취소</button>
+            <!-- 예진 : .href뒤에 쪽지 보내는 함수 넣기(혜원이가 완성시키면 넣으면 됩니당) -->
+            <button class="btn btn-default" OnClick="location.href = #" type="submit">보내기</button>
+        </div>
+    </div>
+</form>
