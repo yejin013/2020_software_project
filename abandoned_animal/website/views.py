@@ -80,7 +80,6 @@ def postLose(request):
         return render(request, 'postLose.html', {'form':form})
 
 # 포스트한 내용 보여주기
-@login_required()
 def postCheck(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     comments = post.comments.all()
