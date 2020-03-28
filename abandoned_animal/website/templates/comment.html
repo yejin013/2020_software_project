@@ -5,7 +5,6 @@
 <script type="text/javascript" src="{% static 'js/check.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/comment.js' %}"></script>
 
-
 <br><br>
 <div class="container">
     {% if post %}
@@ -84,7 +83,6 @@
         <div class="commentTable">
             <table>
                 <tr>
-                    <!-- 예진 : {% static 'img/black1.gif' %} 지우고 댓글 쓴 user의 아이콘 가져오기 -->
                     {% if comment.user.image %}
                     <td rowspan="2"><img src="{{ comment.user.image }}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="commentUserImg"
                             style="margin-right: 15px;">
@@ -98,16 +96,24 @@
                     <td>{{ comment.user.userID }}</td>
                 </tr>
                 <tr>
-                    <td id="commentContent">{{ comment.comment }}</td>
+                    {% if user == comment.user.username %}
+                    <input id="output"></input>
+                    <!-- <script type="text/javascript">
+                        $(document).ready(output);
+                    </script> -->
+                    <script type="text/javascript">
+                        window.onload = output();
+                    </script>
+                    {% else %}
+                    {{ comment.comment }}
+                    {% endif %}
                 </tr>
             </table>
         </div>
         <div class="button" align="right">
-            {% if user == comment.user.username %}
-            <!-- 예진 : #에 댓글 수정 html폼 url 넣기 -->
-            <button type="submit" OnClick="commentInput(); location.href ='{% url "website:#" class="btn btn-default">수정</button>
-            <button type="submit" OnClick="removeData(); location.href ='{% url "website:comment_delete" pk=comment.pk %}'" class="btn btn-default" >삭제</button>
-            {% endif %}
+            <button type="submit" OnClick="location.href ='{% url "website:comment_edit" pk=comment.pk %}'" class="btn btn-default">완료</button>
+            <!-- 예진 : website: 뒤에 postCheck 홈페이지로 이동하는 코드 넣기-->
+            <a class="btn btn-default" href="{% url "website:" %}" role="button">취소</a>
         </div>
     </div>
     {% empty %}
