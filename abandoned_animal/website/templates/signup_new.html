@@ -1,0 +1,41 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+<div class="sign-page">
+    <div class="form">
+        <h1>회원가입</h1>
+        <form class="sign-form" method="post" action="{% url 'signup %}">
+            {% csrf_token %}
+            <input type="text" id="username" name="username" placeholder="이름을 입력하세요">
+            <input type="text" name="userID" name="userID" placeholder="아이디를 입력하세요">
+            <!-- <button type="button" class="id_overlap_button" onclick="id_overlap_check()">중복검사</button> -->
+            <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요">
+            <input type="password" id="passwordChk" name="passwordChk" onchange="fn_pw_check()" placeholder="다시 한 번 더 입력하세요">
+            <select name="question">
+                <option value="" selected="selected">비밀번호 확인 질문을 선택해주세요</option>
+                <option value="ONE">기억에 남는 추억의 장소는?</option>
+                <option value="TWO">자신의 인생 좌우명은?</option>
+                <option value="THREE">자신의 보물 제1호는?</option>
+                <option value="FOUR">가장 기억에 남는 선생님 성함은?</option>
+                <option value="FIVE">추억하고 싶은 날짜가 있다면?</option>
+                <option value="SIX">유년시절 가장 생각나는 친구 이름은?</option>
+                <option value="SEVEN">인상 깊게 읽은 책 이름은?</option>
+                <option value="EIGHT">읽은 책 중에서 좋아하는 구절이 있다면?</option>
+                <option value="NINE">자신이 두번째로 존경하는 인물은?</option>
+                <option value="TEN">초등학교 때 기억에 남는 짝궁 이름은?</option>
+                <option value="ELEVEN">다시 태어나면 되고 싶은 것은?</option>
+                <option value="TWELEVE">내가 좋아하는 캐릭터는?</option>
+                <option value="THIRTEEN">자신의 반려동물의 이름은?</option>
+            </select>
+            <input type="text" name="answer" placeholder="답변을 입력해주세요">
+            <input type="text" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' id="phone" name="phone"
+                placeholder="핸드폰 번호를 입력하세요">
+            <p class="message" style="text-align: left;">단, 숫자만 입력해주세요. ex) 01011112222</p>
+            <div class="button">
+                <input type="submit" id="complete" value="완료">
+                <input type="button" id="cancle" value="취소">
+            </div>
+        </form>
+    </div>
+</div>

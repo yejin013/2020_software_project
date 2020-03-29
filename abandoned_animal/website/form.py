@@ -2,17 +2,20 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnly
 from django.forms import ModelForm
 from .models import User, Post, Comment
 from django.db.transaction import commit
+from django.forms import ModelForm
+
 from .models import User
 from django import forms
 
 class SignupForm(UserCreationForm):
+    userID = forms.CharField(max_length=10)
     username = forms.CharField(max_length=10)
     password1 = forms.CharField(max_length=20)
     password2 = forms.CharField(max_length=20)
     phone = forms.CharField(max_length=11)
     class Meta:
         model = User
-        fields = ['username', 'password1', 'password2', 'phone']
+        fields = ['userID', 'username', 'password1', 'password2', 'phone']
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
@@ -28,14 +31,6 @@ class SignupForm(UserCreationForm):
             user.save()
         return user
 
-
-class ChangeForm(UserChangeForm):
-    password = ReadOnlyPasswordHashField(label="비밀번호")
-
-    class Meta:
-        model = User
-        fields = ('username', 'password')
-
 class PostForm(ModelForm):
     class Meta:
         model = Post
@@ -45,5 +40,3 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comment
         fields = ['comment']
-
-

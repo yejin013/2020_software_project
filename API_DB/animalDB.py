@@ -32,7 +32,7 @@ def collect_info():
     totalCount = soup.find("totalcount").text
 
     url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?" \
-            "&numOfRows=" + totalCount + "&ServiceKey="
+            "&numOfRows=" + totalCount + "&upkind=422400" + "&ServiceKey="
     url = url + serviceKey
 
     request = urllib.request.urlopen(url)
@@ -43,7 +43,6 @@ def collect_info():
 
     # item에 있는 정보들 불러오기
     for info in item:
-        age = info.find("age").text
         careaddr = info.find("careaddr").text
         caretel = info.find("caretel").text
         kindcd = info.find("kindcd").text
@@ -52,10 +51,11 @@ def collect_info():
         specialmark = info.find("specialmark").text
         poster_src = info.find("popfile").text
         # urlretrieve(poster_src, "popfile/" + careaddr[:4] + ".png")
+        print(careaddr)
 
         # 데이터프레임으로 넣기
-        animalInfo = pd.DataFrame(([[age, careaddr, caretel, kindcd, happendt, happenplace, specialmark, poster_src]]),
-                                  columns=["age", "careaddr", "caretel", "kindcd", "happendt", "happenplace",
+        animalInfo = pd.DataFrame(([[careaddr, caretel, kindcd, happendt, happenplace, specialmark, poster_src]]),
+                                  columns=["careaddr", "caretel", "kindcd", "happendt", "happenplace",
                                            "specialmark", "poster_src"])
 
         # sqlite_append 함수 호출
