@@ -11,6 +11,7 @@ var tempcomment;
 function commentInput(){
     var inputComment = document.getElementById("commentContent").value;
     tempcomment = inputComment;
+    return tempcomment;
 }
 
 function output(){

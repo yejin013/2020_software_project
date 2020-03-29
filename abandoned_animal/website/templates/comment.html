@@ -3,7 +3,7 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/postCheck.css' %}">
 <script type="text/javascript" src="{% static 'js/check.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/comment.js' %}"></script>
+<!-- <script type="text/javascript" src="{% static 'js/comment.js' %}"></script> -->
 
 <br><br>
 <div class="container">
@@ -97,13 +97,16 @@
                 </tr>
                 <tr>
                     {% if user == comment.user.userID %}
-                    <input id="output"></input>
                     <!-- <script type="text/javascript">
                         $(document).ready(output);
                     </script> -->
-                    <script type="text/javascript">
-                        window.onload = output();
+                    <script type="text/javascript" src="{% static 'js/comment.js' %}">
+                        var tempcomment = commentInput();
+                        window.onload = function output(){
+                            document.getElementById("output").value = tempcomment;
+                        };
                     </script>
+                    <input id="output">
                     {% else %}
                     {{ comment.comment }}
                     {% endif %}
