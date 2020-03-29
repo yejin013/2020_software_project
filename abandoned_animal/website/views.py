@@ -49,6 +49,7 @@ def login(request):
     else:
         return render(request,'login.html')
 
+@login_required()
 def logout(request):
     auth.logout(request)
     return render(request, 'home.html')
@@ -90,7 +91,6 @@ def postLose(request):
 def postCheck(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     comments = post.comments.all()
-    user = User.objects.get(userID = request.user.userID)
 
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
@@ -102,11 +102,11 @@ def postCheck(request, post_id):
             comment.pub_date = timezone.datetime.now()
             comment.up_date = timezone.datetime.now()
             comment.save()
-            return render(request, 'postCheck.html', {'post': post, 'comments': comments, 'comment_form': comment_form, 'user': user})
+            return render(request, 'postCheck.html', {'post': post, 'comments': comments, 'comment_form': comment_form})
     else:
         comment_form = CommentForm()
 
-    return render(request, 'postCheck.html', {'post': post, 'comments': comments, 'comment_form' : comment_form, 'user' : user})
+    return render(request, 'postCheck.html', {'post': post, 'comments': comments, 'comment_form' : comment_form})
 
 # 포스트 수정, 구체적 form은 html에 맞춰서 수정 필요
 def edit(request, post_id):

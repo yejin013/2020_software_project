@@ -62,7 +62,6 @@
         {% if user.is_authenticated %}
         <form method="post">
             {% csrf_token %}
-            {% if user %}
             <!-- 예진 : src="{% static 'img/black1.gif' %}"에 {% static 'img/black1.gif' %} 지우고 현재 유저 이미지 받아오는 코드 넣기-->
             {% if user.image %}
             <img src="{{ user.image }}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="commentUserImg">
@@ -72,7 +71,6 @@
             <span class="search_in"><input type="text" placeholder="댓글을 입력하세요" id="commentInput" name="comment"
                     style="border:none;"></span>
             <button type="submit" class="btn btn-default">확인</button>
-            {% endif %}
         </form>
         {% endif %}
     </div>
@@ -96,7 +94,8 @@
                     <td>{{ comment.user.userID }}</td>
                 </tr>
                 <tr>
-                    {% if user == comment.user.userID %}
+                {% if user.is_authenticated %}
+                    {% if user.userID == comment.user.userID %}
                     <!-- <script type="text/javascript">
                         $(document).ready(output);
                     </script> -->
@@ -110,6 +109,7 @@
                     {% else %}
                     {{ comment.comment }}
                     {% endif %}
+                {% endif %}
                 </tr>
             </table>
         </div>
