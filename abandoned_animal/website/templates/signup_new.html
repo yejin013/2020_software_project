@@ -5,7 +5,7 @@
 <div class="sign-page">
     <div class="form">
         <h1>회원가입</h1>
-        <form class="sign-form" method="post" action="{% url 'signup %}">
+        <form class="sign-form" method="post" action="{% url 'website:signup' %}">
             {% csrf_token %}
             <input type="text" id="username" name="username" placeholder="이름을 입력하세요">
             <input type="text" name="userID" name="userID" placeholder="아이디를 입력하세요">
@@ -34,7 +34,7 @@
             <p class="message" style="text-align: left;">단, 숫자만 입력해주세요. ex) 01011112222</p>
             <div class="button">
                 <input type="submit" id="complete" value="완료">
-                <input type="button" id="cancle" value="취소">
+                <input type="button" id="cancel" value="취소">
             </div>
         </form>
     </div>

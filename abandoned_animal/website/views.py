@@ -17,7 +17,7 @@ def signup(request):
         password = request.POST.get('password', '')
         passwordChk = request.POST.get('passwordChk', '')
         phone = request.POST.get('phone', '')
-        question = request.POST['question']
+        question = request.POST.get('question', '')
         answer = request.POST.get('answer', '')
         if password != passwordChk:
             return render(request, 'failure.html')
