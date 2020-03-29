@@ -130,15 +130,10 @@ def delete(request, post_id):
         return redirect(reverse('website:homePost'))
 
 @login_required
-def comment_approve(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
-    comment.approve()
-    return redirect('post', pk=comment.post.pk)
-
-@login_required
-def comment_edit(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
+def comment_edit(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
     post = get_object_or_404(Post, pk=comment.post.id)
+    comments = post.comments.all()
 
     if request.user != comment.user:
         messages.warning(request, "권한 없음")
@@ -151,11 +146,11 @@ def comment_edit(request, pk):
             return redirect(post)
     else:
         form = CommentForm(instance=comment)
-    return render(request, '.html', {'form': form})
+    return render(request, 'comment.html', {'form': form, 'comment':comment, 'comments':comments, 'post':post})
 
 @login_required
-def comment_delete(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
+def comment_delete(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
     post = get_object_or_404(Post, pk=comment.post.id)
 
     if request.user != comment.user:
