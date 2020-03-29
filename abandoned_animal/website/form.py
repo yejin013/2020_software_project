@@ -31,6 +31,13 @@ class SignupForm(UserCreationForm):
             user.save()
         return user
 
+class ChangeForm(UserChangeForm):
+    password = ReadOnlyPasswordHashField(label="비밀번호")
+
+    class Meta:
+        model = User
+        fields = ('userID', 'username')
+
 class PostForm(ModelForm):
     class Meta:
         model = Post

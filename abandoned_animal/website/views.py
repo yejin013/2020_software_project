@@ -31,7 +31,7 @@ def signup(request):
         else:
             user = User.objects.create_user(userID=userID, username=username, password = password, phone = phone, question = question, answer=answer)
             print(user.question)
-            return render(request, 'home.html', {'question':question })
+            return render(request, 'home.html', {'question':user.question })
     else:
         return render(request, 'signup_new.html')
 
@@ -48,6 +48,10 @@ def login(request):
             return render(request,'login.html',{'error':'username or password is incorrect'})
     else:
         return render(request,'login.html')
+
+def logout(request):
+    auth.logout(request)
+    return render(request, 'home.html')
 
 @login_required()
 def postFind(request):

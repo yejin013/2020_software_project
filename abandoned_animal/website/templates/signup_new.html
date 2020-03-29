@@ -5,7 +5,7 @@
 <div class="sign-page">
     <div class="form">
         <h1>회원가입</h1>
-        <form class="sign-form" method="post" action="{% url 'signup %}">
+        <form class="sign-form" method="post" action="{% url 'website:signup' %}">
             {% csrf_token %}
             <input type="text" id="username" name="username" placeholder="이름을 입력하세요">
             <input type="text" name="userID" name="userID" placeholder="아이디를 입력하세요">
