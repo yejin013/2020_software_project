@@ -142,18 +142,22 @@ def comment_edit(request, comment_id):
     post = get_object_or_404(Post, pk=comment.post.id)
     comments = post.comments.all()
 
-    if request.user != comment.user:
-        messages.warning(request, "권한 없음")
-        return redirect(post)
+    if comment.user.userID != request.user.userID:
+        return redirect(reverse('website:postCheck', args=[post.id]))
 
     if request.method == "POST":
         form = CommentForm(request.POST, instance=comment)
+        print("hahaha")
         if form.is_valid():
-            form.save()
-            return redirect(post)
+            print("valid")
+            comment = form.save(commit=False)
+            comment.comment = request.POST['comment']
+            comment.up_date = timezone.datetime.now()
+            comment.save()
+            return redirect(reverse('website:postCheck', args=[str(post.id)]))
     else:
         form = CommentForm(instance=comment)
-    return render(request, 'comment.html', {'form': form, 'comment':comment, 'comments':comments, 'post':post})
+    return render(request, 'comment_edit.html', {'form': form, 'comment':comment, 'comments':comments, 'post':post})
 
 @login_required
 def comment_delete(request, comment_id):
