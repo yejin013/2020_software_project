@@ -54,8 +54,6 @@ def login(request):
     else:
         return render(request,'login.html')
 
-<<<<<<< HEAD
-=======
 # 로그인 유지 - 세션에 user정보 존재시
 def home_login(request):
     userID = request.session.get('user')
@@ -65,7 +63,6 @@ def home_login(request):
     else:
         return render(request,'home.html')
 
-<<<<<<< HEAD
 def findID(request):
     Usermodel = get_user_model()
     if request.method == "POST":
@@ -84,21 +81,19 @@ def findID(request):
     else:
         return render(request,'findID.html')
 
-#  def findPW(request):
-#      if request.method == "POST":
-#         username = request.POST.get('username', '')
-#         phone = request.POST.get('phone', '')
-    
-#     user = User.objects.all().filter(username=username,phone=phone)
-#     if userID is not None:
-#         return render(request,'answerID.html',{'user':user})
-#     else:
-#         return render(request,'findID.html',{'error':'회원 정보가 존재하지 않습니다.'})
-# def answerPW(request):
+def findPW(request):
+    if request.method == "POST":
+        userID = request.POST['userID']
+        
+        user = User.objects.all().filter(username=userID)
+        if userID is not None:
+            return render(request,'answerPW.html',{'user':user})
+        else:
+            return render(request,'findPW.html',{'error':'회원 정보가 존재하지 않습니다.'})
+    else:
+        return render(request,'findPW.html')
 
-=======
->>>>>>> f4be26f278c24172c3798bf9d0a0bbf3ab63346c
->>>>>>> 72f6e7f7591adc1f640fcf46d9a0e25b2c86d51d
+
 @login_required
 def mypage(request):
     user_id = request.session.get('user')
@@ -111,22 +106,32 @@ def mypage(request):
 @login_required
 def myinfo_update(request):
     if request.method == 'POST':
-        user_change_form = ChangeForm(request.POST,instance=request.user)
-        if user_change_form.is_valid():
-            user_change_form.save()
+        user = request.user
+        new_password = request.POST.get('password')
+        passwordChk = request.POST.get('passwordChk')
+        current_password = request.POST.get('origin_password')
+        phone = request.POST.get('phone')
+        findAnswer = request.POST.get('findAnswer')
+        if user.check_password(current_password,user.password):
+            if new_password == passwordChk:
+                user.set_password(new_password)
+                user.save()
+                auth.login(request,user)
             #html 이름 변경시 수정 필요
             return redirect(request,'update.html')
+        else:
+            return(request,'update.html',{'error':'비밀번호 일치x'})
     else:
-        user_change_form = ChangeForm(instance=request.user)
         #html 이름 변경시 수정 필요
         return render(request,'update.html',{'user_change_form':user_change_form})
 
 @login_required
 def listMypost(request):
     user_id = request.session.get('user')
-    mypostList = Post.objects.filter(user=request.user)
+    mypost = Post.objects.filter(user=user_id).ordered_by('pub_date')
+    
     #html 나오면 수정필요 + 이 list도 두가지로 나눌 것인가?
-    return render(request,'postCheck.html')
+    return render(request,'내포스트.html',{'post':mypost})
 
 # def sendMessage(request):
 #     if request.method == 'POST':
@@ -135,14 +140,13 @@ def listMypost(request):
 #         if form.is_valide():
 #             message = form.save(commit)
 
-@login_required
-def listMessage(request):
+# @login_required
+# def listMessage(request):
     # receivedList = Message.objects.filter(receiver = request.user)
     # sentList = Message.objects.filter(sender = request.user)
 
     #쪽지함 List html 나오면 수정
-<<<<<<< HEAD
-    return render(request,'쪽지함.html',{'rlist':receivedList,'slist':sentList})
+    # return render(request,'쪽지함.html',{'rlist':receivedList,'slist':sentList})
 
 def viewMessage(request,message_id):
     if not request.user.is_authenticated:
@@ -152,21 +156,8 @@ def viewMessage(request,message_id):
     messages.save()
 
     #쪽지 1개씩 보는 경우-> html 나오면 수정
-    return render(request,'쪽지보기.html',{'message':messages})
-=======
     return render(request,'msg_receivelist.html')
 
-# def viewMessage(request,message_id):
-#     if not request.user.is_authenticated:
-#         return redirect('signin')
-#     messages = get_object_or_404(Message,pk=message_id)
-#     messages.isRead = True
-#     messages.save()
-
-#     #쪽지 1개씩 보는 경우-> html 나오면 수정
-#     return render(request,'쪽지보기.html',{'message':messages})
-
->>>>>>> f4be26f278c24172c3798bf9d0a0bbf3ab63346c
 def homePost(request):
     post = Post.objects.all()
     return render(request, 'home.html', { 'post' : post }) # 데이터 튜플로 들어감!
