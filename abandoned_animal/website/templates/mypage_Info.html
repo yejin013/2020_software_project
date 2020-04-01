@@ -28,6 +28,7 @@
             <form class="info-form" method="post" action="">
                 <!-- 혜원 : 회원의 이름 받아오기 -->
                 <p id="name">회원의 이름</p>
+                <input type="password" id="pw" name="oldPw" placeholder="기존 비밀번호를 입력하세요">
                 <input type="password" id="pw" name="userPw" placeholder="새로운 비밀번호를 입력하세요">
                 <input type="password" id="pwChk" name="userPwChk" onchange="fn_pw_check()"
                     placeholder="다시 한 번 더 입력하세요">
@@ -61,7 +62,7 @@
                                     <p class="message" style="text-align: left;">단, 숫자만 입력해주세요. ex) 01011112222</p>
                                 </div> -->
                 <div class="button">
-                    <input type="submit" id="button" value="완료" onclick="saveForm();">
+                    <input type="submit" id="button" value="완료">
                     <!-- 회원탈퇴 버튼 누르면 선택창 나옴 -> 확인 누르면 탈퇴(탈퇴함수 만들어주면 js에 넣어볼게!) -->
                     <!-- 혜원 : 탈퇴함수 만들기 -->
                     <!-- 아현 : js에 탈퇴함수 넣기 -->
