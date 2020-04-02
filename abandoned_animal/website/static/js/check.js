@@ -12,6 +12,12 @@ function removeData(){
     }
 }
 
+function removeComment(){
+  if(confirm("정말로 삭제하시겠습니까?")==true){
+    location.href ='{% url "website:comment_delete" comment_id=comment.pk %}'
+  }
+}
+
 function cancleForm(){
     confirm("이 페이지를 벗어나면 마지막 저장 후 수정된 내용은 저장되지 않습니다.");
 }

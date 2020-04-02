@@ -111,7 +111,7 @@
             <!-- 예진 : #에 댓글 수정 html폼 url 넣기 -->
             {% if user.userID == showing.user.userID %}
             <button type="submit" OnClick="commentInput(); location.href ='{% url "website:postCheck" post_id=comment.post.id %}'" class="btn btn-default" >수정</button>
-            <button type="submit" OnClick="removeData(); location.href ='{% url "website:comment_delete" comment_id=comment.pk %}'" class="btn btn-default" >삭제</button>
+            <button type="submit" OnClick="removeComment();" class="btn btn-default" >삭제</button>
             {% endif %}
         </div>
         </form>
