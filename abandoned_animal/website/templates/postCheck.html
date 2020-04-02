@@ -1,0 +1,120 @@
+{% extends 'menu_template.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/postCheck.css' %}">
+<script type="text/javascript" src="{% static 'js/check.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/comment.js' %}"></script>
+
+<br><br>
+<div class="container">
+    {% if post %}
+    <div class="card mb-3" style="width: auto;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" class="card-img" id="animalImg">
+                {% else %}
+                    <img src="{% static 'img/dog.png' %}" class="card-img" id="animalImg">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <p class="card-text" id="pub_date" style="text-align:right;" id="reportingDate">등록날짜 : {{ post.pub_date }}</p>
+                    <p class="card-text" id="up_date" style="text-align:right;" id="updateDate">수정날짜 : {{ post.up_date }}</p>
+                    <br>
+                    {% if post.shelter %}
+                    <p class="card-text" id="shelter">글작성자 : {{ post.shelter.name }} <button class="btn btn-link" onclick="window.open('./popupPlace.html','보호소 위치','width=430,height=500,location=no,status=no,resizable=no');"><img width="20" height="20" style="margin-left: -13px; margin-top: -9px" src="{% static 'img/gps.png' %}"></button></p> 
+                    <p class="card-text" id="location">잃어버린 위치(찾은 위치) : {{ post.location }}</p>
+                    <p class="card-text" id="date">잃어버린 날짜 : {{ post.date }}</p>
+                    <p class="card-text" id="feature">특징 : {{ post.feature }}</p>
+                    <p class="card-text" id="contact">연락처 : {{ post.shelter.phone }}</p>
+                    {% else %}
+                    <p class="card-text" id="name">글작성자 : {{ post.user.username }} <button class="btn btn-link" onclick="window.open('./popupMSG.html','쪽지 쓰기','width=430,height=500,location=no,status=no,resizable=no');"><img width="20" height="20" style="margin-left: -13px; margin-top: -9px" src="{% static 'img/email.png' %}"></button></p>
+                    <p class="card-text" id="location">잃어버린 위치(찾은 위치) : {{ post.location }}</p>
+                    <p class="card-text" id="date">잃어버린 날짜 : {{ post.date }}</p>
+                    <p class="card-text" id="feature">특징 : {{ post.feature }}</p>
+                    <p class="card-text" id="contact">연락처 : {{ post.user.phone }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 목록 수정 삭제 버튼 폼 -->
+    <div class="button" align="right">
+        <a class="btn btn-default" href="{% url "website:homePost" %}" role="button">목록</a>
+        {% if user == post.user.userID %}
+        <button type="submit" OnClick="location.href ='{% url "website:edit" post_id=post.id %}'" class="btn btn-default">수정</button>
+        <button type="button" class="btn btn-default" onclick="deleteConfirm({{ post.id }})">삭제</button>
+        {% else %}
+        <button type="submit" OnClick="deleteCheck();" class="btn btn-default">수정</button>
+        <button type="submit" OnClick="deleteCheck();" class="btn btn-default">삭제</button>
+        {% endif %}
+        </div>
+
+    <br><br>
+    <strong>댓글</strong>
+    <br><br>
+
+    <!-- 댓글 작성 폼 -->
+    <div class="commentWrite">
+        {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            {% if user.image %}
+            <img src="{{ user.image }}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="commentUserImg">
+            {% else %}
+            <img src="{% static 'img/black1.gif' %}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="commentUserImg">
+            {% endif %}
+            <span class="search_in"><input type="text" placeholder="댓글을 입력하세요" id="commentInput" name="comment"
+                    style="border:none;"></span>
+            <button type="submit" class="btn btn-default">확인</button>
+        </form>
+        {% else %}
+        <!-- 로그인 하지 않았을 경우 -->
+          <strong>댓글을 입력할 수 없습니다.</strong>
+        {% endif %}
+    </div>
+
+    <!--댓글 출력-->
+    {% for comment in comments %}
+    <div class="commentRead">
+        <br>
+        <div class="commentTable">
+            <table>
+                <tr>
+                    {% if comment.user.image %}
+                    <td rowspan="2"><img src="{{ comment.user.image }}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="commentUserImg"
+                            style="margin-right: 15px;">
+                    </td>
+                    {% else %}
+                    <td rowspan="2"><img src="{% static 'img/black1.gif' %}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="commentUserImg"
+                            style="margin-right: 15px;">
+                    </td>
+                    {% endif %}
+                    <td>{{ comment.user.userID }}</td>
+                </tr>
+                <tr>
+                    <td>{{ comment.comment }}</td>
+                </tr>
+            </table>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="button" align="right">
+            {% if user.userID == comment.user.userID %}
+            <button type="submit" OnClick="location.href ='{% url "website:comment_edit" comment_id=comment.pk %}'" class="btn btn-default">수정</button>
+            <button type="button" class="btn btn-default" onclick="commentDeleteConfirm({{ comment.id }})">삭제</button>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    {% empty %}
+    <br>
+    <p>댓글이 없습니다.</p>
+    {% endfor %}
+    {% else %}
+        <p>No Data</p>
+    {% endif %}
+</div>
+
+{% endblock content %}
