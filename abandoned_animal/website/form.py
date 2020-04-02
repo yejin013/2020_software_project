@@ -1,5 +1,4 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
-from django.forms import ModelForm
 from .models import User, Post, Comment
 from django.db.transaction import commit
 from django.forms import ModelForm
