@@ -7,17 +7,15 @@ function deleteCheck(){
 }
 
 function removeData(){
-    confirm("정말로 삭제하시겠습니까?");
     if(confirm("정말로 삭제하시겠습니까?")==true){
       location.href ='{% url "website:delete" post_id=post.id %}'
     }
 }
 
-function commentRemoveData(){
-    confirm("정말로 삭제하시겠습니까?");
-    if(confirm("정말로 삭제하시겠습니까?")==true){
-      location.href ='{% url "website:comment_delete" comment_id=comment.id %}'
-    }
+function removeComment(){
+  if(confirm("정말로 삭제하시겠습니까?")==true){
+    location.href ='{% url "website:comment_delete" comment_id=comment.pk %}'
+  }
 }
 
 function cancleForm(){
@@ -33,3 +31,5 @@ $(function() {
       $("divToggle").toggle();
     });
   });
+
+  
