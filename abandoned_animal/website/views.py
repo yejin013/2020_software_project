@@ -74,7 +74,8 @@ def postFind(request):
 
 @login_required
 def postLose(request):
-    form = PostForm(request.POST, request.FILES)
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES)
     if form.is_valid():
         post = form.save(commit=False)
         post.menu = True
@@ -148,9 +149,7 @@ def comment_edit(request, comment_id):
 
     if request.method == "POST":
         form = CommentForm(request.POST, instance=comment)
-        print("hahaha")
         if form.is_valid():
-            print("valid")
             comment = form.save(commit=False)
             comment.comment = request.POST['comment']
             comment.up_date = timezone.datetime.now()

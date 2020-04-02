@@ -14,9 +14,9 @@ function deleteConfirm(n) {
   }
 }
 
-function deleteComment(n) {
+function commentDeleteConfirm(n) {
   if (confirm("이 댓글을 삭제하시겠습니까?")) {
-      window.location.href = "/website/comment_delete/" + n;
+      window.location.href = "/website/comment/delete/" + n;
   } else {
       return false;
   }
