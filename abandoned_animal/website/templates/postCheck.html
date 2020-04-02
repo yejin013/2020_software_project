@@ -12,7 +12,6 @@
     <div class="card mb-3" style="width: auto;">
         <div class="row no-gutters">
             <div class="col-md-4">
-                <!-- 예진 : src부분에서 {% static 'img/dog.png' %}를 지우고 DB에서 잃어버린 동물 사진을 받아와야 합니당~ 아직 DB에 동물 사진 없으므로 나중에 할 예정 -->
                 {% if post.image %}
                     <img src="{{ post.image.url }}" class="card-img" id="animalImg">
                 {% else %}
@@ -21,7 +20,6 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <!-- 예진 : 작성일 지우고 db에서 작성일 받아오는 코드 넣어주면 돼요~ ex)post.date-->
                     <p class="card-text" id="pub_date" style="text-align:right;" id="reportingDate">등록날짜 : {{ post.pub_date }}</p>
                     <p class="card-text" id="up_date" style="text-align:right;" id="updateDate">수정날짜 : {{ post.up_date }}</p>
                     <br>
@@ -46,9 +44,9 @@
     <!-- 목록 수정 삭제 버튼 폼 -->
     <div class="button" align="right">
         <a class="btn btn-default" href="{% url "website:homePost" %}" role="button">목록</a>
-        <button type="submit" OnClick="location.href ='{% url "website:edit" post_id=post.id %}'" class="btn btn-default">수정</button>
         {% if user == post.user.userID %}
-        <button type="submit" OnClick="removeData();" class="btn btn-default">삭제</button>
+        <button type="submit" OnClick="location.href ='{% url "website:edit" post_id=post.id %}'" class="btn btn-default">수정</button>
+        <button type="button" class="btn btn-default" onclick="deleteConfirm({{ post.id }})">삭제</button>
         {% else %}
         <button type="submit" OnClick="deleteCheck();" class="btn btn-default">삭제</button>
         {% endif %}
@@ -63,7 +61,6 @@
         {% if user.is_authenticated %}
         <form method="post">
             {% csrf_token %}
-            <!-- 예진 : src="{% static 'img/black1.gif' %}"에 {% static 'img/black1.gif' %} 지우고 현재 유저 이미지 받아오는 코드 넣기-->
             {% if user.image %}
             <img src="{{ user.image }}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="commentUserImg">
             {% else %}
@@ -86,7 +83,6 @@
         <div class="commentTable">
             <table>
                 <tr>
-                    <!-- 예진 : {% static 'img/black1.gif' %} 지우고 댓글 쓴 user의 아이콘 가져오기 -->
                     {% if comment.user.image %}
                     <td rowspan="2"><img src="{{ comment.user.image }}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="commentUserImg"
                             style="margin-right: 15px;">
@@ -106,9 +102,8 @@
         {% if user.is_authenticated %}
         <div class="button" align="right">
             {% if user.userID == comment.user.userID %}
-            <!-- 예진 : #에 댓글 수정 html폼 url 넣기 -->
             <button type="submit" OnClick="location.href ='{% url "website:comment_edit" comment_id=comment.pk %}'" class="btn btn-default">수정</button>
-            <button type="submit" OnClick="removeComment();" class="btn btn-default" >삭제</button>
+            <button type="button" class="btn btn-default" onclick="deleteComment({{ comment.id }})">삭제</button>
             {% endif %}
         </div>
         {% endif %}
