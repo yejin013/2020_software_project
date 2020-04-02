@@ -41,35 +41,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length=11, blank=True, null=True, verbose_name = '연락처')
     image = models.ImageField(blank=True, null=True, upload_to="profile", verbose_name = '이미지')
     pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    '''
-    ONE = '기억에 남는 추억의 장소는?'
-    TWO = '자신의 인생 좌우명은?'
-    THREE = '자신의 보물 제1호는?'
-    FOUR = '가장 기억에 남는 선생님 성함은?'
-    FIVE = '추억하고 싶은 날짜가 있다면?'
-    SIX = '유년시절 가장 생각나는 친구 이름은?'
-    SEVEN = '인상 깊게 읽은 책 이름은?'
-    EIGHT = '읽은 책 중에서 좋아하는 구절이 있다면?'
-    NINE = '자신이 두번째로 존경하는 인물은?'
-    TEN = '초등학교 때 기억에 남는 짝궁 이름은?'
-    ELEVEN = '다시 태어나면 되고 싶은 것은?'
-    TWELEVE = '내가 좋아하는 캐릭터는?'
-    THIRTEEN = '자신의 반려동물의 이름은?'
-    CHOICES = (
-        (ONE, '기억에 남는 추억의 장소는?'),
-        (TWO, '자신의 인생 좌우명은?'),
-        (THREE, '자신의 보물 제1호는?'),
-        (FOUR, '가장 기억에 남는 선생님 성함은?'),
-        (FIVE, '추억하고 싶은 날짜가 있다면?'),
-        (SIX, '인상 깊게 읽은 책 이름은?'),
-        (SEVEN, '인상 깊게 읽은 책 이름은?'),
-        (EIGHT, '읽은 책 중에서 좋아하는 구절이 있다면?'),
-        (NINE, '자신이 두번째로 존경하는 인물은?'),
-        (TEN, '초등학교 때 기억에 남는 짝궁 이름은?'),
-        (ELEVEN, '다시 태어나면 되고 싶은 것은?'),
-        (TWELEVE, '내가 좋아하는 캐릭터는?'),
-        (THIRTEEN, '자신의 반려동물의 이름은?')
-    )'''
     question = models.CharField(max_length=30, null=True, blank=True)
     answer = models.CharField(max_length=200, null=True, blank=True)
     # up_date = models.DateTimeField('date updated')
