@@ -48,7 +48,7 @@
         <a class="btn btn-default" href="{% url "website:homePost" %}" role="button">목록</a>
         {% if user == post.user.userID %}
         <button type="submit" OnClick="location.href ='{% url "website:edit" post_id=post.id %}'" class="btn btn-default">수정</button>
-        <button type="submit" OnClick="removeData(); location.href ='{% url "website:delete" post_id=post.id %}'" class="btn btn-default">삭제</button>
+        <button type="button" class="btn btn-default" onclick="deleteConfirm({{ post.post_id }})">삭제</button>
         {% else %}
         <button type="submit" OnClick="deleteCheck();" class="btn btn-default">수정</button>
         <button type="submit" OnClick="deleteCheck();" class="btn btn-default">삭제</button>
@@ -112,7 +112,7 @@
             <!-- 예진 : #에 댓글 수정 html폼 url 넣기 -->
             {% if user.userID == showing.user.userID %}
             <button type="submit" OnClick="commentInput(); location.href ='{% url "website:postCheck" post_id=comment.post.id %}'" class="btn btn-default" >수정</button>
-            <button type="submit" OnClick="removeComment();" class="btn btn-default" >삭제</button>
+            <button type="button" class="btn btn-default" onclick="commentDeleteConfirm({{ comment.id }})">삭제</button>
             {% endif %}
         </div>
         </form>

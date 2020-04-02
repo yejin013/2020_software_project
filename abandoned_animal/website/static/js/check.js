@@ -6,15 +6,19 @@ function deleteCheck(){
   alert("게시글 권한이 없습니다.")
 }
 
-function removeData(){
-    if(confirm("정말로 삭제하시겠습니까?")==true){
-      location.href ='{% url "website:delete" post_id=post.id %}'
-    }
+function deleteConfirm(n) {
+  if (confirm("이 포스트를 삭제하시겠습니까?")) {
+      window.location.href = "/website/delete/" + n;
+  } else {
+      return false;
+  }
 }
 
-function removeComment(){
-  if(confirm("정말로 삭제하시겠습니까?")==true){
-    location.href ='{% url "website:comment_delete" comment_id=comment.pk %}'
+function commentDeleteConfirm(n) {
+  if (confirm("이 댓글을 삭제하시겠습니까?")) {
+      window.location.href = "/website/comment/delete/" + n;
+  } else {
+      return false;
   }
 }
 
