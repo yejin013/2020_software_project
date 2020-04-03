@@ -8,12 +8,13 @@
         <p style="text-align: center" class="next">똑똑하게 AI로 당신의 강아지를 찾아보세요!</p>
     </div>
     <div class="form">
-        <form class="login-form" method="post" action="">
-            <input type="text" name="username" placeholder="아이디">
-            <input type="password" name="password" placeholder="비밀번호">
+        {% csrf_token %}
+        <form class="login-form" method="post" action="{% url 'website:login' %}">
+            <input type="text" id="username" name="username" placeholder="아이디">
+            <input type="password" id="password" name="password" placeholder="비밀번호">
             <input type="submit" value="로그인" id = "login">
         </form>
             <a href="{% url 'website:signup' %}"><input type="submit" value="회원가입" id = "signup"></a>
-            <p class="message">아이디/비밀번호를 잊으셨나요? <a href="#">아이디/비밀번호 찾기</a></p>
+            <p class="message">아이디를 잊으셨나요? <a href="#">아이디/비밀번호 찾기</a></p>
     </div>
 </div>

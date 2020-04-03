@@ -5,15 +5,15 @@
 <div class="sign-page">
     <div class="form">
         <h1>회원가입</h1>
-        <form class="sign-form" method="post" action="{% url 'website:signup' %}">
+        <form class="sign-form" method="post" action="">
             {% csrf_token %}
             <input type="text" id="username" name="username" placeholder="이름을 입력하세요">
             <input type="text" name="userID" name="userID" placeholder="아이디를 입력하세요">
             <!-- <button type="button" class="id_overlap_button" onclick="id_overlap_check()">중복검사</button> -->
             <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요">
             <input type="password" id="passwordChk" name="passwordChk" onchange="fn_pw_check()" placeholder="다시 한 번 더 입력하세요">
-            <select name="question">
-                <option value="" id="question" name="question" selected="selected" onchange="alert(this.options[this.selectedIndex].text)">비밀번호 확인 질문을 선택해주세요</option>
+            <select name="findQuestion">
+                <option value="" selected="selected">비밀번호 확인 질문을 선택해주세요</option>
                 <option value="기억에 남는 추억의 장소는?">기억에 남는 추억의 장소는?</option>
                 <option value="자신의 인생 좌우명은?">자신의 인생 좌우명은?</option>
                 <option value="자신의 보물 제1호는?">자신의 보물 제1호는?</option>
@@ -28,7 +28,7 @@
                 <option value="내가 좋아하는 캐릭터는?">내가 좋아하는 캐릭터는?</option>
                 <option value="자신의 반려동물의 이름은?">자신의 반려동물의 이름은?</option>
             </select>
-            <input type="text" name="answer" placeholder="답변을 입력해주세요">
+            <input type="text" name="findAnswer" placeholder="답변을 입력해주세요">
             <input type="text" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' id="phone" name="phone"
                 placeholder="핸드폰 번호를 입력하세요">
             <p class="message" style="text-align: left;">단, 숫자만 입력해주세요. ex) 01011112222</p>
