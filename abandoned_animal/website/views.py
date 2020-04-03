@@ -50,7 +50,11 @@ def login(request):
     else:
         return render(request,'login.html')
 
-<<<<<<< HEAD
+@login_required()
+def logout(request):
+    auth.logout(request)
+    return render(request, 'home.html')
+
 def homePost(request):
     post = Post.objects.all()
     return render(request, 'home.html', {'post' : post}) # 데이터 튜플로 들어감!
@@ -65,11 +69,6 @@ def missBoard(request):
 
 def search(request):
     return render(request, '')
-=======
-@login_required()
-def logout(request):
-    auth.logout(request)
-    return render(request, 'home.html')
 
 @login_required()
 def postFind(request):
@@ -104,7 +103,6 @@ def postLose(request):
     else:
         form= PostForm()
         return render(request, 'postLose.html', {'form':form})
->>>>>>> 98cfe092cd5c655c0414904b42c3ee99c7980fc8
 
 # 포스트한 내용 보여주기
 def postCheck(request, post_id):
@@ -186,12 +184,8 @@ def comment_delete(request, comment_id):
         return redirect(reverse('website:postCheck', args=[str(post.id)]))
     else:
         comment.delete()
-<<<<<<< HEAD
-        return redirect('post', pk=comment.post.pk)
-=======
         return redirect(reverse('website:postCheck', args=[str(post.id)]))
 
 def homePost(request):
     post = Post.objects.all()
     return render(request, 'home.html', { 'post' : post }) # 데이터 튜플로 들어감!
->>>>>>> 98cfe092cd5c655c0414904b42c3ee99c7980fc8

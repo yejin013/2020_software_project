@@ -40,11 +40,7 @@ class ChangeForm(UserChangeForm):
 class PostForm(ModelForm):
     class Meta:
         model = Post
-<<<<<<< HEAD
-        fields = ['menu', 'species', 'date', 'location', 'feature', 'image']
-=======
         fields = ['species', 'date', 'location', 'feature', 'image']
->>>>>>> 98cfe092cd5c655c0414904b42c3ee99c7980fc8
 
 class CommentForm(ModelForm):
     class Meta:

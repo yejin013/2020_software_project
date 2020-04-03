@@ -3,40 +3,40 @@
 {% block content %}
 
 <!-- 내용 -->
-                    <h4 id="whole_list_head"> 포스터 게시판 </h4>
-                    <h6 id="whole_list_text"> 실종 포스터 리스트 </h6>
-                    <a href="#" class="btn btn-secondary"> 게시글 등록 </a>
+<h4 id="whole_list_head"> 포스터 게시판 </h4>
+<h6 id="whole_list_text"> 실종 포스터 리스트 </h6>
+<a href="#" class="btn btn-secondary"> 게시글 등록 </a>
 
-                    {% if post %}
-                    <div class="card-deck">
+{% if post %}
+<div class="card-deck">
 
-                        {% for postRow in post %}
-                        <div class="card">
-                            {% if postRow.image %}
-                            <img class="card-img-top" src="{{ postRow.image.url }}" alt="Card image">
-                            {% endif %}
-                            <div class="card-body">
-                                <a href="#" class="btn btn-light">게시글 보기</a>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-                    <!--End of card-deck-->
+    {% for postRow in post %}
+    <div class="card">
+        {% if postRow.image %}
+        <img class="card-img-top" src="{{ postRow.image.url }}" alt="Card image">
+        {% endif %}
+        <div class="card-body">
+            <a href="#" class="btn btn-light">게시글 보기</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+<!--End of card-deck-->
 
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <!--여기 페이지네이션 확인..-->
-                                <a class="page-link" href="#" tabindex="-1">Previous</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+            <!--수현 : 여기 페이지네이션 확인..-->
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>
+</nav>
 
 {% endblock %}

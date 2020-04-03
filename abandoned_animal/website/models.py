@@ -89,11 +89,7 @@ class Post(models.Model):
     )
     menu = models.BooleanField(verbose_name = '잃어버렸어요 or 발견했어요')
     species = models.CharField(max_length=30, verbose_name = '품종')
-<<<<<<< HEAD
-    date = models.DateTimeField(null = True, blank=True, verbose_name = '실종 날짜')
-=======
     date = models.DateField(null = True, blank=True, verbose_name = '실종 날짜')
->>>>>>> 98cfe092cd5c655c0414904b42c3ee99c7980fc8
     location = models.CharField(max_length=100, verbose_name = '실종 위치')
     feature = models.CharField(max_length=200, verbose_name = '특징')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
