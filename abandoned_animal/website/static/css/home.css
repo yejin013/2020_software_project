@@ -1,14 +1,3 @@
-/*!
- * Start Bootstrap - SB Admin 2 v4.0.7 (https://startbootstrap.com/template-overviews/sb-admin-2)
- * Copyright 2013-2019 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-sb-admin-2/blob/master/LICENSE)
- *//*!
- * Bootstrap v4.3.1 (https://getbootstrap.com/)
- * Copyright 2011-2019 The Bootstrap Authors
- * Copyright 2011-2019 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
-
 #Sidebar{
   background: #CFC39D;
 }
@@ -37,7 +26,7 @@
 }
 
 #background {
- background-image: url(../img/3.jpg);
+ background-image: url(../img/bg_cat01.jpg);
  background-attachment: fixed;
  background-position: center;
  background-repeat: no-repeat;

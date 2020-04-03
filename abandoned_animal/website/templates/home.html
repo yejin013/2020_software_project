@@ -2,9 +2,10 @@
 
 {% block content %}
 
+<!-- 수현 : 사진 왜 안바뀌는지 다시 html, CSS 살펴보기-->
 <div id="background" class="jumbotron">
-    <h1 id="introhead" class="display-4">찾아Zoo!</h1>
-    <p id="introtext" class="lead">서로를 찾고 있는 반려동물과 당신의 마음.<br> 똑똑하게 AI로 당신의 강아지를 찾아보세요!</p>
+    <h1 id="introhead" class="display-4">고영희 찾기</h1>
+    <p id="introtext" class="lead">서로를 찾고 있는 반려동물과 당신의 마음.<br> 똑똑하게 AI로 당신의 고양이를 찾아보세요!</p>
     <p class="lead">
         <!--메인에서 바로 검색할 수 있는가?-->
         <a class="btn btn-outline-light" href="{% url 'website:search' %}" role="button">반려동물 찾기</a>
@@ -18,6 +19,7 @@
     <h4 id="whole_list_head"> 전체 리스트 </h4>
     <h6 id="whole_list_text">실종 및 발견신고</h6>
 
+    <!-- 예진 : 안 떠요! -->
     {% if post %}
     <div class="card-deck">
 
@@ -48,7 +50,7 @@
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <li class="page-item disabled">
-                <!--여기 페이지네이션 href 어떻게 할지 예진이한테 물어보기-->
+                <!-- 수현 : 페이지네이션 및 row 재수정 필요 -->
                 <a class="page-link" href="#" tabindex="-1">Previous</a>
             </li>
             <li class="page-item"><a class="page-link" href="#">1</a></li>

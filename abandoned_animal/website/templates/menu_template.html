@@ -15,96 +15,78 @@
 <body id="page-top">
     <div id="wrapper">
 
-        <!-- 1. 왼쪽 사이드바 -->
         <ul id="Sidebar" class="navbar-nav sidebar sidebar-dark accordion">
-            <!-- 사이드바(서비스명) -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="home.html">
+                <!-- 수현 : 로고 제작 및 수정 -->
                 <img id="menuicon" src="{% static 'img/logo.svg' %}" width="20px" height="20px" alt="menu">
-                <div id="Service-name" class="sidebar-brand-text mx-3">찾아Zoo</div>
+                <div id="Service-name" class="sidebar-brand-text mx-3">고영희 찾기</div>
             </a>
-            <!-- Divider -->
             <hr class="sidebar-divider my-0">
-            <!-- 사이드바(홈) -->
             <li class="nav-item">
+                <!-- 예진 : 사이드바 링크 home.html url 넣어주세요~ -->
                 <a class="nav-link" href="home.html">
                     <span>Home</span></a>
             </li>
-            <!-- Divider -->
             <hr class="sidebar-divider">
-            <!-- 사이드바(제목 : 게시판) -->
             <div class="sidebar-heading">
                 Board
             </div>
-            <!-- 사이드바(실종동물 게시판) -->
             <li class="nav-item">
+                <!-- 예진 : 사이드바 링크 missboard.html 넣어주세요~ -->
                 <a class="nav-link" href="missboard.html">
                     <span>실종동물 게시판</span></a>
             </li>
-            <!-- 사이드바(발견동물 게시판) -->
             <li class="nav-item">
+                <!-- 예진 : 사이드바 링크 findboard.html 넣어주세요~ -->
                 <a class="nav-link" href="findboard.html">
                     <span>발견동물 게시판</span></a>
             </li>
-            <!-- 사이드바(포스터 게시판) -->
             <li class="nav-item">
+                <!-- 예진 : 사이드바 링크 findboard.html 넣어주세요~ -->
                 <a class="nav-link" href="posterboard.html">
                     <span>포스터 게시판</span></a>
             </li>
-            <!-- Divider -->
             <hr class="sidebar-divider">
-            <!-- 사이드바(제목 : 정보) -->
             <div class="sidebar-heading">
                 Infomation
             </div>
-            <!-- 사이드바(주변 보호소 정보) -->
             <li class="nav-item">
                 <a class="nav-link" href="shelter.html">
                     <span>주변 보호소 정보</span></a>
             </li>
-            <!-- 사이드바(마이페이지) -->
             <li class="nav-item">
                 <a class="nav-link" href="mypage.html">
                     <span>마이페이지</span></a>
             </li>
         </ul>
-        <!-- End of Sidebar -->
 
-        <!-- 2. 오른쪽 -->
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
 
-                <!-- 2-1 탑바 -->
                 <nav id="Topbar" class="navbar navbar-expand navbar-light topbar static-top">
-                    <!-- 사이드바 토글 버튼 -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <img id="menuicon" src="{% static 'img/menu.svg' %}" width="20px" height="20px" alt="menu">
                     </button>
-                    <!-- 탑바 범위 -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- 유저 아이템 -->
                         <li class="nav-item">
 
-                            <!--로그인 안한경우 : 로그인 / 로그인 한경우 : 마이페이지-->
+                            <!-- 로그인 안한경우 : 로그인 / 로그인 한경우 : 마이페이지 -->
                             <a class="nav-link" href="#" id="user" role="button">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"> User ID </span>
                                 <img class="img-profile rounded-circle" src="{% static 'img/user.svg' %}">
-                                <!--로그인이 되어 있고, 쪽지가 와있는 경우 표시-->
+                                <!-- 로그인이 되어 있고, 쪽지가 와있는 경우 표시 -->
                                 <span class="badge badge-danger badge-counter">3+</span>
                             </a>
                         </li>
 
                     </ul>
                 </nav>
-                <!-- End of Topbar -->
 
-                <!-- 2-2. 내용 -->
                 {% block content %}
                 {% endblock %}
 
             </div>
-            <!-- End of Main Content -->
 
-            <!-- 2-3 풋터 -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
@@ -112,13 +94,10 @@
                     </div>
                 </div>
             </footer>
-            <!-- End of Footer -->
 
         </div>
-        <!-- End of Content Wrapper -->
 
     </div>
-    <!-- End of Page Wrapper -->
 
     <!-- Bootstrap core JavaScript-->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>

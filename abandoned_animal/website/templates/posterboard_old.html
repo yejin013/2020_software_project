@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>home</title>
+    <link href="../static/css/home.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+
+        <!-- 1. 사이드바 -->
+        <ul id="Sidebar" class="navbar-nav sidebar sidebar-dark accordion">
+            <!-- 사이드바(서비스명) -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="home.html">
+                <img id="menuicon" src="../static/img/logo.svg" width="20px" height="20px" alt="menu">
+                <div id="Service-name" class="sidebar-brand-text mx-3"> 고영희 찾기 </div>
+            </a>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+            <!-- 사이드바(홈) -->
+            <li class="nav-item active">
+                <a class="nav-link" href="home.html">
+                    <span>Home</span></a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- 사이드바(제목 : 게시판) -->
+            <div class="sidebar-heading">
+                Board
+            </div>
+            <!-- 사이드바(실종동물 게시판) -->
+            <li class="nav-item">
+                <a class="nav-link" href="missboard.html">
+                    <span>실종동물 게시판</span></a>
+            </li>
+            <!-- 사이드바(발견동물 게시판) -->
+            <li class="nav-item">
+                <a class="nav-link" href="findboard.html">
+                    <span>발견동물 게시판</span></a>
+            </li>
+            <!-- 사이드바(포스터 게시판) -->
+            <li class="nav-item">
+                <a class="nav-link" href="posterboard.html">
+                    <span>포스터 게시판</span></a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- 사이드바(제목 : 정보) -->
+            <div class="sidebar-heading">
+                Infomation
+            </div>
+            <!-- 사이드바(주변 보호소 정보) -->
+            <li class="nav-item">
+                <a class="nav-link" href="shelter.html">
+                    <span>주변 보호소 정보</span></a>
+            </li>
+            <!-- 사이드바(마이페이지) -->
+            <li class="nav-item">
+                <a class="nav-link" href="mypage.html">
+                    <span>마이페이지</span></a>
+            </li>
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- 2. 내용 -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+
+                <!-- 2-1 탑바 -->
+                <nav id="Topbar" class="navbar navbar-expand navbar-light topbar static-top">
+                    <!-- 사이드바 토글 버튼 -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <img id="menuicon" src="../static/img/menu.svg" width="20px" height="20px" alt="menu">
+                    </button>
+                    <!-- 탑바 범위 -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- 유저 아이템 -->
+                        <li class="nav-item">
+                            
+                            <!--로그인 안한경우 : 로그인 / 로그인 한경우 : 마이페이지-->
+                            <a class="nav-link" href="#" id="user" role="button">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> User ID </span>
+                                <img class="img-profile rounded-circle" src="../static/img/user.svg">
+                                <!--로그인이 되어 있고, 쪽지가 와있는 경우 표시-->
+                                <span class="badge badge-danger badge-counter">3+</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- 2-2 내용 시작 -->
+                <div class="container-fluid">
+
+                    <!-- 내용 -->
+                    <h4 id="whole_list_head"> 포스터 게시판 </h4>
+                    <h6 id="whole_list_text"> 실종 포스터 리스트 </h6>
+                    <a href="#" class="btn btn-secondary"> 게시글 등록 </a>
+
+                    {% if post %}
+                    <div class="card-deck">
+
+                        {% for postRow in post %}
+                        <div class="card">
+                            {% if postRow.image %}
+                            <img class="card-img-top" src="{{ postRow.image.url }}" alt="Card image">
+                            {% endif %}
+                            <div class="card-body">
+                                <a href="#" class="btn btn-light">게시글 보기</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <!--End of card-deck-->
+
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <!--여기 페이지네이션 href 어떻게 할지 확인-->
+                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- 2-3 풋터 -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; SSU Software18 made by 강형욱(수현,아현,혜원,예진) </span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="../static/vendor/jquery/jquery.min.js"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="../static/js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>
