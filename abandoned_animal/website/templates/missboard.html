@@ -4,7 +4,7 @@
 
 <h4 id="whole_list_head"> 실종동물 게시판 </h4>
 <h6 id="whole_list_text"> 실종신고된 동물 리스트 </h6>
-<a href="#" class="btn btn-secondary"> 게시글 등록 </a>
+<a href="{% url 'website:postLose' %}" class="btn btn-secondary"> 게시글 등록 </a>
 
 {% if post %}
 <div class="card-deck">
@@ -12,7 +12,7 @@
     {% for postRow in post %}
     <div class="card">
         {% if postRow.image %}
-        <img class="card-img-top" src="{{ postRow.image.url }}" alt="Card image">
+        <img class="card-img-top" src="{{ postRow.image }}" alt="Card image">
         {% endif %}
         <div class="card-body">
             <h5 class="card-title">{{ postRow.species }}</h5>
