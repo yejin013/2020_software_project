@@ -109,23 +109,26 @@ def mypage(request):
 def myinfo_update(request):
     if request.method == 'POST':
         user = request.user
-        new_password = request.POST.get('password')
-        passwordChk = request.POST.get('passwordChk')
-        current_password = request.POST.get('origin_password')
+        # question = request.POST.get('question', '')
+        # answer = request.POST.get('answer', '')
+        old_password = request.POST.get('oldPw')
+        new_password = request.POST.get('userPw')
+        passwordChk = request.POST.get('userPwChk')
         phone = request.POST.get('phone')
-        findAnswer = request.POST.get('findAnswer')
-        if user.check_password(current_password,user.password):
-            if new_password == passwordChk:
-                user.set_password(new_password)
-                user.save()
-                auth.login(request,user)
-            #html 이름 변경시 수정 필요
-            return redirect(request,'update.html')
+        if user.check_password(old_password,user.password):
+            if user.phone == phone:
+                if new_password == passwordChk:
+                    user.set_password(new_password)
+                    user.save()
+                    auth.login(request,user)
+                else:
+                    return(request,'mypage_Info.html',{'notice':'전화번호가 일치하지 않습니다.'})
+            else:
+                return(request,'mypage_Info.html',{'error':'비밀번호를 일치하지 않습니다.'})
         else:
-            return(request,'update.html',{'error':'비밀번호 일치x'})
+            return(request,'mypage_Info.html',{'notice':'비밀번호를 잘못 입력하셨습니다.'})
     else:
-        #html 이름 변경시 수정 필요
-        return render(request,'update.html',{'user_change_form':user_change_form})
+        return render(request,'mypage_Info.html')
 
 @login_required
 def listMypost(request):
@@ -150,15 +153,15 @@ def listMypost(request):
     #쪽지함 List html 나오면 수정
     # return render(request,'쪽지함.html',{'rlist':receivedList,'slist':sentList})
 
-def viewMessage(request,message_id):
-    if not request.user.is_authenticated:
-        return redirect('signin')
-    messages = get_object_or_404(Message,pk=message_id)
-    messages.isRead = True
-    messages.save()
+# def viewMessage(request,message_id):
+#     if not request.user.is_authenticated:
+#         return redirect('signin')
+#     messages = get_object_or_404(Message,pk=message_id)
+#     messages.isRead = True
+#     messages.save()
 
-    #쪽지 1개씩 보는 경우-> html 나오면 수정
-    return render(request,'msg_receivelist.html')
+#     #쪽지 1개씩 보는 경우-> html 나오면 수정
+#     return render(request,'msg_receivelist.html')
 
 def homePost(request):
     post = Post.objects.all()

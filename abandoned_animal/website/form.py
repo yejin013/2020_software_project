@@ -36,7 +36,6 @@ class ChangeForm(UserChangeForm):
 
     class Meta:
         model = User
-<<<<<<< HEAD
         fields = ('username', 'password')
 
 class PostForm(ModelForm):
@@ -49,6 +48,3 @@ class CommentForm(ModelForm):
         model = Comment
         fields = ['comment']
 
-=======
-        fields = ('username', 'password')
->>>>>>> cc0a4cabb95a104e91a79fe7d9046ec78df009ef
