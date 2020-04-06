@@ -19,8 +19,8 @@
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ postRow.species }}</h5>
-                    <p class="card-text">{{ postRow.date }}</p>
                     <p class="card-text">{{ postRow.location }}</p>
+                    <p class="card-text">{{ postRow.date }}</p>
                     {% if postRow.user.username == None %}
                     <p class="card-text">{{ postRow.shelter.name }}</p>
                     {% else %}

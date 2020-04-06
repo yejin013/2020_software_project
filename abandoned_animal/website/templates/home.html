@@ -27,8 +27,8 @@
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ postRow.species }}</h5>
-                        <p class="card-text">{{ postRow.date }}</p>
                         <p class="card-text">{{ postRow.location }}</p>
+                        <p class="card-text">{{ postRow.date }}</p>
                         {% if postRow.user.username == None %}
                         <p class="card-text">{{ postRow.shelter.name }}</p>
                         {% else %}
@@ -49,15 +49,15 @@
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <!--예진 : 여기 5개의 href 바꿔주세요!-->
-            
+
             <li class="page-item"><a class="page-link" href="#">&laquo; 처음으로</a></li>
             <li class="page-item"><a class="page-link" href="#">이전으로</a></li>
-            
+
             <li class="page-item"><a class="page-link" href="#">숫자</a></li>
-            
+
             <li class="page-item"><a class="page-link" href="#">다음으로</a></li>
             <li class="page-item"><a class="page-link" href="#">끝으로 &raquo;</a></li>
-            
+
         </ul>
     </nav>
 
