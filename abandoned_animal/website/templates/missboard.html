@@ -36,18 +36,19 @@
 {% endif %}
 
 <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1">이전으로</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">다음으로</a>
-        </li>
-    </ul>
-</nav>
+        <ul class="pagination justify-content-center">
+            <!--예진 : 여기 5개의 href 바꿔주세요!-->
+            
+            <li class="page-item"><a class="page-link" href="#">&laquo; 처음으로</a></li>
+            <li class="page-item"><a class="page-link" href="#">이전으로</a></li>
+            
+            <li class="page-item"><a class="page-link" href="#">숫자</a></li>
+            
+            <li class="page-item"><a class="page-link" href="#">다음으로</a></li>
+            <li class="page-item"><a class="page-link" href="#">끝으로 &raquo;</a></li>
+            
+        </ul>
+    </nav>
 
 
 {% endblock %}
