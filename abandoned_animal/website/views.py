@@ -3,7 +3,6 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 
-from .models import User, Post, Comment, Shelter
 from django.contrib import auth, messages
 from django.shortcuts import render, redirect
 from .models import User, Post, Comment, Shelter
@@ -11,7 +10,9 @@ from django.contrib import auth
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from .form import SignupForm, PostForm, CommentForm
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
+import math
 
 # Create your views here.
 
@@ -56,15 +57,56 @@ def logout(request):
     return render(request, 'home.html')
 
 def homePost(request):
-    post = Post.objects.all()
+    post_list = Post.objects.all()
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(post_list, 12)
+    try:
+        post = paginator.page(page)
+    except PageNotAnInteger:
+        post = paginator.page(1)
+    except EmptyPage:
+        post = paginator.page(paginator.num_pages)
     return render(request, 'home.html', {'post' : post}) # 데이터 튜플로 들어감!
 
+'''    
+    try:
+        post = paginator.get_page(page)
+    except PageNotAnInteger:
+        post = paginator.page(1)
+    except EmptyPage:
+        post = paginator.page(paginator.num_pages)
+    page_range = 5
+    current_block = math.ceil(int(page)/page_range)
+    start_block = (current_block-1) * page_range
+    end_block = start_block + page_range
+    p_range = paginator.page_range[start_block:end_block]
+'''
+
 def findBoard(request):
-    post = Post.objects.filter(menu=True)
+    posts = Post.objects.filter(menu=True)
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(posts, 12)
+    try:
+        post = paginator.page(page)
+    except PageNotAnInteger:
+        post = paginator.page(1)
+    except EmptyPage:
+        post = paginator.page(paginator.num_pages)
     return render(request, 'findboard.html', {'post' : post})
 
 def missBoard(request):
-    post = Post.objects.filter(menu=False)
+    posts = Post.objects.filter(menu=False)
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(posts, 12)
+    try:
+        post = paginator.page(page)
+    except PageNotAnInteger:
+        post = paginator.page(1)
+    except EmptyPage:
+        post = paginator.page(paginator.num_pages)
     return render(request, 'missboard.html', {'post' : post})
 
 def posterBoard(request):

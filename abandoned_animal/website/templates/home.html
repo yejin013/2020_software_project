@@ -39,7 +39,6 @@
                 </div>
             </div>
             {% endfor %}
-
         </div>
     </div>
     {% endif %}
@@ -49,15 +48,19 @@
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <!--예진 : 여기 5개의 href 바꿔주세요!-->
+            {% if post.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo; 처음으로</a></li>
+            <li class="page-item"><a class="page-link" href="{{post.previous_page_number}}">이전으로</a></li>
+            {% endif %}
 
-            <li class="page-item"><a class="page-link" href="#">&laquo; 처음으로</a></li>
-            <li class="page-item"><a class="page-link" href="#">이전으로</a></li>
+            {% for i in post.paginator.page_range %}
+            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+            {% endfor %}
 
-            <li class="page-item"><a class="page-link" href="#">숫자</a></li>
-
-            <li class="page-item"><a class="page-link" href="#">다음으로</a></li>
-            <li class="page-item"><a class="page-link" href="#">끝으로 &raquo;</a></li>
-
+            {% if post.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{post.next_page_number}}">다음으로</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{post.paginator.num_page}}">끝으로 &raquo;</a></li>
+            {% endif %}
         </ul>
     </nav>
 
