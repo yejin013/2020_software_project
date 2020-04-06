@@ -59,8 +59,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.is_superuser
 
 class ShelterManager(BaseUserManager):
-    def create_shelter(self, name, address, phone):
-        shelter = self.model(name=name, address=address, phone=phone)
+    def create_shelter(self, name, address, phone, lat, lng):
+        shelter = self.model(name=name, address=address, phone=phone, lat=lat, lng=lng)
         shelter.save(using=self._db)
         return shelter
 
