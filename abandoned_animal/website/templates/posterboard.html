@@ -13,7 +13,7 @@
     {% for postRow in post %}
     <div class="card">
         {% if postRow.image %}
-        <img class="card-img-top" src="{{ postRow.image.url }}" alt="Card image">
+        <img class="card-img-top" src="{{ postRow.image }}" alt="Card image">
         {% endif %}
         <div class="card-body">
             <a href="#" class="btn btn-light">게시글 보기</a>

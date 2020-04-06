@@ -13,6 +13,7 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('findBoard/', views.findBoard, name='findBoard'),
     path('missBoard/', views.missBoard, name='missBoard'),
+    path('posterBoard/', views.posterBoard, name='posterBoard'),
     path('postFind/', views.postFind, name='postFind'),
     path('postLose/', views.postLose, name='postLose'),
     path('detail/<int:post_id>', views.postCheck, name='postCheck'),

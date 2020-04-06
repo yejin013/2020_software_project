@@ -24,7 +24,7 @@
             <hr class="sidebar-divider my-0">
             <li class="nav-item">
                 <!-- 예진 : 사이드바 home.html url 넣어주세요~ -->
-                <a class="nav-link" href="home.html">
+                <a class="nav-link" href="{% url 'website:homePost' %}">
                     <span>Home</span></a>
             </li>
             <hr class="sidebar-divider">
@@ -33,17 +33,17 @@
             </div>
             <li class="nav-item">
                 <!-- 예진 : 사이드바 missboard.html url 넣어주세요~ -->
-                <a class="nav-link" href="missboard.html">
+                <a class="nav-link" href="{% url 'website:missBoard' %}">
                     <span>실종동물 게시판</span></a>
             </li>
             <li class="nav-item">
                 <!-- 예진 : 사이드바 findboard.html url 넣어주세요~ -->
-                <a class="nav-link" href="findboard.html">
+                <a class="nav-link" href="{% url 'website:findBoard' %}">
                     <span>발견동물 게시판</span></a>
             </li>
             <li class="nav-item">
                 <!-- 예진 : 사이드바 findboard.html url 넣어주세요~ -->
-                <a class="nav-link" href="posterboard.html">
+                <a class="nav-link" href="{% url 'website:posterBoard' %}">
                     <span>포스터 게시판</span></a>
             </li>
             <hr class="sidebar-divider">
@@ -71,14 +71,30 @@
                         <li class="nav-item">
 
                             <!-- 예진 : href 작성해주세요~ => 로그인 안한경우 : login.html / 로그인 한경우 : 마이 페이지 -->
+                            {% if user.is_authenticated %}
+                            <!-- mypage -->
                             <a class="nav-link" href="#" id="user" role="button">
                                 <!-- 예진 : UserID 라고 써있는 부분을 username으로 지정한 것으로 받아와주세요! -->
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> User ID </span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ user.userID }} </span>
+                                <!-- 예진 : 사진 바꿔주세요~ => 로그인 안한경우 : 그대로 / 로그인 한경우 : 유저프로필사진 -->
+                                {% if user.image %}
+                                <img class="img-profile rounded-circle" src="{{ user.image }}">
+                                {% else %}
+                                <img class="img-profile rounded-circle" src="{% static 'img/user.svg' %}">
+                                {% endif %}
+                                <!-- 아직 마이페이지 끝 X -->
+                                <span class="badge badge-danger badge-counter">3+</span>
+                            </a>
+                            {% else %}
+                            <a class="nav-link" href="{% url 'website:login' %}" id="user" role="button">
+                                <!-- 예진 : UserID 라고 써있는 부분을 username으로 지정한 것으로 받아와주세요! -->
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> UserID </span>
                                 <!-- 예진 : 사진 바꿔주세요~ => 로그인 안한경우 : 그대로 / 로그인 한경우 : 유저프로필사진 -->
                                 <img class="img-profile rounded-circle" src="{% static 'img/user.svg' %}">
                                 <!-- 예진 : 로그인이 되어 있고, 쪽지가 와있는 경우 쪽지 개수 표시 (3+를 쪽지개수로 바꿔주세요)-->
                                 <span class="badge badge-danger badge-counter">3+</span>
                             </a>
+                            {% endif %}
                         </li>
 
                     </ul>

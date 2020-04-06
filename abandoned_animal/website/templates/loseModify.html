@@ -19,16 +19,16 @@
                 </div>
                 <!-- 예진 : 작성자가 입력했던 종 데이터 가져오기 -->
                 <p id="info" for="species">종을 입력해주세요</p>
-
-                <!-- 예진 : 작성자가 입력했던 잃어버린 위치 데이터 가져오기 -->
-                <p id="info" for="location">잃어버린 위치를 입력해주세요</p>
-
-                <!-- 예진 : 작성자가 입력했던 잃어버린 날짜 데이터 가져오기 -->
-                <p id="info" for="date">잃어버린 날짜를 입력해주세요</p>
-                <input type="date" id="date" name="date">
-                
+                 {{ form.species }}
+                <!-- 예진 : 작성자가 입력했던 발견한 위치 데이터 가져오기 -->
+                <p id="info" for="location">발견한 위치를 입력해주세요</p>
+                 {{ form.location }}
+                <!-- 예진 : 작성자가 입력했던 발견한 날짜 데이터 가져오기 -->
+                <p id="info" for="date">발견한 날짜를 입력해주세요</p>
+                {{ form.date }}
                 <!-- 예진 : 작성자가 입력했던 특징 데이터 가져오기 -->
                 <p id="info" for="feature">특징을 입력해주세요</p>
+                 {{ form.feature }}
 
 
                 <!-- 예진 : 게시물 수정하는 함수 연결하기  -->

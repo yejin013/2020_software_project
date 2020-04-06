@@ -61,11 +61,15 @@ def homePost(request):
 
 def findBoard(request):
     post = Post.objects.filter(menu=True)
-    return render(request, 'findBoard.html', {'post' : post})
+    return render(request, 'findboard.html', {'post' : post})
 
 def missBoard(request):
     post = Post.objects.filter(menu=False)
-    return render(request, 'findBoard.html', {'post' : post})
+    return render(request, 'missboard.html', {'post' : post})
+
+def posterBoard(request):
+    post = Post.objects.all()
+    return render(request, 'posterboard.html', {'post':post})
 
 def search(request):
     return render(request, '')
@@ -91,14 +95,14 @@ def postFind(request):
 def postLose(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
-    if form.is_valid():
-        post = form.save(commit=False)
-        post.menu = True
-        post.pub_date = timezone.datetime.now()
-        post.up_date = timezone.datetime.now()
-        post.user = request.user
-        post.save()
-        return redirect(reverse('website:postCheck', args=[str(post.id)]))
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.menu = True
+            post.pub_date = timezone.datetime.now()
+            post.up_date = timezone.datetime.now()
+            post.user = request.user
+            post.save()
+            return redirect(reverse('website:postCheck', args=[str(post.id)]))
 
     else:
         form= PostForm()
@@ -142,12 +146,14 @@ def edit(request, post_id):
                 return redirect('post', id=post.uuid)
         else:
             form = PostForm(instance=post)
-            return render(request, 'html', form)
+            if post.menu == True:
+                return render(request, 'loseModify.html', {'form' : form})
+            else :
+                return render(request, 'findModify.html', {'form' : form})
 
 def delete(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     if request.user != post.user:
-        messages.warning(request, "권한 없음")
         return redirect(reverse('website:postCheck', args=[str(post.id)]))
     else:
         post.delete()
