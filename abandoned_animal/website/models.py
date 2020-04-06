@@ -74,6 +74,8 @@ class Shelter(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True, verbose_name='보호소이름')
     address = models.CharField(max_length=300, null=True, blank=True, verbose_name='보호소 위치')
     phone = models.CharField(max_length=20, null=True, blank=True, verbose_name='보호소 전화번호')
+    lat = models.FloatField(null=True, blank=True, verbose_name='위도')
+    lng = models.FloatField(null=True, blank=True, verbose_name='경도')
 
     objects=ShelterManager()
 

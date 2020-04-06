@@ -1,4 +1,5 @@
 import os
+import requests
 from urllib.request import urlretrieve
 from bs4 import BeautifulSoup
 import urllib.request
@@ -38,7 +39,7 @@ def collect_info():
     totalCount = soup.find("totalcount").text
 
     url = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?" \
-            "&numOfRows=" + totalCount + "&ServiceKey="
+          "&numOfRows=" + totalCount + "&upkind=422400" + "&ServiceKey="
     url = url + serviceKey
 
     request = urllib.request.urlopen(url)
@@ -59,9 +60,43 @@ def collect_info():
         happenplace = info.find("happenplace").text
         specialmark = info.find("specialmark").text
         poster_src = info.find("popfile").text
+        # 검색할 주소
+        location = careaddr
 
-        shelter = Shelter.objects.create_shelter(name=carenm, address=careaddr, phone=caretel)
+        # Production(실제 서비스) 환경 - https 요청이 필수이고, API Key 발급(사용설정) 및 과금 설정이 반드시 필요합니다.
+        URL = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCAQHutKTDQok1dWeNv8jO73HcZpcyHgqo' \
+              '&sensor=false&language=ko&address={}'.format(location)
+
+        # URL로 보낸 Requst의 Response를 response 변수에 할당
+        response = requests.get(URL)
+
+        # JSON 파싱
+        data = response.json()
+
+        # lat, lon 추출
+        if (data['results'][0]['geometry']['location']['lat']):
+            lat = data['results'][0]['geometry']['location']['lat']
+            lng = data['results'][0]['geometry']['location']['lng']
+        else:
+            location = carenm
+
+            # Production(실제 서비스) 환경 - https 요청이 필수이고, API Key 발급(사용설정) 및 과금 설정이 반드시 필요합니다.
+            URL = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCAQHutKTDQok1dWeNv8jO73HcZpcyHgqo' \
+                  '&sensor=false&language=ko&address={}'.format(location)
+
+            # URL로 보낸 Requst의 Response를 response 변수에 할당
+            response = requests.get(URL)
+
+            # JSON 파싱
+            data = response.json()
+
+            lat = data['results'][0]['geometry']['location']['lat']
+            lng = data['results'][0]['geometry']['location']['lng']
+
+        shelter = Shelter.objects.create_shelter(name=carenm, address=careaddr, phone=caretel, lat=lat, lng=lng)
         Post(menu=True, species=kindcd, date=date, location=happenplace, feature=specialmark, image_url=poster_src, shelter=shelter).save()
+
+
 
     '''
         # 데이터프레임으로 넣기
