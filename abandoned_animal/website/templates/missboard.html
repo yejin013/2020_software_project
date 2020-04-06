@@ -7,42 +7,44 @@
 <a href="{% url 'website:postLose' %}" class="btn btn-secondary"> 게시글 등록 </a>
 
 {% if post %}
-<div class="card-deck">
+<div class="row">
+    <div class="card-deck">
 
-    {% for postRow in post %}
-    <div class="card">
-        {% if postRow.image %}
-        <img class="card-img-top" src="{{ postRow.image }}" alt="Card image">
-        {% endif %}
-        <div class="card-body">
-            <h5 class="card-title">{{ postRow.species }}</h5>
-            <p class="card-text">{{ postRow.date }}</p>
-            <p class="card-text">{{ postRow.location }}</p>
-            {% if postRow.user.username == None %}
-            <p class="card-text">{{ postRow.shelter.name }}</p>
-            {% else %}
-            <p class="card-text">{{ postRow.user.username }}</p>
-            {% endif %}
-            <a href="{% url 'website:postCheck' postRow.id %}" class="btn btn-light">게시글 보기</a>
+        {% for postRow in post %}
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card">
+                {% if postRow.image %}
+                <img class="card-img-top" src="{{ postRow.image }}" alt="Card image">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ postRow.species }}</h5>
+                    <p class="card-text">{{ postRow.date }}</p>
+                    <p class="card-text">{{ postRow.location }}</p>
+                    {% if postRow.user.username == None %}
+                    <p class="card-text">{{ postRow.shelter.name }}</p>
+                    {% else %}
+                    <p class="card-text">{{ postRow.user.username }}</p>
+                    {% endif %}
+                    <a href="{% url 'website:postCheck' postRow.id %}" class="btn btn-light">게시글 보기</a>
+                </div>
+            </div>
         </div>
+        {% endfor %}
+
     </div>
-    {% endfor %}
-    <!--수현 : 카드 반복 확인..-->
 </div>
 {% endif %}
-<!--End of card-deck-->
 
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
         <li class="page-item disabled">
-            <!--수현 : 페이지네이션 href 확인..-->
-            <a class="page-link" href="#" tabindex="-1">Previous</a>
+            <a class="page-link" href="#" tabindex="-1">이전으로</a>
         </li>
         <li class="page-item"><a class="page-link" href="#">1</a></li>
         <li class="page-item"><a class="page-link" href="#">2</a></li>
         <li class="page-item"><a class="page-link" href="#">3</a></li>
         <li class="page-item">
-            <a class="page-link" href="#">Next</a>
+            <a class="page-link" href="#">다음으로</a>
         </li>
     </ul>
 </nav>
