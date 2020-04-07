@@ -135,7 +135,7 @@ def missBoard(request):
     return render(request, 'missboard.html', {'post' : post, 'p_range':p_range})
 
 def posterBoard(request):
-    post = Post.objects.all()
+    posts = Post.objects.all()
     page = request.GET.get('page', 1)
 
     paginator = Paginator(posts, 12)
