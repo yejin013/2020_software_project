@@ -39,7 +39,7 @@
             <li class="page-item"><a class="page-link" href="{{post.previous_page_number}}">이전으로</a></li>
             {% endif %}
 
-            {% for i in post.paginator.page_range %}
+            {% for i in p_range %}
             <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
             {% endfor %}
 
