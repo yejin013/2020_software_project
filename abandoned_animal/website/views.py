@@ -258,7 +258,3 @@ def comment_delete(request, comment_id):
     else:
         comment.delete()
         return redirect(reverse('website:postCheck', args=[str(post.id)]))
-
-def homePost(request):
-    post = Post.objects.all()
-    return render(request, 'home.html', { 'post' : post }) # 데이터 튜플로 들어감!
