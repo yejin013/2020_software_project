@@ -204,7 +204,7 @@ def edit(request, post_id):
         return redirect(post)
     else:
         if request.method == "POST":
-            form = PostForm(request.POST, instance=post)
+            form = PostForm(request.POST, request.FILES, instance=post)
             if form.is_valid():
                 post = form.save(commit=False)
                 post.user = request.user
