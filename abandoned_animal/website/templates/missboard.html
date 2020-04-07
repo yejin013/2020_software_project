@@ -11,7 +11,7 @@
     <div class="card-deck">
 
         {% for postRow in post %}
-        <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="col-xl-3 col-lg-4 col-md-6">
             <div class="card">
                 {% if postRow.image %}
                 <img class="card-img-top" src="{{ postRow.image.url }}" alt="Card image">
@@ -33,22 +33,18 @@
 
 <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
-            <!--예진 : 여기 5개의 href 바꿔주세요!-->
             {% if post.has_previous %}
             <li class="page-item"><a class="page-link" href="?page=1">&laquo; 처음으로</a></li>
             <li class="page-item"><a class="page-link" href="{{post.previous_page_number}}">이전으로</a></li>
             {% endif %}
-
             {% for i in p_range %}
             <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
             {% endfor %}
-
             {% if post.has_next %}
             <li class="page-item"><a class="page-link" href="?page={{post.next_page_number}}">다음으로</a></li>
             <li class="page-item"><a class="page-link" href="?page={{post.paginator.num_page}}">끝으로 &raquo;</a></li>
             {% endif %}
         </ul>
     </nav>
-
 
 {% endblock %}
