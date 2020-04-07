@@ -3,15 +3,16 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 
-from .models import User, Post, Comment, Shelter
 from django.contrib import auth, messages
 from django.shortcuts import render, redirect
-from .models import User
+from .models import User, Post, Comment, Shelter
 from django.contrib import auth
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from .form import SignupForm, PostForm, CommentForm
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
+import math
 
 # Create your views here.
 
@@ -55,6 +56,113 @@ def logout(request):
     auth.logout(request)
     return render(request, 'home.html')
 
+def homePost(request):
+    posts = Post.objects.all()
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(posts, 12)
+    page_range = 5
+    try:
+        post = paginator.page(page)
+        current_block = math.ceil(int(page) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except PageNotAnInteger:
+        post = paginator.page(1)
+        current_block = math.ceil(int(1) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except EmptyPage:
+        post = paginator.page(paginator.num_pages)
+        current_block = math.ceil(int(paginator.num_pages) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    return render(request, 'home.html', {'post' : post, 'p_range':p_range}) # 데이터 튜플로 들어감!
+
+def findBoard(request):
+    posts = Post.objects.filter(menu=True)
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(posts, 12)
+    page_range = 5
+    try:
+        post = paginator.page(page)
+        current_block = math.ceil(int(page) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except PageNotAnInteger:
+        post = paginator.page(1)
+        current_block = math.ceil(int(1) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except EmptyPage:
+        post = paginator.page(paginator.num_pages)
+        current_block = math.ceil(int(paginator.num_pages) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    return render(request, 'findboard.html', {'post' : post, 'p_range':p_range})
+
+def missBoard(request):
+    posts = Post.objects.filter(menu=False)
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(posts, 12)
+    page_range = 5
+    try:
+        post = paginator.page(page)
+        current_block = math.ceil(int(page) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except PageNotAnInteger:
+        post = paginator.page(1)
+        current_block = math.ceil(int(1) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except EmptyPage:
+        post = paginator.page(paginator.num_pages)
+        current_block = math.ceil(int(paginator.num_pages) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    return render(request, 'missboard.html', {'post' : post, 'p_range':p_range})
+
+def posterBoard(request):
+    post = Post.objects.all()
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(posts, 12)
+    page_range = 5
+    try:
+        post = paginator.page(page)
+        current_block = math.ceil(int(page) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except PageNotAnInteger:
+        post = paginator.page(1)
+        current_block = math.ceil(int(1) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except EmptyPage:
+        post = paginator.page(paginator.num_pages)
+        current_block = math.ceil(int(paginator.num_pages) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    return render(request, 'posterboard.html', {'post' : post, 'p_range':p_range})
+
+def search(request):
+    return render(request, '')
+
 @login_required()
 def postFind(request):
     if request.method == "POST":
@@ -76,14 +184,14 @@ def postFind(request):
 def postLose(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
-    if form.is_valid():
-        post = form.save(commit=False)
-        post.menu = True
-        post.pub_date = timezone.datetime.now()
-        post.up_date = timezone.datetime.now()
-        post.user = request.user
-        post.save()
-        return redirect(reverse('website:postCheck', args=[str(post.id)]))
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.menu = True
+            post.pub_date = timezone.datetime.now()
+            post.up_date = timezone.datetime.now()
+            post.user = request.user
+            post.save()
+            return redirect(reverse('website:postCheck', args=[str(post.id)]))
 
     else:
         form= PostForm()
@@ -118,7 +226,7 @@ def edit(request, post_id):
         return redirect(post)
     else:
         if request.method == "POST":
-            form = PostForm(request.POST, instance=post)
+            form = PostForm(request.POST, request.FILES, instance=post)
             if form.is_valid():
                 post = form.save(commit=False)
                 post.user = request.user
@@ -127,12 +235,14 @@ def edit(request, post_id):
                 return redirect('post', id=post.uuid)
         else:
             form = PostForm(instance=post)
-            return render(request, 'html', form)
+            if post.menu == True:
+                return render(request, 'loseModify.html', {'form' : form})
+            else :
+                return render(request, 'findModify.html', {'form' : form})
 
 def delete(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     if request.user != post.user:
-        messages.warning(request, "권한 없음")
         return redirect(reverse('website:postCheck', args=[str(post.id)]))
     else:
         post.delete()
@@ -170,7 +280,3 @@ def comment_delete(request, comment_id):
     else:
         comment.delete()
         return redirect(reverse('website:postCheck', args=[str(post.id)]))
-
-def homePost(request):
-    post = Post.objects.all()
-    return render(request, 'home.html', { 'post' : post }) # 데이터 튜플로 들어감!
