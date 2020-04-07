@@ -136,7 +136,29 @@ def missBoard(request):
 
 def posterBoard(request):
     post = Post.objects.all()
-    return render(request, 'posterboard.html', {'post':post})
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(posts, 12)
+    page_range = 5
+    try:
+        post = paginator.page(page)
+        current_block = math.ceil(int(page) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except PageNotAnInteger:
+        post = paginator.page(1)
+        current_block = math.ceil(int(1) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except EmptyPage:
+        post = paginator.page(paginator.num_pages)
+        current_block = math.ceil(int(paginator.num_pages) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    return render(request, 'posterboard.html', {'post' : post, 'p_range':p_range})
 
 def search(request):
     return render(request, '')
