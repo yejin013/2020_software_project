@@ -1,12 +1,13 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from . import views, animalDB
+from . import views, animalDB, web_shelter
 
 app_name = 'website'
 
 urlpatterns = [
     path('db/', animalDB.db, name='db'),
+    path('shelterDb/', web_shelter.shelterDB, name='shelterDB'),
     path('signup/', views.signup, name='signup'),
     path('login/',views.login,name='login'),
     path('', views.homePost, name='homePost'),
