@@ -9,8 +9,20 @@
 <div class="button">
     <button type="button" id="hide" class="btn btn-default" onclick="userinit();">나의위치보기</button>
     <!-- 예진 : shelterInfo 함수에 있는 숫자 지우고 반복문 이용하여 위도, 경도 넣어주기 -->
+    {% for i in information %}
     <button type="button" id="show" class="btn btn-default"
-        onclick="shelterInfo(37.340129, 126.870049);">주변보호소정보보기</button>
+        onclick="shelterInfo({{ i.lat }}, {{ i.lng }});">주변보호소정보보기</button>
+    <script language="JavaScript">
+        var latitude = i.lat;
+        var longitude = i.lng;
+        var lat_change = 5 / 111.2;
+        var lng_change = Math.abs(Math.cos(latitude * (Math.PI / 180)));
+        var lat_min = latitude - lat_change;
+        var lng_max = longitude - lng_change;
+        var lat_max = latitude + lat_change;
+        var lng_max = longitude + lng_change;
+    </script>
+    {% endfor %}
 </div>
 
 <!-- key=AIzaSyCAQHutKTDQok1dWeNv8jO73HcZpcyHgqo -->
@@ -33,34 +45,38 @@
                             <option value="내가 좋아하는 캐릭터는?">내가 좋아하는 캐릭터는?</option>
                             <option value="자신의 반려동물의 이름은?">자신의 반려동물의 이름은?</option>
                     </select> -->
+    {% for i in information %}
     <div class="shelter-form">
         <table class="table">
+            {% if lat_min < i.lat < lat_max and lng_min < i.lng < lng_min %}
             <tr colsapn="2">
                 <td id="info">관할구역</td>
                 <!-- 예진: if문 이용하여 출력된 보호소의 관할구역 넣기 -->
                 <!-- if문 이용은 출력된 보호소의 lat, lng 이용하기-->
-                <td>ㅇㅇㅇ</td>
+                <td>{{ i.lat }}, {{ i.lng }}</td>
             </tr>
             <tr colspan="2">
                 <td id="info">보호센터명</td>
                 <!-- 예진: if문 이용하여 출력된 보호소의 보호센터명 넣기 -->
-                <td>ㅇㅇㅇ</td>
+                <td>{{ i.shelter }}</td>
             </tr>
             <tr colspan="2">
                 <td id="info">전화번호</td>
                 <!-- 예진: if문 이용하여 출력된 보호소의 전화번호 넣기 -->
-                <td>ㅇㅇㅇ</td>
+                <td>{{ i.phone }}</td>
             </tr>
             <tr colspan="2">
                 <td id="info">보호센터 주소</td>
                 <!-- 예진: if문 이용하여 출력된 보호소의 주소 넣기 -->
-                <td>ㅇㅇㅇ</td>
+                <td>{{ i.address }}</td>
             </tr>
             <tr colspan="2">
                 <td></td>
                 <td></td>
             </tr>
+            {% endif %}
         </table>
     </div>
+    {% endfor %}
 </div>
 {% endblock content %}

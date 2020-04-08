@@ -7,7 +7,7 @@ app_name = 'website'
 
 urlpatterns = [
     path('db/', animalDB.db, name='db'),
-    path('shelterDb/', web_shelter.shelterDB, name='shelterDB'),
+    path('shelterDB/', web_shelter.shelterDB, name='shelterDB'),
     path('signup/', views.signup, name='signup'),
     path('login/',views.login,name='login'),
     path('', views.homePost, name='homePost'),
@@ -23,5 +23,6 @@ urlpatterns = [
     path('detail/delete/<int:post_id>', views.delete, name='delete'),
     path('comment/delete/<int:comment_id>/', views.comment_delete, name="comment_delete"),
     path('comment/edit/<int:comment_id>/', views.comment_edit, name="comment_edit"),
+    path('shelter/', views.shelterInformation, name="shelterInformation"),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

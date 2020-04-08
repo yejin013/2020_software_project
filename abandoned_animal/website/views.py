@@ -297,4 +297,5 @@ def comment_delete(request, comment_id):
 
 def shelterInformation(request):
     information = ShelterInformation.objects.all()
-    return render(request, '주변보호소정보.html', {'information' : information})
+
+    return render(request, 'shelter.html', {'information' : information})
