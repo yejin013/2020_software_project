@@ -17,8 +17,7 @@
 
         <ul id="Sidebar" class="navbar-nav sidebar sidebar-dark accordion">
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="home.html">
-                <!-- 수현 : 로고 제작 및 수정 -->
-                <img id="menuicon" src="{% static 'img/logo.svg' %}" width="20px" height="20px" alt="menu">
+                <img id="menuicon" src="{% static 'img/logo.png' %}" width="30px" height="30px" alt="menu">
                 <div id="Service-name" class="sidebar-brand-text mx-3">고영희 찾기</div>
             </a>
             <hr class="sidebar-divider my-0">
@@ -76,7 +75,7 @@
                                 {% if user.image %}
                                 <img class="img-profile rounded-circle" src="{{ user.image }}">
                                 {% else %}
-                                <img class="img-profile rounded-circle" src="{% static 'img/user.svg' %}">
+                                <img class="img-profile rounded-circle" src="{% static 'img/user.png' %}">
                                 {% endif %}
                                 
                                 <!-- 예진 : 쪽지 개수 표시 (3+를 쪽지개수로 바꿔주세요)-->
@@ -86,8 +85,8 @@
                             
                             {% else %}
                             <a class="nav-link" href="{% url 'website:login' %}" id="user" role="button">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> 로그인 </span>
-                                <img class="img-profile rounded-circle" src="{% static 'img/user.svg' %}">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Log in </span>
+                                <img class="img-profile rounded-circle" src="{% static 'img/user.png' %}">
                             </a>
                             {% endif %}
                             
