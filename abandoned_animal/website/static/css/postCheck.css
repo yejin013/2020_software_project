@@ -1,19 +1,18 @@
 #animalImg{
-    padding-left: 50px;
+    padding: auto;
+    height: 100%;
 }
 
 #commentInput {
     margin-left: 15px;
   }
-  
+
 #commentUserImg {
     width: 40px;
     height: 40px;
   }
 
 
-
-  
   @media all and (max-width: 320px) {
     #pub_date, #up_date{
         font-size: 12px;
@@ -21,7 +20,7 @@
     }
     .search_in{margin: 4px 79px 0 10px;}
   
-    .search_in input{width:60%}
+    .search_in input{width:auto}
   }
 
   @media all and (min-width: 321px) and (max-width: 768px) {
@@ -31,7 +30,7 @@
     }
     .search_in{margin: 4px 79px 0 10px;}
   
-    .search_in input{width:50%}
+    .search_in input{width:auto}
 
   }
 
@@ -42,7 +41,7 @@
     }
         .search_in{margin: 4px 79px 0 10px;}
   
-    .search_in input{width:50%}
+    .search_in input{width:auto}
     }
 
     @media all and (min-width: 870px) and (max-width: 1024px) {
@@ -52,7 +51,7 @@
         }
             .search_in{margin: 4px 79px 0 10px;}
       
-        .search_in input{width:50%}
+        .search_in input{width:auto}
         }
 
   @media all and (min-width: 1025px) and (max-width: 1280px) {
@@ -63,7 +62,7 @@
 
     .search_in{margin: 4px 79px 0 10px;}
   
-    .search_in input{width:70%}
+    .search_in input{width:auto}
   }
 
   @media all and (min-width: 1281px){
@@ -74,7 +73,7 @@
 
     .search_in{margin: 4px 79px 0 10px;}
   
-    .search_in input{width:80%}
+    .search_in input{width:auto}
   }
 
   

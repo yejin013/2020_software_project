@@ -10,27 +10,27 @@
     {% if post %}
     <div class="card mb-3" style="width: auto;">
         <div class="row no-gutters">
-            <div class="col-md-4">
+            <div class="col-md-4" style="margin: auto;">
                 {% if post.image %}
                     <img src="{{ post.image.url }}" class="card-img" id="animalImg">
                 {% else %}
                     <img src="{% static 'img/dog.png' %}" class="card-img" id="animalImg">
                 {% endif %}
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8" style="margin: auto;">
                 <div class="card-body">
                     <p class="card-text" id="pub_date" style="text-align:right;" id="reportingDate">등록날짜 : {{ post.pub_date }}</p>
                     <p class="card-text" id="up_date" style="text-align:right;" id="updateDate">수정날짜 : {{ post.up_date }}</p>
                     <br>
                     {% if post.shelter %}
                     <p class="card-text" id="shelter">글작성자 : {{ post.shelter.name }} <button class="btn btn-link" onclick="window.open('./popupPlace.html','보호소 위치','width=430,height=500,location=no,status=no,resizable=no');"><img width="20" height="20" style="margin-left: -13px; margin-top: -9px" src="{% static 'img/gps.png' %}"></button></p> 
-                    <p class="card-text" id="location">잃어버린 위치(찾은 위치) : {{ post.location }}</p>
+                    <p class="card-text" id="location" style="margin-top: -10px;">잃어버린 위치(찾은 위치) : {{ post.location }}</p>
                     <p class="card-text" id="date">잃어버린 날짜 : {{ post.date }}</p>
                     <p class="card-text" id="feature">특징 : {{ post.feature }}</p>
                     <p class="card-text" id="contact">연락처 : {{ post.shelter.phone }}</p>
                     {% else %}
                     <p class="card-text" id="name">글작성자 : {{ post.user.username }} <button class="btn btn-link" onclick="window.open('./popupMSG.html','쪽지 쓰기','width=430,height=500,location=no,status=no,resizable=no');"><img width="20" height="20" style="margin-left: -13px; margin-top: -9px" src="{% static 'img/email.png' %}"></button></p>
-                    <p class="card-text" id="location">잃어버린 위치(찾은 위치) : {{ post.location }}</p>
+                    <p class="card-text" id="location" style="margin-top: -10px;">잃어버린 위치(찾은 위치) : {{ post.location }}</p>
                     <p class="card-text" id="date">잃어버린 날짜 : {{ post.date }}</p>
                     <p class="card-text" id="feature">특징 : {{ post.feature }}</p>
                     <p class="card-text" id="contact">연락처 : {{ post.user.phone }}</p>
@@ -53,7 +53,8 @@
         </div>
 
     <br><br>
-    <strong>댓글</strong>
+    <hr>
+    <strong style="font-size: 22px;">댓글</strong>
     <br><br>
 
     <!-- 댓글 작성 폼 -->
@@ -67,12 +68,13 @@
             <img src="{% static 'img/black1.gif' %}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="commentUserImg">
             {% endif %}
             <span class="search_in"><input type="text" placeholder="댓글을 입력하세요" id="commentInput" name="comment"
-                    style="border:none;"></span>
+                    style="border:none; width: 100%;"></span>
             <button type="submit" class="btn btn-default">확인</button>
         </form>
         {% else %}
         <!-- 로그인 하지 않았을 경우 -->
-          <strong>댓글을 입력할 수 없습니다.</strong>
+        <span class="search_in"><input type="text" placeholder="로그인 해주세요." id="commentDisable" name="comment"
+            style="border:none; width: 100%;" disabled></span>
         {% endif %}
     </div>
 
