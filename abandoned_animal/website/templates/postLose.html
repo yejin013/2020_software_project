@@ -3,11 +3,7 @@
 {% block content %}
 
 <link rel="stylesheet" href="{% static 'css/post.css' %}">
-<!-- <script type="text/javascript" src="../js/post.js"></script> -->
 <div class="post-page">
-    <!-- <div class="intro">
-        <h1 style="text-align: center">게시글 작성</h1>
-    </div> -->
     <div class="form">
         <form class="post-form" method="post" enctype="multipart/form-data" action="{% url 'website:postLose' %}">
             {% csrf_token %}
@@ -20,7 +16,6 @@
                         </label>
                     </div>
                 </div>
-                <!-- 예진 : 여기도 postFind.html에 넣으신 코드처럼 넣어주시면 됩니당!  -->
                 <p id="info" for="species">종을 입력해주세요</p>
                 {{ form.species }}
                 <p id="info" for="location">잃어버린 위치를 입력해주세요</p>
@@ -29,9 +24,7 @@
                 <input type="date" id="date" name="date">
                 <p id="info" for="feature">특징을 입력해주세요</p>
                 {{ form.feature }}
-                <!-- 예진 : 게시물 등록하는 함수 넣기  -->
                 <button type="submit" class="btn btn-default">등록</button>
-                <!-- 예진 : 게시판 목록으로 돌아가는 함수 넣기 -->
                 <a class="btn btn-default" href="{% url 'website:homePost' %}" role="button" id="button">취소</a>
             </form>
     </div>
