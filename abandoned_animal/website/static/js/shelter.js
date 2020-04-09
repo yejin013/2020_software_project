@@ -28,10 +28,9 @@ function getMyLocation() {
 
 
 // 보호소 위도, 경도 받기
-function shelterInfo(lat, lng){
-  shelterlat = lat;
-  shelterlng = lng;
-
+function shelterInfo(){
+  shelterlat = document.getElementById("slat").innerText;
+  shelterlng = document.getElementById("slng").innerText;
   getMyLocation();
   distHaversine(shelterlat, shelterlng)
   init();
@@ -52,6 +51,7 @@ function distHaversine(shelterlat, shelterlng){
 	var d = R * c;
 
   short = d.toFixed(1);
+
   compareDistance(d.toFixed(1));
 }
 
@@ -101,6 +101,8 @@ function init()
 function shelter_position_init(position)
 {
   var latlng = new google.maps.LatLng(showlat, showlng);
+  document.getElementById("showlat").innerHTML=showlat;
+  document.getElementById("showlng").innerHTML=showlng;
   var map_options = {
         center:latlng,zoom:14,
         mapTypeId:google.maps.MapTypeId.ROADMAP,
