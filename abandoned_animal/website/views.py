@@ -298,6 +298,6 @@ def comment_delete(request, comment_id):
 
 def shelterInformation(request):
     list = ShelterInformation.objects.all()
-    print(request.lat)
-    print(request.lng)
+    # print(request.lat)
+    # print(request.lng)
     return render(request, 'shelter.html', {'list':list})
