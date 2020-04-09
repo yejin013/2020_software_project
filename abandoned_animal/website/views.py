@@ -297,5 +297,9 @@ def comment_delete(request, comment_id):
         return redirect(reverse('website:postCheck', args=[str(post.id)]))
 
 def shelterInformation(request):
+
+    print(request.lat)
+    print(request.lng)
+
     list = ShelterInformation.objects.all()
     return render(request, 'shelter.html', {'list':list})
