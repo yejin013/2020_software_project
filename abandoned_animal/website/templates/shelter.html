@@ -12,16 +12,6 @@
     {% for i in information %}
     <button type="button" id="show" class="btn btn-default"
         onclick="shelterInfo({{ i.lat }}, {{ i.lng }});">주변보호소정보보기</button>
-    <script language="JavaScript">
-        var latitude = i.lat;
-        var longitude = i.lng;
-        var lat_change = 5 / 111.2;
-        var lng_change = Math.abs(Math.cos(latitude * (Math.PI / 180)));
-        var lat_min = latitude - lat_change;
-        var lng_max = longitude - lng_change;
-        var lat_max = latitude + lat_change;
-        var lng_max = longitude + lng_change;
-    </script>
     {% endfor %}
 </div>
 
@@ -45,38 +35,36 @@
                             <option value="내가 좋아하는 캐릭터는?">내가 좋아하는 캐릭터는?</option>
                             <option value="자신의 반려동물의 이름은?">자신의 반려동물의 이름은?</option>
                     </select> -->
-    {% for i in information %}
     <div class="shelter-form">
         <table class="table">
-            {% if lat_min < i.lat < lat_max and lng_min < i.lng < lng_min %}
+            {% for info in information %}
             <tr colsapn="2">
                 <td id="info">관할구역</td>
                 <!-- 예진: if문 이용하여 출력된 보호소의 관할구역 넣기 -->
                 <!-- if문 이용은 출력된 보호소의 lat, lng 이용하기-->
-                <td>{{ i.lat }}, {{ i.lng }}</td>
+                <td>{{ info.area }}</td>
             </tr>
             <tr colspan="2">
                 <td id="info">보호센터명</td>
                 <!-- 예진: if문 이용하여 출력된 보호소의 보호센터명 넣기 -->
-                <td>{{ i.shelter }}</td>
+                <td>{{ info.shelter }}</td>
             </tr>
             <tr colspan="2">
                 <td id="info">전화번호</td>
                 <!-- 예진: if문 이용하여 출력된 보호소의 전화번호 넣기 -->
-                <td>{{ i.phone }}</td>
+                <td>{{ info.phone }}</td>
             </tr>
             <tr colspan="2">
                 <td id="info">보호센터 주소</td>
                 <!-- 예진: if문 이용하여 출력된 보호소의 주소 넣기 -->
-                <td>{{ i.address }}</td>
+                <td>{{ info.address }}</td>
             </tr>
             <tr colspan="2">
                 <td></td>
                 <td></td>
             </tr>
-            {% endif %}
+            {% endfor %}
         </table>
     </div>
-    {% endfor %}
 </div>
 {% endblock content %}

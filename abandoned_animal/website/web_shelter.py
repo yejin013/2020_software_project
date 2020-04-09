@@ -71,7 +71,7 @@ def collect_shelter():
             lat = data['results'][0]['geometry']['location']['lat']
             lng = data['results'][0]['geometry']['location']['lng']
 
-            ShelterInformation(name=name, address=addr, phone=tel, area=area, lat=lat, lng=lng).save()
+        ShelterInformation(name=name, address=addr, phone=tel, area=area, lat=lat, lng=lng).save()
 
 '''
 shelter = pd.DataFrame(([[area, name, tel, addr, lat, lng]]),
@@ -81,8 +81,6 @@ shelter = pd.DataFrame(([[area, name, tel, addr, lat, lng]]),
         sqlite_append(shelter)
 '''
 
-# main
-# collect_shelter()
 
 def shelterDB(request):
     collect_shelter()

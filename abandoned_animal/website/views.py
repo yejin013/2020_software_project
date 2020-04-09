@@ -33,7 +33,7 @@ def signup(request):
             user = User.objects.create_user(userID=userID, username=username, password = password, phone = phone, question = question, answer=answer)
             print(user.question)
 
-            return render(request, 'home.html')
+            return redirect(reverse('website:homePost'))
     else:
         return render(request, 'signup.html')
 
@@ -45,7 +45,7 @@ def login(request):
         user = auth.authenticate(request,username=username,password=password)
         if user is not None:
             auth.login(request,user)
-            return render(request, 'home.html')
+            return redirect(reverse('website:homePost'))
         else:
             return render(request,'login.html',{'error':'username or password is incorrect'})
     else:
@@ -54,7 +54,7 @@ def login(request):
 @login_required()
 def logout(request):
     auth.logout(request)
-    return render(request, 'home.html')
+    return redirect(reverse('website:homePost'))
 
 def homePost(request):
     posts = Post.objects.all()
