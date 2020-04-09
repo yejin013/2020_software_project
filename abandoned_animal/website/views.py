@@ -5,6 +5,7 @@ from django.utils import timezone
 
 from django.contrib import auth, messages
 from django.shortcuts import render, redirect
+
 from .models import User, Post, Comment, Shelter, ShelterInformation
 from django.contrib import auth
 from django.views.decorators.csrf import csrf_exempt
@@ -296,6 +297,5 @@ def comment_delete(request, comment_id):
         return redirect(reverse('website:postCheck', args=[str(post.id)]))
 
 def shelterInformation(request):
-    information = ShelterInformation.objects.all()
-
-    return render(request, 'shelter.html', {'information' : information})
+    list = ShelterInformation.objects.all()
+    return render(request, 'shelter.html', {'list':list})
