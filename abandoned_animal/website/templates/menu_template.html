@@ -10,8 +10,9 @@
     <title>home</title>
     <link href="{% static 'css/home.css' %}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap" rel="stylesheet">
-</head>
+    <script src="{% static 'js/gpsCheck.js?ver=1' %}"></script>
 
+</head>
 <body id="page-top">
     <div id="wrapper">
 
@@ -47,7 +48,7 @@
             </div>
             <li class="nav-item">
                 <!-- 예진 : 주변 보호소 정보 끝났다면 href 넣어주세요!-->
-                <a class="nav-link" href="{% url 'website:shelterInformation' %}">
+                <a class="nav-link" href="{% url 'website:shelterInformation' %}" onclick="gpsCheck();">
                     <span>주변 보호소 정보</span></a>
             </li>
             <li class="nav-item">
@@ -77,19 +78,19 @@
                                 {% else %}
                                 <img class="img-profile rounded-circle" src="{% static 'img/user.png' %}">
                                 {% endif %}
-                                
+
                                 <!-- 예진 : 쪽지 개수 표시 (3+를 쪽지개수로 바꿔주세요)-->
                                 <span class="badge badge-danger badge-counter">3+</span>
                                 <!-- 아직 마이페이지 끝 X -->
                             </a>
-                            
+
                             {% else %}
                             <a class="nav-link" href="{% url 'website:login' %}" id="user" role="button">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Log in </span>
                                 <img class="img-profile rounded-circle" src="{% static 'img/user.png' %}">
                             </a>
                             {% endif %}
-                            
+
                         </li>
                     </ul>
                 </nav>
