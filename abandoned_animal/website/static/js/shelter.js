@@ -72,6 +72,8 @@ function userinit()
 function current_position(position)
 {
   var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  document.getElementById("userlat").innerHTML=position.coords.latitude;
+  document.getElementById("userlng").innerHTML=position.coords.longitude;
   var map_options = {
         center:latlng,zoom:14,
         mapTypeId:google.maps.MapTypeId.ROADMAP,
@@ -109,6 +111,8 @@ function shelter_position_init(position)
     var map = new google.maps.Map(document.getElementById("google_map"), map_options);
     
     var marker = new google.maps.Marker({position:latlng,map:map,title:"You are here!"});
+
+    return [showlat, showlng];
 }
 
 

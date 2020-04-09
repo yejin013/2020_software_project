@@ -2,10 +2,14 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/shelter.css' %}">
-<script type="text/javascript" src="{% static 'js/shelter.js' %}">
-                    // window.onload = shelterInfo(37.340129, 126.870049);
-                    // window.addEventListener("load", shelterInfo(37.340129, 126.870049))
-</script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+<div class="form" style="display: none;">
+    <form class="post-form" method="post" action="">
+        <p id="userlat"></p>
+        <p id="userlng"></p>
+    </form>
+</div>
+<script type="text/javascript" src="{% static 'js/shelter.js' %}"></script>
 <div class="button">
     <button type="button" id="hide" class="btn btn-default" onclick="userinit();">나의위치보기</button>
     <!-- 예진 : shelterInfo 함수에 있는 숫자 지우고 반복문 이용하여 위도, 경도 넣어주기 -->
