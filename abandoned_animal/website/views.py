@@ -1,3 +1,8 @@
+import os
+import requests
+from django.db.models import Model, Q
+from dotenv import load_dotenv
+
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
@@ -5,12 +10,14 @@ from django.utils import timezone
 
 from django.contrib import auth, messages
 from django.shortcuts import render, redirect
+
 from .models import User, Post, Comment, Shelter, ShelterInformation
 from django.contrib import auth
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from .form import SignupForm, PostForm, CommentForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from haversine import haversine
 
 import math
 
@@ -295,7 +302,25 @@ def comment_delete(request, comment_id):
         comment.delete()
         return redirect(reverse('website:postCheck', args=[str(post.id)]))
 
-def shelterInformation(request):
-    information = ShelterInformation.objects.all()
+def getLatLngBound(lat, lng):
+  # 5km 구간
+  lat_change = 5 / 111.2
+  lng_change = abs(math.cos(lat * (math.pi / 180)))
+  bounds = {
+    "lat_min": lat - lat_change,
+    "lng_min": lng - lng_change,
+    "lat_max": lat + lat_change,
+    "lng_max": lng + lng_change
+  }
+  return bounds
 
-    return render(request, 'shelter.html', {'information' : information})
+def shelterInformation(request):
+    lat = request.COOKIES['latitude']
+    lng = request.COOKIES['longitude']
+
+    LC = getLatLngBound(float(lat), float(lng))
+    list = ShelterInformation.objects.filter(
+        Q(lat__range=[LC['lat_min'], LC['lat_max']]) &
+        Q(lng__range=[LC['lng_min'], LC['lng_max']])
+    )
+    return render(request, 'shelter.html', {'list':list})
