@@ -10,9 +10,35 @@
     <title>home</title>
     <link href="{% static 'css/home.css' %}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap" rel="stylesheet">
+    <script src="{% static 'js/gpsCheck.js?ver=1' %}"></script>
+
 </head>
 
 <body id="page-top">
+    <script>
+        function gpsCheck() {
+            if (confirm("GPS 기능을 사용하시겠습니까? (미사용시, 서비스 이용이 불가능할 수도 있습니다.)")) {
+                if (navigator.geolocation) { // GPS를 지원하면
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        mylat = position.coords.latitude;
+                        mylng = position.coords.longitude;
+                        window.location.href = "/website/shelter?" + "lat=" + mylat + "&lng=" + mylng;
+                    }, function (error) {
+                        console.error(error);
+                    }, {
+                        enableHighAccuracy: false,
+                        maximumAge: 0,
+                        timeout: Infinity
+                    });
+                } else {
+                    alert('GPS를 지원하지 않습니다');
+                    window.location.href = "/website/shelter/";
+                }
+            } else {
+                window.location.href = "/website/shelter/";
+            }
+        }
+    </script>
     <div id="wrapper">
 
         <ul id="Sidebar" class="navbar-nav sidebar sidebar-dark accordion">
@@ -47,7 +73,7 @@
             </div>
             <li class="nav-item">
                 <!-- 예진 : 주변 보호소 정보 끝났다면 href 넣어주세요!-->
-                <a class="nav-link" href="{% url 'website:shelterInformation' %}">
+                <a class="nav-link" href="{% url 'website:shelterInformation' %}" onclick="gpsCheck();">
                     <span>주변 보호소 정보</span></a>
             </li>
             <li class="nav-item">
@@ -77,19 +103,19 @@
                                 {% else %}
                                 <img class="img-profile rounded-circle" src="{% static 'img/user.png' %}">
                                 {% endif %}
-                                
+
                                 <!-- 예진 : 쪽지 개수 표시 (3+를 쪽지개수로 바꿔주세요)-->
                                 <span class="badge badge-danger badge-counter">3+</span>
                                 <!-- 아직 마이페이지 끝 X -->
                             </a>
-                            
+
                             {% else %}
                             <a class="nav-link" href="{% url 'website:login' %}" id="user" role="button">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Log in </span>
                                 <img class="img-profile rounded-circle" src="{% static 'img/user.png' %}">
                             </a>
                             {% endif %}
-                            
+
                         </li>
                     </ul>
                 </nav>

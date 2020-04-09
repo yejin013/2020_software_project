@@ -302,4 +302,6 @@ def shelterInformation(request):
     print(request.lng)
 
     list = ShelterInformation.objects.all()
+    # print(request.lat)
+    # print(request.lng)
     return render(request, 'shelter.html', {'list':list})
