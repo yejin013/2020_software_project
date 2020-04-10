@@ -43,33 +43,33 @@
                     </select> -->
     <div class="shelter-form">
         <table class="table">
-            {% for info in list %}
+            {% if information %}
             <tr colsapn="2">
                 <td id="info">관할구역</td>
                 <!-- 예진: if문 이용하여 출력된 보호소의 관할구역 넣기 -->
                 <!-- if문 이용은 출력된 보호소의 lat, lng 이용하기-->
-                <td>{{ info.area }}</td>
+                <td>{{ information.area }}</td>
             </tr>
             <tr colspan="2">
                 <td id="info">보호센터명</td>
                 <!-- 예진: if문 이용하여 출력된 보호소의 보호센터명 넣기 -->
-                <td>{{ info.name }}</td>
+                <td>{{ information.name }}</td>
             </tr>
             <tr colspan="2">
                 <td id="info">전화번호</td>
                 <!-- 예진: if문 이용하여 출력된 보호소의 전화번호 넣기 -->
-                <td>{{ info.phone }}</td>
+                <td>{{ information.phone }}</td>
             </tr>
             <tr colspan="2">
                 <td id="info">보호센터 주소</td>
                 <!-- 예진: if문 이용하여 출력된 보호소의 주소 넣기 -->
-                <td>{{ info.address }}</td>
+                <td>{{ information.address }}</td>
             </tr>
             <tr colspan="2">
                 <td></td>
                 <td></td>
             </tr>
-            {% endfor %}
+            {% endif %}
         </table>
     </div>
 </div>
