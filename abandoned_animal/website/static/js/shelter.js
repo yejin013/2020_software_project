@@ -32,7 +32,7 @@ function shelterInfo(){
   shelterlat = document.getElementById("slat").innerText;
   shelterlng = document.getElementById("slng").innerText;
   getMyLocation();
-  distHaversine(shelterlat, shelterlng)
+  distHaversine(shelterlat, shelterlng);
   init();
 }
 
@@ -93,8 +93,10 @@ window.addEventListener("load", userinit);
 
 
 // 보호소 위치 출력
-function init()
+function init(lat, lng)
 {
+  showlat = lat;
+  showlng = lng;
   window.navigator.geolocation.getCurrentPosition(shelter_position_init);
 }
  

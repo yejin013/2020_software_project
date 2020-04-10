@@ -13,6 +13,7 @@ from django.urls import reverse
 from .form import SignupForm, PostForm, CommentForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
+
 import math
 
 # Create your views here.
@@ -296,12 +297,51 @@ def comment_delete(request, comment_id):
         comment.delete()
         return redirect(reverse('website:postCheck', args=[str(post.id)]))
 
+class ShelterDist:
+    mylat = 0
+    mylng = 0
+    shelterlat = 0
+    shelterlng = 0
+    short = 0
+    showlat = 0
+    showlng = 0
+
+    def __init__(self, lat, lng):
+        self.mylat = float(lat)
+        self.mylng = float(lng)
+
+    def rad(self, x):
+        return x * math.pi / 180
+
+    def distHaversine(self, shelterlat, shelterlng):
+        R = 3960
+        dLat = self.rad(shelterlat - self.mylat)
+        dLong = self.rad(shelterlng - self.mylng)
+        a = math.sin(dLat / 2) * math.sin(dLat / 2) + math.cos(self.rad(self.mylat)) * math.cos(self.rad(shelterlat)) * math.sin(dLong / 2) * math.sin(dLong / 2)
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+        d = R * c
+        self.short = '{:0.1f}'.format(d)
+        self.compareDistance('{:0.1f}'.format(d))
+
+    def compareDistance(self, distance):
+        if self.short >= distance:
+            self.short = distance
+            self.showlat = self.shelterlat
+            self.showlng = self.shelterlng
+
 def shelterInformation(request):
+    lat = request.GET.get('lat', '0')
+    lng = request.GET.get('lng', '0')
 
-    print(request.lat)
-    print(request.lng)
+    list = ShelterInformation.objects.values()
+    dist = ShelterDist(lat, lng)
 
-    list = ShelterInformation.objects.all()
-    # print(request.lat)
-    # print(request.lng)
-    return render(request, 'shelter.html', {'list':list})
+    if (lat != '0') | (lng != '0'):
+        for i in list:
+            dist.distHaversine(i['lat'], i['lng'])
+        lat = dist.showlat
+        lng = dist.showlng
+
+    information = ShelterInformation.objects.filter(lat = lat, lng = lng)
+
+    return render(request, 'shelter.html', {'information': information, 'lat': lat, 'lng': lng})

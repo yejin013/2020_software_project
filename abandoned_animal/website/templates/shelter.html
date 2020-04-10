@@ -18,7 +18,7 @@
 <script type="text/javascript" src="{% static 'js/shelter.js' %}"></script>
 <div class="button">
     <button type="button" id="hide" class="btn btn-default" onclick="userinit();">나의위치보기</button>
-    <button type="button" id="show" class="btn btn-default" onclick="shelterInfo();">주변보호소정보보기</button>
+    <button type="button" id="show" class="btn btn-default" onclick="init({{ lat }}, {{ lng }});">주변보호소정보보기</button>
 </div>
 
 <!-- key=AIzaSyCAQHutKTDQok1dWeNv8jO73HcZpcyHgqo -->
@@ -43,7 +43,7 @@
                     </select> -->
     <div class="shelter-form">
         <table class="table">
-            {% for info in information %}
+            {% for info in list %}
             <tr colsapn="2">
                 <td id="info">관할구역</td>
                 <!-- 예진: if문 이용하여 출력된 보호소의 관할구역 넣기 -->
