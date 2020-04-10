@@ -82,6 +82,23 @@ class Shelter(models.Model):
     def __str__(self):
         return self.name
 
+class ShelterInformation(models.Model):
+    id = models.AutoField(
+        primary_key=True,
+        unique=True,
+        editable=False,
+        verbose_name='pk'
+    )
+    name = models.CharField(max_length=50, null=True, blank=True, verbose_name='보호소이름')
+    address = models.CharField(max_length=300, null=True, blank=True, verbose_name='보호소 위치')
+    phone = models.CharField(max_length=20, null=True, blank=True, verbose_name='보호소 전화번호')
+    area = models.CharField(max_length=300, null=True, blank=True)
+    lat = models.FloatField(null=True, blank=True, verbose_name='위도')
+    lng = models.FloatField(null=True, blank=True, verbose_name='경도')
+
+    def __str__(self):
+        return self.name
+
 class Post(models.Model):
     id = models.AutoField(
         primary_key=True,
