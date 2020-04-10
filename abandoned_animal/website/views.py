@@ -347,6 +347,7 @@ def shelterInformation(request):
         lat_new = dist.showlat
         lng_new = dist.showlng
 
-    information = ShelterInformation.objects.get(lat = lat_new, lng = lng_new)
+        information = ShelterInformation.objects.get(lat = lat_new, lng = lng_new)
 
-    return render(request, 'shelter.html', {'information': information, 'lat': lat_new, 'lng': lng_new})
+        return render(request, 'shelter.html', {'information': information, 'lat': lat_new, 'lng': lng_new})
+    return render(request, 'shelter.html')
