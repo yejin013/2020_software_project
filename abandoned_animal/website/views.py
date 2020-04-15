@@ -5,12 +5,14 @@ from django.utils import timezone
 
 from django.contrib import auth, messages
 from django.shortcuts import render, redirect
-from .models import User, Post, Comment, Shelter
+
+from .models import User, Post, Comment, Shelter, ShelterInformation
 from django.contrib import auth
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from .form import SignupForm, PostForm, CommentForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
 
 import math
 
@@ -33,7 +35,7 @@ def signup(request):
             user = User.objects.create_user(userID=userID, username=username, password = password, phone = phone, question = question, answer=answer)
             print(user.question)
 
-            return render(request, 'home.html')
+            return redirect(reverse('website:homePost'))
     else:
         return render(request, 'signup.html')
 
@@ -45,7 +47,7 @@ def login(request):
         user = auth.authenticate(request,username=username,password=password)
         if user is not None:
             auth.login(request,user)
-            return render(request, 'home.html')
+            return redirect(reverse('website:homePost'))
         else:
             return render(request,'login.html',{'error':'username or password is incorrect'})
     else:
@@ -54,7 +56,7 @@ def login(request):
 @login_required()
 def logout(request):
     auth.logout(request)
-    return render(request, 'home.html')
+    return redirect(reverse('website:homePost'))
 
 def homePost(request):
     posts = Post.objects.all()
@@ -294,3 +296,58 @@ def comment_delete(request, comment_id):
     else:
         comment.delete()
         return redirect(reverse('website:postCheck', args=[str(post.id)]))
+
+class ShelterDist:
+    mylat = 0
+    mylng = 0
+    shelterlat = 0
+    shelterlng = 0
+    short = 0
+    showlat = 0
+    showlng = 0
+    count = 0
+
+    def __init__(self, lat, lng):
+        self.mylat = float(lat)
+        self.mylng = float(lng)
+
+    def rad(self, x):
+        return x * math.pi / 180
+
+    def distHaversine(self, shelterlat, shelterlng):
+        self.shelterlat = shelterlat
+        self.shelterlng = shelterlng
+        R = 3960
+        dLat = self.rad(self.shelterlat - self.mylat)
+        dLong = self.rad(self.shelterlng - self.mylng)
+        a = math.sin(dLat / 2) * math.sin(dLat / 2) + math.cos(self.rad(self.mylat)) * math.cos(self.rad(self.shelterlat)) * math.sin(dLong / 2) * math.sin(dLong / 2)
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+        d = R * c
+        if self.count == 0:
+            self.short = '{:0.1f}'.format(d)
+        self.compareDistance('{:0.1f}'.format(d))
+        self.count += 1
+
+    def compareDistance(self, distance):
+        if self.short >= distance:
+            self.short = distance
+            self.showlat = self.shelterlat
+            self.showlng = self.shelterlng
+
+def shelterInformation(request):
+    lat = request.GET.get('lat', '0')
+    lng = request.GET.get('lng', '0')
+
+    list = ShelterInformation.objects.values()
+    dist = ShelterDist(lat, lng)
+
+    if (lat != '0') | (lng != '0'):
+        for i in list:
+            dist.distHaversine(i['lat'], i['lng'])
+        lat_new = dist.showlat
+        lng_new = dist.showlng
+
+        information = ShelterInformation.objects.get(lat = lat_new, lng = lng_new)
+
+        return render(request, 'shelter.html', {'information': information, 'lat': lat_new, 'lng': lng_new})
+    return render(request, 'shelter.html')

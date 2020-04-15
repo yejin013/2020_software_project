@@ -1,13 +1,3 @@
-// document.getElementsByName("testText")[0].onkeydown = function(e){
-//     var eventCode = e.code;
-// };
-
-// document.getElementsByName("testText")[0].onkeyup = function(e){
-//     if(e.code == 'Backspace'){
-//         document.getElementById("test").innerHTML = "";
-//     }
-// };
-
 function file(){
   document.getElementById('fileName').value = this.value.split('\\')[this.value.split('\\').length-1]
 }
