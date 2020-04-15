@@ -5,6 +5,17 @@
 <h4 id="whole_list_head"> 결과 </h4>
 <h6 id="whole_list_text"> 보호되거나 발견된 고양이 </h6>
 
+{% if image %}
+<img class="card-img-top" src="{{ image.url }}" alt="Card image">
+{% else %}
+No
+{% endif %}
+<div class="card-body">
+    <h5 class="card-title">{{ species }}</h5>
+    <p class="card-text">{{ location }}</p>
+    <p class="card-text">{{ date }}</p>
+</div>
+
 {% if post %}
 <div class="row">
     <div class="card-deck">

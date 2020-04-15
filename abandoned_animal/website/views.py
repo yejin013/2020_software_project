@@ -82,6 +82,20 @@ def homePost(request):
         p_range = paginator.page_range[start_block:end_block]
     return render(request, 'home.html', {'post' : post, 'p_range':p_range}) # 데이터 튜플로 들어감!
 
+@csrf_exempt
+def home2(request):
+    if request.method == "POST":
+        image = request.FILES['image']
+        species = request.POST.get('species', '')
+        inputState = request.POST.get('inputState', '')
+        inputCity = request.POST.get('inputCity', '')
+        location = inputState + ' ' + inputCity
+        inputDate = request.POST.get('inputDate', '')
+        return render(request, 'home_result.html', {'image' : image, 'species':species, 'location' : location, 'date':inputDate})
+
+    else:
+        return render(request, 'home2.html')
+
 def findBoard(request):
     posts = Post.objects.filter(menu=True)
     page = request.GET.get('page', 1)
@@ -135,8 +149,30 @@ def missBoard(request):
     return render(request, 'missboard.html', {'post' : post, 'p_range':p_range})
 
 def posterBoard(request):
-    post = Post.objects.all()
-    return render(request, 'posterboard.html', {'post':post})
+    posts = Post.objects.all()
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(posts, 12)
+    page_range = 5
+    try:
+        post = paginator.page(page)
+        current_block = math.ceil(int(page) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except PageNotAnInteger:
+        post = paginator.page(1)
+        current_block = math.ceil(int(1) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except EmptyPage:
+        post = paginator.page(paginator.num_pages)
+        current_block = math.ceil(int(paginator.num_pages) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    return render(request, 'posterboard.html', {'post' : post, 'p_range':p_range})
 
 def search(request):
     return render(request, '')
