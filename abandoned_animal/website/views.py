@@ -1,23 +1,35 @@
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
 from django.http import HttpResponse
 from django.shortcuts import render, redirect,get_object_or_404
 from .models import User, Post, Comment, Shelter
+=======
+from django.http import HttpResponseRedirect
+>>>>>>> ab25f280aa52591a9761bb4cc11081b07b161871
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import User, Post, Comment, Shelter
 from django.contrib import auth, messages
-from django.views.decorators.http import require_http_methods
 from django.shortcuts import render, redirect
-from .models import User, Post, Comment, Shelter
+
+from .models import User, Post, Comment, Shelter, ShelterInformation
 from django.contrib import auth
+<<<<<<< HEAD
 from django.contrib.auth import authenticate,get_user_model
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from .form import SignupForm,ChangeForm
+=======
+from django.views.decorators.csrf import csrf_exempt
+from django.urls import reverse
+>>>>>>> ab25f280aa52591a9761bb4cc11081b07b161871
 from .form import SignupForm, PostForm, CommentForm
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
+
+import math
 
 # Create your views here.
 
@@ -37,20 +49,25 @@ def signup(request):
         else:
             user = User.objects.create_user(userID=userID, username=username, password = password, phone = phone, question = question, answer=answer)
             print(user.question)
-            return render(request, 'home.html')
+
+            return redirect(reverse('website:homePost'))
     else:
         return render(request, 'signup.html')
 
 @csrf_exempt
 def login(request):
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username', '')
+        password = request.POST.get('password', '')
         user = auth.authenticate(request,username=username,password=password)
         if user is not None:
             auth.login(request,user)
+<<<<<<< HEAD
             request.session['user'] = user.id
             return redirect('/website')
+=======
+            return redirect(reverse('website:homePost'))
+>>>>>>> ab25f280aa52591a9761bb4cc11081b07b161871
         else:
             return render(request,'login.html',{'error':'아이디 혹은 비밀번호를 잘못 입력하였습니다.'})
     else:
@@ -105,6 +122,7 @@ def mypage(request):
     else:
         return render(request,'login.html')
 
+<<<<<<< HEAD
 @login_required
 def myinfo_update(request):
     if request.method == 'POST':
@@ -162,55 +180,188 @@ def listMypost(request):
 
 #     #쪽지 1개씩 보는 경우-> html 나오면 수정
 #     return render(request,'msg_receivelist.html')
+=======
+@login_required()
+def logout(request):
+    auth.logout(request)
+    return redirect(reverse('website:homePost'))
+>>>>>>> ab25f280aa52591a9761bb4cc11081b07b161871
 
 def homePost(request):
-    post = Post.objects.all()
-    return render(request, 'home.html', { 'post' : post }) # 데이터 튜플로 들어감!
+    posts = Post.objects.all()
+    page = request.GET.get('page', 1)
 
-@login_required()
-def create(request):
-    if request == "POST":
-        post = Post()
-        post.menu = request.POST['menu']
-        post.species = request.POST['species']
-        post.miss_date = request.POST['miss_date']
-        post.miss_loc = request.POST['miss_loc']
-        post.feature = request.POST['feature']
-        post.request = request.POST['user']
-        post.image = request.FILES['image']
-        post.pub_date = timezone.datetime.now()
-        post.up_date = timezone.datetime.now()
-        post.user = request.user.id
-        post.save()
-        return render(request, 'postCheck.html', {'post': post})
+    paginator = Paginator(posts, 12)
+    page_range = 5
+    try:
+        post = paginator.page(page)
+        current_block = math.ceil(int(page) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except PageNotAnInteger:
+        post = paginator.page(1)
+        current_block = math.ceil(int(1) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except EmptyPage:
+        post = paginator.page(paginator.num_pages)
+        current_block = math.ceil(int(paginator.num_pages) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    return render(request, 'home.html', {'post' : post, 'p_range':p_range}) # 데이터 튜플로 들어감!
+
+@csrf_exempt
+def home2(request):
+    if request.method == "POST":
+        image = request.FILES['image']
+        species = request.POST.get('species', '')
+        inputState = request.POST.get('inputState', '')
+        inputCity = request.POST.get('inputCity', '')
+        location = inputState + ' ' + inputCity
+        inputDate = request.POST.get('inputDate', '')
+        return render(request, 'home_result.html', {'image' : image, 'species':species, 'location' : location, 'date':inputDate})
 
     else:
-        return render(request, 'postWrite.html')
+        return render(request, 'home2.html')
+
+def findBoard(request):
+    posts = Post.objects.filter(menu=True)
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(posts, 12)
+    page_range = 5
+    try:
+        post = paginator.page(page)
+        current_block = math.ceil(int(page) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except PageNotAnInteger:
+        post = paginator.page(1)
+        current_block = math.ceil(int(1) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except EmptyPage:
+        post = paginator.page(paginator.num_pages)
+        current_block = math.ceil(int(paginator.num_pages) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    return render(request, 'findboard.html', {'post' : post, 'p_range':p_range})
+
+def missBoard(request):
+    posts = Post.objects.filter(menu=False)
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(posts, 12)
+    page_range = 5
+    try:
+        post = paginator.page(page)
+        current_block = math.ceil(int(page) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except PageNotAnInteger:
+        post = paginator.page(1)
+        current_block = math.ceil(int(1) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except EmptyPage:
+        post = paginator.page(paginator.num_pages)
+        current_block = math.ceil(int(paginator.num_pages) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    return render(request, 'missboard.html', {'post' : post, 'p_range':p_range})
+
+def posterBoard(request):
+    posts = Post.objects.all()
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(posts, 12)
+    page_range = 5
+    try:
+        post = paginator.page(page)
+        current_block = math.ceil(int(page) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except PageNotAnInteger:
+        post = paginator.page(1)
+        current_block = math.ceil(int(1) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except EmptyPage:
+        post = paginator.page(paginator.num_pages)
+        current_block = math.ceil(int(paginator.num_pages) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    return render(request, 'posterboard.html', {'post' : post, 'p_range':p_range})
+
+def search(request):
+    return render(request, '')
+
+@login_required()
+def postFind(request):
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit = False)
+            post.menu = True
+            post.pub_date = timezone.datetime.now()
+            post.up_date = timezone.datetime.now()
+            post.user = request.user
+            post.save()
+            return redirect(reverse('website:postCheck', args=[str(post.id)]))
+
+    else:
+        form = PostForm()
+        return render(request, 'postFind.html', {'form' : form})
+
+@login_required
+def postLose(request):
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.menu = True
+            post.pub_date = timezone.datetime.now()
+            post.up_date = timezone.datetime.now()
+            post.user = request.user
+            post.save()
+            return redirect(reverse('website:postCheck', args=[str(post.id)]))
+
+    else:
+        form= PostForm()
+        return render(request, 'postLose.html', {'form':form})
 
 # 포스트한 내용 보여주기
 def postCheck(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     comments = post.comments.all()
-    return render(request, 'postCheck.html', {'post': post, 'comments': comments})
-
-def add_comment_to_post(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
 
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
-            comment.user = request.user.id
-            comment.post = request.post.id
+            comment.comment = request.POST['comment']
+            comment.user = request.user
+            comment.post = post
             comment.pub_date = timezone.datetime.now()
             comment.up_date = timezone.datetime.now()
             comment.save()
-            return redirect('post', pk=post.id)
+            return render(request, 'postCheck.html', {'post': post, 'comments': comments, 'comment_form': comment_form})
     else:
-        comments = post.comments.all()
+        comment_form = CommentForm()
 
-    # return render(request, 'post.html', {'post':post, 'comment_form':comment_form, 'comments':comments})
-    return render(request, 'post.html', {'post':post, 'comments':comments})
+    return render(request, 'postCheck.html', {'post': post, 'comments': comments, 'comment_form' : comment_form})
 
 # 포스트 수정, 구체적 form은 html에 맞춰서 수정 필요
 def edit(request, post_id):
@@ -220,7 +371,7 @@ def edit(request, post_id):
         return redirect(post)
     else:
         if request.method == "POST":
-            form = PostForm(request.POST, instance=post)
+            form = PostForm(request.POST, request.FILES, instance=post)
             if form.is_valid():
                 post = form.save(commit=False)
                 post.user = request.user
@@ -229,49 +380,107 @@ def edit(request, post_id):
                 return redirect('post', id=post.uuid)
         else:
             form = PostForm(instance=post)
-            return render(request, 'html', form)
+            if post.menu == True:
+                return render(request, 'loseModify.html', {'form' : form})
+            else :
+                return render(request, 'findModify.html', {'form' : form})
 
 def delete(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     if request.user != post.user:
-        messages.warning(request, "권한 없음")
-        return redirect(post)
+        return redirect(reverse('website:postCheck', args=[str(post.id)]))
     else:
         post.delete()
-    return redirect('/')
+        return redirect(reverse('website:homePost'))
 
 @login_required
-def comment_approve(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
-    comment.approve()
-    return redirect('post', pk=comment.post.pk)
-
-@login_required
-def comment_edit(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
+def comment_edit(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
     post = get_object_or_404(Post, pk=comment.post.id)
+    comments = post.comments.all()
 
-    if request.user != comment.user:
-        messages.warning(request, "권한 없음")
-        return redirect(post)
+    if comment.user.userID != request.user.userID:
+        return redirect(reverse('website:postCheck', args=[post.id]))
 
     if request.method == "POST":
         form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
-            form.save()
-            return redirect(post)
+            comment = form.save(commit=False)
+            comment.comment = request.POST['comment']
+            comment.up_date = timezone.datetime.now()
+            comment.save()
+            return redirect(reverse('website:postCheck', args=[str(post.id)]))
     else:
         form = CommentForm(instance=comment)
-    return render(request, '.html', {'form': form})
+    return render(request, 'comment_edit.html', {'form': form, 'comment':comment, 'comments':comments, 'post':post})
 
 @login_required
-def comment_delete(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
+def comment_delete(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
     post = get_object_or_404(Post, pk=comment.post.id)
 
     if request.user != comment.user:
         messages.warning(request, "권한 없음")
-        return redirect(post)
+        return redirect(reverse('website:postCheck', args=[str(post.id)]))
     else:
         comment.delete()
+<<<<<<< HEAD
         return redirect('post', pk=comment.post.pk)
+=======
+        return redirect(reverse('website:postCheck', args=[str(post.id)]))
+
+class ShelterDist:
+    mylat = 0
+    mylng = 0
+    shelterlat = 0
+    shelterlng = 0
+    short = 0
+    showlat = 0
+    showlng = 0
+    count = 0
+
+    def __init__(self, lat, lng):
+        self.mylat = float(lat)
+        self.mylng = float(lng)
+
+    def rad(self, x):
+        return x * math.pi / 180
+
+    def distHaversine(self, shelterlat, shelterlng):
+        self.shelterlat = shelterlat
+        self.shelterlng = shelterlng
+        R = 3960
+        dLat = self.rad(self.shelterlat - self.mylat)
+        dLong = self.rad(self.shelterlng - self.mylng)
+        a = math.sin(dLat / 2) * math.sin(dLat / 2) + math.cos(self.rad(self.mylat)) * math.cos(self.rad(self.shelterlat)) * math.sin(dLong / 2) * math.sin(dLong / 2)
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+        d = R * c
+        if self.count == 0:
+            self.short = '{:0.1f}'.format(d)
+        self.compareDistance('{:0.1f}'.format(d))
+        self.count += 1
+
+    def compareDistance(self, distance):
+        if self.short >= distance:
+            self.short = distance
+            self.showlat = self.shelterlat
+            self.showlng = self.shelterlng
+
+def shelterInformation(request):
+    lat = request.GET.get('lat', '0')
+    lng = request.GET.get('lng', '0')
+
+    list = ShelterInformation.objects.values()
+    dist = ShelterDist(lat, lng)
+
+    if (lat != '0') | (lng != '0'):
+        for i in list:
+            dist.distHaversine(i['lat'], i['lng'])
+        lat_new = dist.showlat
+        lng_new = dist.showlng
+
+        information = ShelterInformation.objects.get(lat = lat_new, lng = lng_new)
+
+        return render(request, 'shelter.html', {'information': information, 'lat': lat_new, 'lng': lng_new})
+    return render(request, 'shelter.html')
+>>>>>>> ab25f280aa52591a9761bb4cc11081b07b161871

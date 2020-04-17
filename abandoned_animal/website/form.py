@@ -1,5 +1,4 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
-from django.forms import ModelForm
 from .models import User, Post, Comment
 from django.db.transaction import commit
 from django.forms import ModelForm
@@ -36,15 +35,26 @@ class ChangeForm(UserChangeForm):
 
     class Meta:
         model = User
+<<<<<<< HEAD
         fields = ('username', 'password')
+=======
+        fields = ('userID', 'username')
+>>>>>>> ab25f280aa52591a9761bb4cc11081b07b161871
 
 class PostForm(ModelForm):
     class Meta:
         model = Post
+<<<<<<< HEAD
         fields = ['menu', 'species', 'date', 'location', 'feature', 'image']
+=======
+        fields = ['species', 'date', 'location', 'feature', 'image']
+>>>>>>> ab25f280aa52591a9761bb4cc11081b07b161871
 
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
         fields = ['comment']
+<<<<<<< HEAD
 
+=======
+>>>>>>> ab25f280aa52591a9761bb4cc11081b07b161871

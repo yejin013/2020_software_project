@@ -1,0 +1,138 @@
+{% extends 'menu_template.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/post.css' %}">
+<!-- <script type="text/javascript" src="../js/post.js"></script> -->
+<div class="post-page">
+    <!-- <div class="intro">
+        <h1 style="text-align: center">게시글 작성</h1>
+    </div> -->
+    <div class="form">
+        <form class="post-form" method="post" enctype="multipart/form-data" action="{% url 'website:postLose' %}">
+            {% csrf_token %}
+            <div class="wrapper">
+                <div class="box">
+                    <div class="js--image-preview"></div>
+                    <div class="upload-options">
+                        <label for="image">
+                            <input type="file" class="image-upload" id="image" name="image" accept="image/*" enctype="multipart/form-data">
+                        </label>
+                    </div>
+                </div>
+                <!-- 예진 : 여기도 postFind.html에 넣으신 코드처럼 넣어주시면 됩니당!  -->
+                <p id="info" for="species">종을 입력해주세요</p>
+                {{ form.species }}
+                <p id="info" for="location">잃어버린 위치를 입력해주세요</p>
+                {{ form.location }}
+                <p id="info" for="date">잃어버린 날짜를 입력해주세요</p>
+                <input type="date" id="date" name="date">
+                <p id="info" for="feature">특징을 입력해주세요</p>
+                {{ form.feature }}
+                <!-- 예진 : 게시물 등록하는 함수 넣기  -->
+                <button type="submit" class="btn btn-default">등록</button>
+                <!-- 예진 : 게시판 목록으로 돌아가는 함수 넣기 -->
+                <a class="btn btn-default" href="{% url 'website:homePost' %}" role="button" id="button">취소</a>
+            </form>
+    </div>
+    <script
+        src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+    <script>function initImageUpload(box) {
+            let uploadField = box.querySelector('.image-upload');
+
+            uploadField.addEventListener('change', getFile);
+
+            function getFile(e) {
+                let file = e.currentTarget.files[0];
+                checkType(file);
+            }
+
+            function previewImage(file) {
+                let thumb = box.querySelector('.js--image-preview'),
+                    reader = new FileReader();
+
+                reader.onload = function () {
+                    thumb.style.backgroundImage = 'url(' + reader.result + ')';
+                }
+                reader.readAsDataURL(file);
+                thumb.className += ' js--no-default';
+            }
+
+            function checkType(file) {
+                let imageType = /image.*/;
+                if (!file.type.match(imageType)) {
+                    throw 'Datei ist kein Bild';
+                } else if (!file) {
+                    throw 'Kein Bild gewählt';
+                } else {
+                    previewImage(file);
+                }
+            }
+
+        }
+
+        // initialize box-scope
+        var boxes = document.querySelectorAll('.box');
+
+        for (let i = 0; i < boxes.length; i++) {
+            if (window.CP.shouldStopExecution(1)) { break; }
+            let box = boxes[i];
+            initDropEffect(box);
+            initImageUpload(box);
+        }
+        window.CP.exitedLoop(1);
+
+
+
+
+        /// drop-effect
+        function initDropEffect(box) {
+            let area, drop, areaWidth, areaHeight, maxDistance, dropWidth, dropHeight, x, y;
+
+            // get clickable area for drop effect
+            area = box.querySelector('.js--image-preview');
+            area.addEventListener('click', fireRipple);
+
+            function fireRipple(e) {
+                area = e.currentTarget
+                // create drop
+                if (!drop) {
+                    drop = document.createElement('span');
+                    drop.className = 'drop';
+                    this.appendChild(drop);
+                }
+                // reset animate class
+                drop.className = 'drop';
+
+                // calculate dimensions of area (longest side)
+                areaWidth = getComputedStyle(this, null).getPropertyValue("width");
+                areaHeight = getComputedStyle(this, null).getPropertyValue("height");
+                maxDistance = Math.max(parseInt(areaWidth, 10), parseInt(areaHeight, 10));
+
+                // set drop dimensions to fill area
+                drop.style.width = maxDistance + 'px';
+                drop.style.height = maxDistance + 'px';
+
+                // calculate dimensions of drop
+                dropWidth = getComputedStyle(this, null).getPropertyValue("width");
+                dropHeight = getComputedStyle(this, null).getPropertyValue("height");
+
+                // calculate relative coordinates of click
+                // logic: click coordinates relative to page - parent's position relative to page - half of self height/width to make it controllable from the center
+                x = e.pageX - this.offsetLeft - (parseInt(dropWidth, 10) / 2);
+                y = e.pageY - this.offsetTop - (parseInt(dropHeight, 10) / 2) - 30;
+
+                // position drop and animate
+                drop.style.top = y + 'px';
+                drop.style.left = x + 'px';
+                drop.className += ' animate';
+                e.stopPropagation();
+
+            }
+        }
+
+//# sourceURL=pen.js
+    </script>
+
+</div>
+{% endblock content %}

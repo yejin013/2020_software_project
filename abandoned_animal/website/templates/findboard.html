@@ -1,0 +1,55 @@
+{% extends 'menu_template.html' %}
+
+{% block content %}
+
+<h4 id="whole_list_head"> 발견동물 게시판 </h4>
+<h6 id="whole_list_text"> 보호되거나 발견된 동물 리스트 </h6>
+<a href="{% url 'website:postFind' %}" class="btn btn-secondary" id="writebutton"> 게시글 등록 </a>
+
+{% if post %}
+<div class="row">
+    <div class="card-deck">
+
+        {% for postRow in post %}
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="card">
+                {% if postRow.image %}
+                <img class="card-img-top" src="{{ postRow.image.url }}" alt="Card image">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ postRow.species }}</h5>
+                    <p class="card-text">{{ postRow.location }}</p>
+                    <p class="card-text">{{ postRow.date }}</p>
+                    {% if postRow.user.username == None %}
+                    <p class="card-text">{{ postRow.shelter.name }}</p>
+                    {% else %}
+                    <p class="card-text">{{ postRow.user.username }}</p>
+                    {% endif %}
+                    <a href="{% url 'website:postCheck' postRow.id %}" class="btn btn-light">게시글 보기</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endif %}
+<!--End of card-deck-->
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% if post.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo; 처음으로</a></li>
+        <li class="page-item"><a class="page-link" href="{{post.previous_page_number}}">이전으로</a></li>
+        {% endif %}
+        {% for i in p_range %}
+        <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+        {% endfor %}
+        {% if post.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{post.next_page_number}}">다음으로</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{post.paginator.num_page}}">끝으로 &raquo;</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+{% endblock %}

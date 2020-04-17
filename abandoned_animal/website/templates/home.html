@@ -3,59 +3,61 @@
 {% block content %}
 
 <div id="background" class="jumbotron">
-    <h1 id="introhead" class="display-4">찾아Zoo!</h1>
-    <p id="introtext" class="lead">서로를 찾고 있는 반려동물과 당신의 마음.<br> 똑똑하게 AI로 당신의 강아지를 찾아보세요!</p>
+    <h1 id="introhead" class="display-4">고영희 찾기</h1>
+    <p id="introtext" class="lead">서로를 찾고 있는 반려동물과 당신의 마음.<br> 똑똑하게 AI로 당신의 고양이를 찾아보세요!</p>
     <p class="lead">
-        <!--메인에서 바로 검색할 수 있는가?-->
-        <a class="btn btn-outline-light" href="Search.html" role="button">반려동물 찾기</a>
+        <a class="btn btn-outline-light" href="{% url 'website:search' %}" role="button">반려동물 찾기</a>
     </p>
 </div>
 
-<!-- 2-2 내용 시작 -->
 <div class="container-fluid">
 
-    <!-- 내용 -->
     <h4 id="whole_list_head"> 전체 리스트 </h4>
     <h6 id="whole_list_text">실종 및 발견신고</h6>
 
     {% if post %}
-    <div class="card-deck">
+    <div class="row">
+        <div class="card-deck">
 
-        {% for postRow in post %}
-        <div class="card">
-            {% if postRow.image %}
-            <img src="{{ postRow.image.url }}" class="card-img-top" alt="Card image cap">
-            {% endif %}
-            <div class="card-body">
-                <h5 class="card-title">{{ postRow.species }}</h5>
-                <p class="card-text">{{ postRow.miss_date }}</p>
-                <p class="card-text">{{ postRow.miss_loc }}</p>
-                {% if postRow.user.username == None %}
-                <p class="card-text">{{ postRow.shelter.name }}</p>
-                {% else %}
-                <p class="card-text">{{ postRow.user.username }}</p>
-                {% endif %}
-                <a href="{% url 'website:post' postRow.id %}" class="btn btn-light">게시글 보기</a>
+            {% for postRow in post %}
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="card">
+                    {% if postRow.image %}
+                    <img src="{{ postRow.image.url }}" class="card-img-top" alt="Card image cap">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ postRow.species }}</h5>
+                        <p class="card-text">{{ postRow.location }}</p>
+                        <p class="card-text">{{ postRow.date }}</p>
+                        {% if postRow.user.username == None %}
+                        <p class="card-text">{{ postRow.shelter.name }}</p>
+                        {% else %}
+                        <p class="card-text">{{ postRow.user.username }}</p>
+                        {% endif %}
+                        <a href="{% url 'website:postCheck' postRow.id %}" class="btn btn-light">게시글 보기</a>
+                    </div>
+                </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-
     </div>
     {% endif %}
+
     <!--End of card-deck-->
 
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <!--여기 페이지네이션 href 어떻게 할지 예진이한테 물어보기-->
-                <a class="page-link" href="#" tabindex="-1">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
+            {% if post.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo; 처음으로</a></li>
+            <li class="page-item"><a class="page-link" href="{{post.previous_page_number}}">이전으로</a></li>
+            {% endif %}
+            {% for i in p_range %}
+            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+            {% endfor %}
+            {% if post.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{post.next_page_number}}">다음으로</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{post.paginator.num_page}}">끝으로 &raquo;</a></li>
+            {% endif %}
         </ul>
     </nav>
 

@@ -1,0 +1,82 @@
+{% extends 'menu_template.html' %}
+
+{% block content %}
+
+<div id="background" class="jumbotron">
+    <h1 id="introhead" class="display-4">고영희 찾기</h1>
+    <p id="introtext" class="lead">서로를 찾고 있는 반려동물과 당신의 마음.<br> 똑똑하게 AI로 당신의 고양이를 찾아보세요!</p>
+    
+    <!--예진 : 사진파일, 품종, 시, 구, 실종날짜 제출-->
+    {% csrf_token %}
+    <form class="post-form" method="post" enctype="multipart/form-data" action="{% url 'website:home2' %}">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <div class="custom-file">
+                    <label for="image" class="custom-file-label">사진을 입력하세요</label>
+                    <input type="file" class="custom-file-input" id="image" name="image">
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <select class="custom-select" name="species" id="species">
+                    <label for="species">종</label>
+                    <option selected name="species" onchange="alert(this.options[this.selectedIndex].text)">종을 선택하세요</option>
+                    <option value="러시안 블루">러시안 블루</option>
+                    <option value="샴">샴</option>
+                    <option value="뱅갈">뱅갈</option>
+                    <option value="페르시안">페르시안</option>
+                    <option value="브리티쉬 숏헤어">브리티쉬 숏헤어</option>
+                    <option value="스코티쉬 폴드">스코티쉬 폴드</option>
+                    <option value="먼치킨">먼치킨</option>
+                    <option value="스핑크스">스핑크스</option>
+                    <option value="메인 쿤">메인 쿤</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputState">시</label>
+                <select id="inputState" class="form-control" name="inputState">
+                    <option selected name="inputState" onchange="alert(this.options[this.selectedIndex].text)">시를 입력하세요</option>
+                    <option value="서울특별시">서울특별시</option>
+                    <option value="부산광역시">부산광역시</option>
+                    <option value="대구광역시">대구광역시</option>
+                    <option value="인천광역시">인천광역시</option>
+                    <option value="광주광역시">광주광역시</option>
+                    <option value="대전광역시">대전광역시</option>
+                    <option value="울산광역시">울산광역시</option>
+                    <option value="세종특별자치시">세종특별자치시</option>
+                    <option value="경기도">경기도</option>
+                    <option value="전라북도">전라북도</option>
+                    <option value="전라남도">전라남도</option>
+                    <option value="경상북도">경상북도</option>
+                    <option value="경상남도">경상남도</option>
+                    <option value="제주특별자치도">제주특별자치도 </option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputCity">구</label>
+                <input type="text" class="form-control" id="inputCity" name="inputCity">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputDate">실종 날짜</label>
+                <input type="date" name="inputDate" value="2020-01-01" id="inputDate">
+            </div>
+        </div>
+
+        <!--예진 : 버튼 누를때 home.result로 이동!  -->
+        <input type="submit" id="submit" value="찾기">
+    </form>
+</div>
+
+<div class="container-fluid">
+
+<!--수현 : 홈페이지 소개페이지? -->
+
+</div>
+<!-- /.container-fluid -->
+
+{% endblock %}

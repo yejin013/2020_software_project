@@ -1,0 +1,55 @@
+{% extends 'menu_template.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <h4 id="whole_list_head"> 게시글 관리 </h4>
+    <h6 id="whole_list_text"> 내가 작성한 게시글 </h6>
+
+    {% if post %}
+    <div class="row">
+        <div class="card-deck">
+
+            {% for postRow in post %}
+            
+                <div class="card">
+                    {% if postRow.image %}
+                    <img src="{{ postRow.image.url }}" class="card-img-top" alt="Card image cap">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ postRow.species }}</h5>
+                        <p class="card-text">{{ postRow.location }}</p>
+                        <p class="card-text">{{ postRow.date }}</p>
+                        <a href="{% url 'website:postCheck' postRow.id %}" class="btn btn-light">게시글 보기</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    {% endif %}
+
+    <!--End of card-deck-->
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <!--예진 : 여기 5개의 href 바꿔주세요!-->
+            
+            <li class="page-item"><a class="page-link" href="#">&laquo; 처음으로</a></li>
+            <li class="page-item"><a class="page-link" href="#">이전으로</a></li>
+            
+            <li class="page-item"><a class="page-link" href="#">숫자</a></li>
+            
+            <li class="page-item"><a class="page-link" href="#">다음으로</a></li>
+            <li class="page-item"><a class="page-link" href="#">끝으로 &raquo;</a></li>
+            
+        </ul>
+    </nav>
+
+</div>
+<!-- /.container-fluid -->
+
+
+{% endblock %}

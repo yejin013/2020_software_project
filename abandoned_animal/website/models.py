@@ -18,6 +18,7 @@ class UserManager(BaseUserManager):
             raise ValueError('ID Required')
 
         user = self.model(userID=userID, phone=phone, username=username, question=question, answer=answer)
+
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -41,35 +42,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length=11, blank=True, null=True, verbose_name = '연락처')
     image = models.ImageField(blank=True, null=True, upload_to="profile", verbose_name = '이미지')
     pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    '''
-    ONE = '기억에 남는 추억의 장소는?'
-    TWO = '자신의 인생 좌우명은?'
-    THREE = '자신의 보물 제1호는?'
-    FOUR = '가장 기억에 남는 선생님 성함은?'
-    FIVE = '추억하고 싶은 날짜가 있다면?'
-    SIX = '유년시절 가장 생각나는 친구 이름은?'
-    SEVEN = '인상 깊게 읽은 책 이름은?'
-    EIGHT = '읽은 책 중에서 좋아하는 구절이 있다면?'
-    NINE = '자신이 두번째로 존경하는 인물은?'
-    TEN = '초등학교 때 기억에 남는 짝궁 이름은?'
-    ELEVEN = '다시 태어나면 되고 싶은 것은?'
-    TWELEVE = '내가 좋아하는 캐릭터는?'
-    THIRTEEN = '자신의 반려동물의 이름은?'
-    CHOICES = (
-        (ONE, '기억에 남는 추억의 장소는?'),
-        (TWO, '자신의 인생 좌우명은?'),
-        (THREE, '자신의 보물 제1호는?'),
-        (FOUR, '가장 기억에 남는 선생님 성함은?'),
-        (FIVE, '추억하고 싶은 날짜가 있다면?'),
-        (SIX, '인상 깊게 읽은 책 이름은?'),
-        (SEVEN, '인상 깊게 읽은 책 이름은?'),
-        (EIGHT, '읽은 책 중에서 좋아하는 구절이 있다면?'),
-        (NINE, '자신이 두번째로 존경하는 인물은?'),
-        (TEN, '초등학교 때 기억에 남는 짝궁 이름은?'),
-        (ELEVEN, '다시 태어나면 되고 싶은 것은?'),
-        (TWELEVE, '내가 좋아하는 캐릭터는?'),
-        (THIRTEEN, '자신의 반려동물의 이름은?')
-    )'''
     question = models.CharField(max_length=30, null=True, blank=True)
     answer = models.CharField(max_length=200, null=True, blank=True)
     # up_date = models.DateTimeField('date updated')
@@ -88,8 +60,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.is_superuser
 
 class ShelterManager(BaseUserManager):
-    def create_shelter(self, name, address, phone):
-        shelter = self.model(name=name, address=address, phone=phone)
+    def create_shelter(self, name, address, phone, lat, lng):
+        shelter = self.model(name=name, address=address, phone=phone, lat=lat, lng=lng)
         shelter.save(using=self._db)
         return shelter
 
@@ -103,8 +75,27 @@ class Shelter(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True, verbose_name='보호소이름')
     address = models.CharField(max_length=300, null=True, blank=True, verbose_name='보호소 위치')
     phone = models.CharField(max_length=20, null=True, blank=True, verbose_name='보호소 전화번호')
+    lat = models.FloatField(null=True, blank=True, verbose_name='위도')
+    lng = models.FloatField(null=True, blank=True, verbose_name='경도')
 
     objects=ShelterManager()
+
+    def __str__(self):
+        return self.name
+
+class ShelterInformation(models.Model):
+    id = models.AutoField(
+        primary_key=True,
+        unique=True,
+        editable=False,
+        verbose_name='pk'
+    )
+    name = models.CharField(max_length=50, null=True, blank=True, verbose_name='보호소이름')
+    address = models.CharField(max_length=300, null=True, blank=True, verbose_name='보호소 위치')
+    phone = models.CharField(max_length=20, null=True, blank=True, verbose_name='보호소 전화번호')
+    area = models.CharField(max_length=300, null=True, blank=True)
+    lat = models.FloatField(null=True, blank=True, verbose_name='위도')
+    lng = models.FloatField(null=True, blank=True, verbose_name='경도')
 
     def __str__(self):
         return self.name
@@ -118,7 +109,7 @@ class Post(models.Model):
     )
     menu = models.BooleanField(verbose_name = '잃어버렸어요 or 발견했어요')
     species = models.CharField(max_length=30, verbose_name = '품종')
-    date = models.DateTimeField(null = True, blank=True, verbose_name = '실종 날짜')
+    date = models.DateField(null = True, blank=True, verbose_name = '실종 날짜')
     location = models.CharField(max_length=100, verbose_name = '실종 위치')
     feature = models.CharField(max_length=200, verbose_name = '특징')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
@@ -146,6 +137,8 @@ class Post(models.Model):
                 super().save()
             else:
                 super().save()
+        else:
+            super().save()
 
 class Comment(models.Model):
     id = models.AutoField(
@@ -164,6 +157,7 @@ class Comment(models.Model):
         return self.comment
 
     def approved_comments(self):
+<<<<<<< HEAD
         return self.comment.filter(approved_comment=True)
 
 '''
@@ -199,3 +193,6 @@ class Message(models.Model):
         super(Message, self).save(**kwargs)
 <<<<<<< HEAD
 '''
+=======
+        return self.comments.filter(approved_comment=True)
+>>>>>>> ab25f280aa52591a9761bb4cc11081b07b161871
