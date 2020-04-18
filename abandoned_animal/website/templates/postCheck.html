@@ -10,14 +10,14 @@
     {% if post %}
     <div class="card mb-3" style="width: auto;">
         <div class="row no-gutters">
-            <div class="col-md-4">
+            <div class="col-md-4" style="margin: auto;">
                 {% if post.image %}
                     <img src="{{ post.image.url }}" class="card-img" id="animalImg">
                 {% else %}
                     <img src="{% static 'img/dog.png' %}" class="card-img" id="animalImg">
                 {% endif %}
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8" style="margin: auto;">
                 <div class="card-body">
                     <p class="card-text" id="pub_date" style="text-align:right;" id="reportingDate">등록날짜 : {{ post.pub_date }}</p>
                     <p class="card-text" id="up_date" style="text-align:right;" id="updateDate">수정날짜 : {{ post.up_date }}</p>
