@@ -142,12 +142,31 @@ def myinfo_update(request):
         return render(request,'mypage_Info.html') 
 
 @login_required
-def listMypost(request):
-    user_id = request.session.get('user')
-    mypost = Post.objects.filter(user=user_id).ordered_by('pub_date')
-    
-    #html 나오면 수정필요 + 이 list도 두가지로 나눌 것인가?
-    return render(request,'내포스트.html',{'post':mypost})
+def Mypost(request):
+    posts = Post.objects.fiter(user=request.user)
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(posts, 12)
+    page_range = 5
+    try:
+        post = paginator.page(page)
+        current_block = math.ceil(int(page) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except PageNotAnInteger:
+        post = paginator.page(1)
+        current_block = math.ceil(int(1) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except EmptyPage:
+        post = paginator.page(paginator.num_pages)
+        current_block = math.ceil(int(paginator.num_pages) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    return render(request, 'mypost.html', {'post' : post, 'p_range':p_range})
 
 # def sendMessage(request):
 #     if request.method == 'POST':

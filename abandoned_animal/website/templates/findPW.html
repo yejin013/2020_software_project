@@ -4,6 +4,7 @@
     <h1>비밀번호 찾기</h1>
     <div class="form">
         <form class="PW-form" method="post" action="">
+        {% csrf_token %}
             <input type="text" name="name" placeholder="아이디를 입력하세요">
             <select name="findQuestion">
                 <option value="" selected="selected">비밀번호 확인 질문을 선택해주세요</option>
