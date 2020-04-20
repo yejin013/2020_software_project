@@ -27,7 +27,7 @@ urlpatterns = [
     path('comment/edit/<int:comment_id>/', views.comment_edit, name="comment_edit"),
     path('mypage/',views.mypage,name='mypage_main'),
     path('mypage/myinfo/',views.myinfo_update,name='mypage_Info'),
-    path('mypage/mypost/',views.listMypost,name='mypost'),
+    path('mypage/mypost/',views.Mypost,name='mypost'),
     # path('mypage/mymessage/',views.listMessage,name='mymessage'),
     path('shelter/', views.shelterInformation, name="shelterInformation"),
 ]
