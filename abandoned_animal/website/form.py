@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
-from .models import User, Post, Comment
+from .models import User, Post, Comment, Message
 from django.db.transaction import commit
-from django.forms import ModelForm
+from django.forms import ModelForm, ModelChoiceField
 
 from .models import User
 from django import forms
@@ -46,3 +46,9 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comment
         fields = ['comment']
+
+class MessageForm(ModelForm):
+    reciever = ModelChoiceField(queryset=User.objects.all())
+    class Meta:
+        model = Message
+        field = ['reciever','content']
