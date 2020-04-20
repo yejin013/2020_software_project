@@ -7,7 +7,6 @@ var short = 0;
 var showlat; // 보여줄 위도
 var showlng; // 보여줄 경도
 
-
 // 사용자 위도, 경도 받기
 function getMyLocation() {
     if (navigator.geolocation) { // GPS를 지원하면
@@ -26,42 +25,6 @@ function getMyLocation() {
     }
 }
 
-
-// 보호소 위도, 경도 받기
-function shelterInfo(){
-  shelterlat = document.getElementById("slat").innerText;
-  shelterlng = document.getElementById("slng").innerText;
-  getMyLocation();
-  distHaversine(shelterlat, shelterlng);
-  init();
-}
-
-
-// 거리 비교
-rad = function(x) {return x*Math.PI/180;}
-
-function distHaversine(shelterlat, shelterlng){
-	var R = 3960; // earth's mean radius in mi
-	var dLat  = rad(shelterlat - mylat);
-	var dLong = rad(shelterlng - mylng);
-
-	var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-	        Math.cos(rad(mylat)) * Math.cos(rad(shelterlat)) * Math.sin(dLong/2) * Math.sin(dLong/2);
-	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-	var d = R * c;
-
-  short = d.toFixed(1);
-
-  compareDistance(d.toFixed(1));
-}
-
-function compareDistance(distance){
-  if (short >= distance){
-    short = distance;
-    showlat = shelterlat;
-    showlng = shelterlng;  
-  }
-}
 
 // 사용자 위치 출력
 function userinit()

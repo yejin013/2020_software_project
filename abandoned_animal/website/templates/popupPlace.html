@@ -4,37 +4,33 @@
 <link rel="stylesheet" href="{% static 'css/shelter.css' %}">
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
 <script type="text/javascript" src="{% static 'js/shelter.js' %}"></script>
-<div class="button">
-    <button type="button" id="hide" class="btn btn-default" onclick="userinit();">나의위치보기</button>
-    <button type="button" id="show" class="btn btn-default" onclick="init({{ lat }}, {{ lng }});">주변보호소정보보기</button>
+<div class="confirm">
+    <script>
+        init({{ information.lat }}, {{ information.lng }});
+    </script>
 </div>
 
 <!-- key=AIzaSyCAQHutKTDQok1dWeNv8jO73HcZpcyHgqo -->
 <script src="http://maps.google.com/maps/api/js?key=AIzaSyCAQHutKTDQok1dWeNv8jO73HcZpcyHgqo&sensor=false"></script>
 <div class="container">
     <div id="google_map"></div>
-    <div class="shelter-form">
+    <div class="shelter-info">
         <table class="table">
             {% if information %}
             <tr colsapn="2">
                 <td id="info">관할구역</td>
-                <!-- 예진: if문 이용하여 출력된 보호소의 관할구역 넣기 -->
-                <!-- if문 이용은 출력된 보호소의 lat, lng 이용하기-->
                 <td>{{ information.area }}</td>
             </tr>
             <tr colspan="2">
                 <td id="info">보호센터명</td>
-                <!-- 예진: if문 이용하여 출력된 보호소의 보호센터명 넣기 -->
                 <td>{{ information.name }}</td>
             </tr>
             <tr colspan="2">
                 <td id="info">전화번호</td>
-                <!-- 예진: if문 이용하여 출력된 보호소의 전화번호 넣기 -->
                 <td>{{ information.phone }}</td>
             </tr>
             <tr colspan="2">
                 <td id="info">보호센터 주소</td>
-                <!-- 예진: if문 이용하여 출력된 보호소의 주소 넣기 -->
                 <td>{{ information.address }}</td>
             </tr>
             <tr colspan="2">
