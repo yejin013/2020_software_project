@@ -157,10 +157,9 @@ class Comment(models.Model):
         return self.comment
 
     def approved_comments(self):
-<<<<<<< HEAD
         return self.comment.filter(approved_comment=True)
 
-'''
+
 class Message(models.Model):
     id = models.AutoField(
         primary_key=True,
@@ -191,8 +190,4 @@ class Message(models.Model):
         if not self.id:
             self.sentAt = timezone.now()
         super(Message, self).save(**kwargs)
-<<<<<<< HEAD
-'''
-=======
         return self.comments.filter(approved_comment=True)
->>>>>>> ab25f280aa52591a9761bb4cc11081b07b161871

@@ -24,15 +24,11 @@ urlpatterns = [
     path('detail/edit/<int:post_id>', views.edit, name='edit'),
     path('detail/delete/<int:post_id>', views.delete, name='delete'),
     path('comment/delete/<int:comment_id>/', views.comment_delete, name="comment_delete"),
-<<<<<<< HEAD
-    path('comment/edit/<int:comment_id>/', views.comment_edit, name="comment_update"),
-    path('mypage/',views.mypage,name='mypage'),
-    path('mypage/myinfo/',views.myinfo_update,name='myinfo_update'),
+    path('comment/edit/<int:comment_id>/', views.comment_edit, name="comment_edit"),
+    path('mypage/',views.mypage,name='mypage_main'),
+    path('mypage/myinfo/',views.myinfo_update,name='mypage_Info'),
     path('mypage/mypost/',views.listMypost,name='mypost'),
     # path('mypage/mymessage/',views.listMessage,name='mymessage'),
-=======
-    path('comment/edit/<int:comment_id>/', views.comment_edit, name="comment_edit"),
     path('shelter/', views.shelterInformation, name="shelterInformation"),
->>>>>>> ab25f280aa52591a9761bb4cc11081b07b161871
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

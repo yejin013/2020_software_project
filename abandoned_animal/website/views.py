@@ -1,34 +1,23 @@
 from django.contrib.auth.decorators import login_required
-<<<<<<< HEAD
-from django.http import HttpResponse
-from django.shortcuts import render, redirect,get_object_or_404
-from .models import User, Post, Comment, Shelter
-=======
 from django.http import HttpResponseRedirect
->>>>>>> ab25f280aa52591a9761bb4cc11081b07b161871
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 
 from django.contrib import auth, messages
-from django.shortcuts import render, redirect
 
 from .models import User, Post, Comment, Shelter, ShelterInformation
-from django.contrib import auth
-<<<<<<< HEAD
 from django.contrib.auth import authenticate,get_user_model
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.hashers import check_password
 from django.views.decorators.http import require_http_methods
 from .form import SignupForm,ChangeForm
-=======
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
->>>>>>> ab25f280aa52591a9761bb4cc11081b07b161871
 from .form import SignupForm, PostForm, CommentForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
-
+import string
+import random
 import math
 
 # Create your views here.
@@ -62,12 +51,7 @@ def login(request):
         user = auth.authenticate(request,username=username,password=password)
         if user is not None:
             auth.login(request,user)
-<<<<<<< HEAD
-            request.session['user'] = user.id
-            return redirect('/website')
-=======
             return redirect(reverse('website:homePost'))
->>>>>>> ab25f280aa52591a9761bb4cc11081b07b161871
         else:
             return render(request,'login.html',{'error':'아이디 혹은 비밀번호를 잘못 입력하였습니다.'})
     else:
@@ -101,12 +85,24 @@ def findID(request):
         return render(request,'findID.html')
 
 def findPW(request):
+    Usermodel = get_user_model()
     if request.method == "POST":
-        userID = request.POST['userID']
+        userID = request.POST.get('name', '')
+        question = request.POST.get('findQuestion', '')
+        answer = request.POST.get('findAnswer', '')
         
-        user = User.objects.all().filter(username=userID)
-        if userID is not None:
-            return render(request,'answerPW.html',{'user':user})
+        user = Usermodel.objects.filter(userID=userID,question=question,answer=answer)
+        if user is not None:
+            _LENGTH = 10
+            string_pool = string.digits
+            new_password = ""
+            for i in range(_LENGTH):
+                new_password += random.choice(string_pool)
+            user = authenticate(username=user.userID,password=user.password)
+            user.set_password(new_password)
+            user.save()
+            user = None 
+            return render(request,'answerPW.html',{'newPW':new_password})
         else:
             return render(request,'findPW.html',{'error':'회원 정보가 존재하지 않습니다.'})
     else:
@@ -115,38 +111,35 @@ def findPW(request):
 
 @login_required
 def mypage(request):
-    user_id = request.session.get('user')
-    if id:
-        user = User.objects.get(id=user_id)
+    user = request.user
+    if user:
         return render(request,'mypage_main.html',{'user': user})
     else:
         return render(request,'login.html')
 
-<<<<<<< HEAD
 @login_required
 def myinfo_update(request):
     if request.method == 'POST':
         user = request.user
-        # question = request.POST.get('question', '')
-        # answer = request.POST.get('answer', '')
-        old_password = request.POST.get('oldPw')
-        new_password = request.POST.get('userPw')
-        passwordChk = request.POST.get('userPwChk')
-        phone = request.POST.get('phone')
-        if user.check_password(old_password,user.password):
-            if user.phone == phone:
-                if new_password == passwordChk:
-                    user.set_password(new_password)
-                    user.save()
-                    auth.login(request,user)
-                else:
-                    return(request,'mypage_Info.html',{'notice':'전화번호가 일치하지 않습니다.'})
-            else:
-                return(request,'mypage_Info.html',{'error':'비밀번호를 일치하지 않습니다.'})
+        question = request.POST.get('findQuestion', '')
+        answer = request.POST.get('findAnswer', '')
+        old_password = request.POST.get('oldPw','')
+        new_password = request.POST.get('userPw','')
+        passwordChk = request.POST.get('userPwChk','')
+        phone = request.POST.get('phone','')
+
+        if check_password(old_password,user.password)is False or phone != user.phone or question != user.question or answer != user.answer:
+            return render(request,'mypage_Info.html',{'error':'입력한 기존 정보가 잘못되었습니다.'})
         else:
-            return(request,'mypage_Info.html',{'notice':'비밀번호를 잘못 입력하셨습니다.'})
+            if new_password != passwordChk:
+                return(request,'mypage_Info.html',{'error':'잘못 입력하셨습니다.'})
+            else:
+                user.set_password(new_password)
+                user.save()
+                auth.login(request,user)
+                return render(request,'mypage_Info.html',{'notice':'수정이 완료되었습니다.'})
     else:
-        return render(request,'mypage_Info.html')
+        return render(request,'mypage_Info.html') 
 
 @login_required
 def listMypost(request):
@@ -180,12 +173,10 @@ def listMypost(request):
 
 #     #쪽지 1개씩 보는 경우-> html 나오면 수정
 #     return render(request,'msg_receivelist.html')
-=======
 @login_required()
 def logout(request):
     auth.logout(request)
     return redirect(reverse('website:homePost'))
->>>>>>> ab25f280aa52591a9761bb4cc11081b07b161871
 
 def homePost(request):
     posts = Post.objects.all()
@@ -424,9 +415,6 @@ def comment_delete(request, comment_id):
         return redirect(reverse('website:postCheck', args=[str(post.id)]))
     else:
         comment.delete()
-<<<<<<< HEAD
-        return redirect('post', pk=comment.post.pk)
-=======
         return redirect(reverse('website:postCheck', args=[str(post.id)]))
 
 class ShelterDist:
@@ -483,4 +471,3 @@ def shelterInformation(request):
 
         return render(request, 'shelter.html', {'information': information, 'lat': lat_new, 'lng': lng_new})
     return render(request, 'shelter.html')
->>>>>>> ab25f280aa52591a9761bb4cc11081b07b161871
