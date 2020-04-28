@@ -4,9 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import sqlite3
 import pandas as pd
-from django.shortcuts import render
-
-from .models import ShelterInformation
+import json
 
 # SQLite3 이용
 def sqlite_append(shelterDf):
