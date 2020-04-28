@@ -8,7 +8,6 @@ function gpsCheck(){
         mylat = position.coords.latitude;
         mylng = position.coords.longitude;
         window.location.href = "/website/shelter?" + "lat=" + mylat + "&lng=" + mylng;
-        alert(mylat)
   
       }, function(error) {
         console.error(error);

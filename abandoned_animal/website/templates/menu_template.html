@@ -12,7 +12,31 @@
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap" rel="stylesheet">
 </head>
 
-<body id="page-top" class>
+<body id="page-top">
+    <script>
+        function gpsCheck() {
+            if (confirm("GPS 기능을 사용하시겠습니까? (미사용시, 서비스 이용이 불가능할 수도 있습니다.)")) {
+                if (navigator.geolocation) { // GPS를 지원하면
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        mylat = position.coords.latitude;
+                        mylng = position.coords.longitude;
+                        window.location.href = "/website/shelter?" + "lat=" + mylat + "&lng=" + mylng;
+                    }, function (error) {
+                        console.error(error);
+                    }, {
+                        enableHighAccuracy: false,
+                        maximumAge: 0,
+                        timeout: Infinity
+                    });
+                } else {
+                    alert('GPS를 지원하지 않습니다');
+                    window.location.href = "/website/shelter/";
+                }
+            } else {
+                window.location.href = "/website/shelter/";
+            }
+        }
+    </script>
     <div id="wrapper">
 
         <ul id="Sidebar" class="navbar-nav sidebar sidebar-dark accordion">
@@ -47,7 +71,7 @@
             </div>
             <li class="nav-item">
                 <!-- 예진 : 주변 보호소 정보 끝났다면 href 넣어주세요!-->
-                <a class="nav-link" href="shelter.html">
+                <a class="nav-link" href="{% url 'website:shelterInformation' %}" onclick="gpsCheck();">
                     <span>주변 보호소 정보</span></a>
             </li>
             <li class="nav-item">
