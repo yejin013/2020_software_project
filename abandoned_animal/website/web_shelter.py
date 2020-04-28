@@ -4,7 +4,10 @@ import requests
 from bs4 import BeautifulSoup
 import sqlite3
 import pandas as pd
+from django.shortcuts import render
 import json
+
+from .models import ShelterInformation
 
 # SQLite3 이용
 def sqlite_append(shelterDf):
@@ -49,10 +52,23 @@ def collect_shelter():
         # JSON 파싱
         data = response.json()
 
+        if(data['status'] == 'ZERO_RESULTS'):
+            url = 'https://dapi.kakao.com/v2/local/search/address.json?query=' + location
+            headers = {"Authorization": "KakaoAK c81271251ca977bf7e72dff64a29b4c0"}
+            result = json.loads(str(requests.get(url, headers=headers).text))
+
+            match_first = result['documents'][0]['address']
+
+            lat = float(match_first['y'])
+            lng = float(match_first['x'])
+
+
+
         # lat, lon 추출
-        if(data['results'][0]['geometry']['location']['lat']):
+        elif(data['results'][0]['geometry']['location']['lat']):
             lat = data['results'][0]['geometry']['location']['lat']
             lng = data['results'][0]['geometry']['location']['lng']
+
         else:
             location = name
 
