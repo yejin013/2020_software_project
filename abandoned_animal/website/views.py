@@ -119,7 +119,7 @@ def mypage(request):
 
 @login_required
 def myinfo_update(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         user = request.user
         question = request.POST.get('findQuestion', '')
         answer = request.POST.get('findAnswer', '')
@@ -170,20 +170,20 @@ def Mypost(request):
 
 @login_required
 def myMessage(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         msg_form = MessageForm(request.POST)
         if msg_form.is_valid():
             message = msg_form.save(commit=False)
             message.sender = request.user
-            message.recipient = User.objects.get(username=request.POST['recipient'])
+            message.recipient = User.objects.get(userID=msg_form.cleaned_data.get("recipient"))
             message.content = request.POST['content']
             message.save()
-            return render(request,'msg_write.html')
+            return render(request,'msg_write_copy.html')
         else:
-            return render(request,'msg_write.html',{'error':'실패'})
+            return render(request,'msg_write_copy.html',{'error':'실패'})
     else:
         form = MessageForm()
-        return render(request,'msg_write.html',{'form':form})
+        return render(request,'msg_write_copy.html',{'form':form})
 
 @login_required
 def receiveListMsg(request):

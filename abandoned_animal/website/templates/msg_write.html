@@ -30,19 +30,21 @@
     {% csrf_token %}
         <table class="table" style="margin-top: 50px;">
             <tr colsapn="2">
-                <td width="100px">받는이</td>
-                <td><input type="text" name="recipient" class="form-control" placeholder="아이디를 입력해주세요"></td>
+                <p><td><label for="id_recipient" width="100px">받는이</label></td>
+                <td><input id="id_recipient" type="text" name="recipient" class="form-control" placeholder="아이디를 입력해주세요"></td></p>
             </tr>
             <tr colspan="2">
                 <td>내용</td>
                 <form name='form'>
-                    <td><textarea rows="10" class="form-control" placeholder="내용을 입력해주세요" name="contents"
+                    <p>
+                    <td><textarea rows="10" class="form-control" placeholder="내용을 입력해주세요" name="content"
                             onKeyUp="javascript:fnChkByte(this,'300')"></textarea>
                         <span style="float: right;">/ 300자</span>
                         <span id="byteInfo" style="float: right; margin-right: 5px;">0</span>
                     </td>
+                    </p>
                 </form>
-                {{error}}
+                {{ error }}
             </tr>
             <tr>
                 <td></td>

@@ -35,17 +35,17 @@
                     <th style="width: 120px">날짜</th>
                 </tr>
                 {% if rlist %}
-                <tr>                    
                     {% for r_msg in rlist %}
-                        <th>{{r_msg.sender}}</td>
-                        {% if r_msg.content%}
+                        <tr>
+                            <th>{{r_msg.sender}}</td>
+                            {% if r_msg.content%}
                             <td>{{r_msg.content}}</td>
-                        {% else %}
+                            {% else %}
                             <th>내용 없음</th>
-                        {% endif %}
-                        <th>{{r_msg.sentAt}}</th>
+                            {% endif %}
+                            <th>{{r_msg.sentAt}}</th>                    
+                        </tr>
                     {% endfor %}
-                </tr>
                 <!-- db 없으면 empty?문 이용해서 쪽지가 없습니다?? 출력하기 -->
                 {% else %}
                     <td></td>

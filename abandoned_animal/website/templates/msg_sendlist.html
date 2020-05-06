@@ -34,26 +34,26 @@
                     <th>내용</th>
                     <th style="width: 120px">날짜</th>
                 </tr>
-                <tr>
-                    <!-- if문 이용해서 db가 있으면 -->
-                    <!-- db 받아올 때 받는사람, 내용, 날짜 지우고 하면 돼요~ -->
-                    {% if slist %}
-                        {% for s_msg in slist %}
-                            <th>{{s_msg.recipient}}</td>
+                <!-- if문 이용해서 db가 있으면 -->
+                <!-- db 받아올 때 받는사람, 내용, 날짜 지우고 하면 돼요~ -->
+                {% if slist %}
+                    {% for s_msg in slist %}
+                        <tr>
+                            <td>{{s_msg.recipient}}</td>
                             {% if s_msg.content%}
                                 <td>{{s_msg.content}}</td>
                             {% else %}
                                 <th>내용 없음</th>
                             {% endif %}
                             <th>{{s_msg.sentAt}}</th>
-                        {% endfor %}
-                    <!-- db 없으면 empty?문 이용해서 쪽지가 없습니다?? 출력하기 -->
-                    {% else %}
-                        <td></td>
-                        <td>쪽지함이 비어있습니다.</td>
-                        <td></td>
-                    {% endif %}
-                </tr>
+                        </tr>
+                    {% endfor %}
+                <!-- db 없으면 empty?문 이용해서 쪽지가 없습니다?? 출력하기 -->
+                {% else %}
+                    <td></td>
+                    <td>쪽지함이 비어있습니다.</td>
+                    <td></td>
+                {% endif %}
             </table>
         </div>
     </div>
