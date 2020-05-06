@@ -28,7 +28,9 @@ urlpatterns = [
     path('mypage/',views.mypage,name='mypage_main'),
     path('mypage/myinfo/',views.myinfo_update,name='mypage_Info'),
     path('mypage/mypost/',views.Mypost,name='mypost'),
-    # path('mypage/mymessage/',views.listMessage,name='mymessage'),
+    path('mypage/mymessage/',views.myMessage,name='mymessage'),
+    path('mypage/receivelist/',views.receiveListMsg,name='receivelist'),
+    path('mypage/sendlist/',views.sendListMsg,name='sendlist'),
     path('shelter/', views.shelterInformation, name="shelterInformation"),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

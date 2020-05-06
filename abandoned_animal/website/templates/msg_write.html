@@ -12,12 +12,12 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#">쪽지쓰기</a>
+                <a class="nav-link" href="/website/mypage/mymessage">쪽지쓰기</a>
             <li class="nav-item">
-                <a class="nav-link" href="#">받은쪽지함</a>
+                <a class="nav-link" href="/website/mypage/receivelist">받은쪽지함</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">보낸쪽지함</a>
+                <a class="nav-link" href="/website/mypage/sendlist">보낸쪽지함</a>
             </li>
         </ul>
     </div>
@@ -26,10 +26,12 @@
 <!-- 쪽지함 -->
 <form style=" text-align: center" method="post" action="">
     <div class="container">
+    {% if user.is_authenticated%}
+    {% csrf_token %}
         <table class="table" style="margin-top: 50px;">
             <tr colsapn="2">
                 <td width="100px">받는이</td>
-                <td><input type="text" name="name" class="form-control" placeholder="아이디를 입력해주세요"></td>
+                <td><input type="text" name="recipient" class="form-control" placeholder="아이디를 입력해주세요"></td>
             </tr>
             <tr colspan="2">
                 <td>내용</td>
@@ -40,6 +42,7 @@
                         <span id="byteInfo" style="float: right; margin-right: 5px;">0</span>
                     </td>
                 </form>
+                {{error}}
             </tr>
             <tr>
                 <td></td>
@@ -50,6 +53,10 @@
             <a class="btn btn-default" href="#" role="button">취소</a>
             <button class="btn btn-default" type="submit">보내기</button>
         </div>
+    {% else %}
+    <li><a href="{% url 'website:login' %}">Login</a></li>
+    <li><a href="{% url 'website:signup' %}">Signup</a></li>
+    {% endif %}
     </div>
 </form>
 

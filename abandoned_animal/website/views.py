@@ -6,14 +6,14 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from django.contrib import auth, messages
 
-from .models import User, Post, Comment, Shelter, ShelterInformation
+from .models import User, Post, Comment, Shelter, ShelterInformation,Message
 from django.contrib.auth import authenticate,get_user_model
 from django.contrib.auth.hashers import check_password
 from django.views.decorators.http import require_http_methods
 from .form import SignupForm,ChangeForm
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
-from .form import SignupForm, PostForm, CommentForm
+from .form import SignupForm, PostForm, CommentForm, MessageForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 import string
@@ -168,30 +168,79 @@ def Mypost(request):
         p_range = paginator.page_range[start_block:end_block]
     return render(request, 'mypost.html', {'post' : post, 'p_range':p_range})
 
-# def sendMessage(request):
-#     if request.method == 'POST':
-#         form = MessageForm(request.POST)
+@login_required
+def myMessage(request):
+    if request.method == 'POST':
+        msg_form = MessageForm(request.POST)
+        if msg_form.is_valid():
+            message = msg_form.save(commit=False)
+            message.sender = request.user
+            message.recipient = User.objects.get(username=request.POST['recipient'])
+            message.content = request.POST['content']
+            message.save()
+            return render(request,'msg_write.html')
+        else:
+            return render(request,'msg_write.html',{'error':'실패'})
+    else:
+        form = MessageForm()
+        return render(request,'msg_write.html',{'form':form})
 
-#         if form.is_valide():
-#             message = form.save(commit)
+@login_required
+def receiveListMsg(request):
+    r_msgs = Message.objects.filter(recipient = request.user)
+    page = request.GET.get('page', 1)
 
-# @login_required
-# def listMessage(request):
-    # receivedList = Message.objects.filter(receiver = request.user)
-    # sentList = Message.objects.filter(sender = request.user)
+    paginator = Paginator(r_msgs, 12)
+    page_range = 5
+    try:
+        rList = paginator.page(page)
+        current_block = math.ceil(int(page) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except PageNotAnInteger:
+        rList = paginator.page(1)
+        current_block = math.ceil(int(1) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except EmptyPage:
+        rList = paginator.page(paginator.num_pages)
+        current_block = math.ceil(int(paginator.num_pages) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
 
-    #쪽지함 List html 나오면 수정
-    # return render(request,'쪽지함.html',{'rlist':receivedList,'slist':sentList})
+    return render(request,'msg_receivelist.html',{'rlist':rList, 'p_range':p_range})
 
-# def viewMessage(request,message_id):
-#     if not request.user.is_authenticated:
-#         return redirect('signin')
-#     messages = get_object_or_404(Message,pk=message_id)
-#     messages.isRead = True
-#     messages.save()
+@login_required
+def sendListMsg(request):
+    s_msgs = Message.objects.filter(sender = request.user)
+    page = request.GET.get('page', 1)
 
-#     #쪽지 1개씩 보는 경우-> html 나오면 수정
-#     return render(request,'msg_receivelist.html')
+    paginator = Paginator(s_msgs, 12)
+    page_range = 5
+    try:
+        sList = paginator.page(page)
+        current_block = math.ceil(int(page) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except PageNotAnInteger:
+        sList = paginator.page(1)
+        current_block = math.ceil(int(1) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    except EmptyPage:
+        sList = paginator.page(paginator.num_pages)
+        current_block = math.ceil(int(paginator.num_pages) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+    return render(request,'msg_sendlist.html',{'slist':sList, 'p_range':p_range})
+
+
 @login_required()
 def logout(request):
     auth.logout(request)

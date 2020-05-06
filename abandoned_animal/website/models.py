@@ -168,8 +168,8 @@ class Message(models.Model):
         verbose_name='pk'
     )
 
-    sender = models.ForeignKey(User,on_delete=models.CASCADE) 
-    reciever = models.ForeignKey(User,on_delete=models.CASCADE) 
+    sender = models.ForeignKey(User,related_name="message_sender",on_delete=models.CASCADE) 
+    recipient = models.ForeignKey(User,related_name="message_reciever",on_delete=models.CASCADE) 
     sentAt = models.DateTimeField(auto_now_add=True)
     content = models.TextField(max_length=150) #text 길이 정하기
 #   isRead = models.BooleanField(default=False)

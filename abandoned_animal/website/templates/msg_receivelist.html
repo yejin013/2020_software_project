@@ -11,12 +11,12 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#">쪽지쓰기</a>
+                <a class="nav-link" href="/website/mypage/mymessage">쪽지쓰기</a>
             <li class="nav-item">
-                <a class="nav-link" href="#">받은쪽지함</a>
+                <a class="nav-link" href="/website/mypage/receivelist">받은쪽지함</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">보낸쪽지함</a>
+                <a class="nav-link" href="/website/mypage/sendlist">보낸쪽지함</a>
             </li>
         </ul>
     </div>
@@ -24,6 +24,7 @@
 
 <!-- 받은 쪽지함 -->
 <!-- 혜원 : if문 이용해서 로그인이 되어 있으면 for문 통해서 받은 쪽지 db 받아오기 -->
+{% if user.is_authenticated %}
 <form style=" text-align: center" method="post" action="">
     <div class="container">
         <div class="table-responsive">
@@ -33,22 +34,48 @@
                     <th>내용</th>
                     <th style="width: 120px">날짜</th>
                 </tr>
-                <tr>
-                    <!-- if문 이용해서 db가 있으면 -->
-                    <!-- db 받아올 때 받는사람, 내용, 날짜 지우고 하면 돼요~ -->
-                    <td>보낸사람</td>
-                    <td>내용</td>
-                    <td>날짜</td>
-                    <!-- db 없으면 empty?문 이용해서 쪽지가 없습니다?? 출력하기 -->
+                {% if rlist %}
+                <tr>                    
+                    {% for r_msg in rlist %}
+                        <th>{{r_msg.sender}}</td>
+                        {% if r_msg.content%}
+                            <td>{{r_msg.content}}</td>
+                        {% else %}
+                            <th>내용 없음</th>
+                        {% endif %}
+                        <th>{{r_msg.sentAt}}</th>
+                    {% endfor %}
                 </tr>
+                <!-- db 없으면 empty?문 이용해서 쪽지가 없습니다?? 출력하기 -->
+                {% else %}
+                    <td></td>
+                    <td>쪽지함이 비어있습니다.</td>
+                    <td></td>
+                {% endif %}
             </table>
         </div>
     </div>
 </form>
+<!-- 로그인 하지 않았을 경우 -->
+{% else %}
+<li><a href="{% url 'website:login' %}">Login</a></li>
+<li><a href="{% url 'website:signup' %}">Signup</a></li>
+{% endif %}
 
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
+        {% if rlist.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo; 처음으로</a></li>
+            <li class="page-item"><a class="page-link" href="{{rlist.previous_page_number}}">이전으로</a></li>
+            {% endif %}
+            {% for i in p_range %}
+            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+            {% endfor %}
+            {% if post.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{rlist.next_page_number}}">다음으로</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{rlist.paginator.num_page}}">끝으로 &raquo;</a></li>
+        {% endif %}
+        {% comment %} <li class="page-item disabled">
             <a class="page-link" href="#" tabindex="-1">Previous</a>
         </li>
         <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -58,7 +85,8 @@
         <li class="page-item"><a class="page-link" href="#">5</a></li>
         <li class="page-item">
             <a class="page-link" href="#">Next</a>
-        </li>
+        </li> {% endcomment %}
+
     </ul>
 </nav>
 

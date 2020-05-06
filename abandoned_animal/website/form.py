@@ -48,7 +48,7 @@ class CommentForm(ModelForm):
         fields = ['comment']
 
 class MessageForm(ModelForm):
-    reciever = ModelChoiceField(queryset=User.objects.all())
+    recipient = ModelChoiceField(queryset=User.objects.all())
     class Meta:
         model = Message
-        field = ['reciever','content']
+        fields = ['recipient','content']
