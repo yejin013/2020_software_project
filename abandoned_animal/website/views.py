@@ -170,20 +170,31 @@ def Mypost(request):
 
 @login_required
 def myMessage(request):
+    Usermodel = get_user_model()
     if request.method == "POST":
         msg_form = MessageForm(request.POST)
-        if msg_form.is_valid():
-            message = msg_form.save(commit=False)
-            message.sender = request.user
-            message.recipient = User.objects.get(userID=msg_form.cleaned_data.get("recipient"))
-            message.content = request.POST['content']
-            message.save()
-            return render(request,'msg_write_copy.html')
+        recipient1 = request.POST['recipient']
+        try:
+            recipient1 = User.objects.get(userID=recipient1)
+        except ObjectDoesNotExist:
+            return render(request,'msg_write.html',{'error':'User NONE'})
+            
+        if recipient1 is not None:
+            if msg_form.is_valid():
+                message = msg_form.save(commit=False)
+                message.sender = request.user
+                message.recipient = User.objects.get(userID=recipient1)
+                message.content = request.POST['content']
+                message.save()            
+                return render(request,'msg_write.html')
+            else:
+                return render(request,'msg_write.html',{'error':'validation wrong'})
         else:
-            return render(request,'msg_write_copy.html',{'error':'실패'})
+            return render(request,'msg_write.html',{'error':'User NONE'})
+        
     else:
         form = MessageForm()
-        return render(request,'msg_write_copy.html',{'form':form})
+        return render(request,'msg_write.html',{'form':form})
 
 @login_required
 def receiveListMsg(request):
