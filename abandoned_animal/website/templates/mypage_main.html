@@ -6,7 +6,11 @@
 <br><br>
 <div class="mypageInfo">
     <!-- 혜원 : src 부분에 user의 이미지 받아오는 주소 들어가면 됩니당~ -->
+    {% if user.image %}
+    <img src="{{ user.image }}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="mypagePhoto">
+    {% else %}
     <img src="{% static 'img/dog.png' %}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="mypagePhoto">
+    {% endif %}
     <br>
     <!-- 혜원 : 이름 지우고 db에서 user의 이름 받아오면 됩니당~ -->
     <p style="text-align: center;">{{user.username}}</p>
