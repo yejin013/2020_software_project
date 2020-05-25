@@ -27,6 +27,7 @@ urlpatterns = [
     path('comment/edit/<int:comment_id>/', views.comment_edit, name="comment_edit"),
     path('mypage/',views.mypage,name='mypage_main'),
     path('mypage/myinfo/',views.myinfo_update,name='mypage_Info'),
+    path('mypage/myinfo/delete<int:user_id>',views.user_delete,name="user_delete"),
     path('mypage/mypost/',views.Mypost,name='mypost'),
     path('mypage/mymessage/',views.myMessage,name='mymessage'),
     path('mypage/receivelist/',views.receiveListMsg,name='receivelist'),

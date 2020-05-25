@@ -142,6 +142,17 @@ def myinfo_update(request):
         return render(request,'mypage_Info.html') 
 
 @login_required
+def user_delete(request):
+    user = request.user
+    if user is not None:
+        user.delete()
+        return redirect(reverse('website:mypage_Info', args=[str(user.id)]))
+    else:
+        messages.warning(request, "권한 없음")
+        return redirect(reverse('website:mypage_Info', args=[str(user.id)]))
+        
+
+@login_required
 def Mypost(request):
     posts = Post.objects.filter(user=request.user)
     page = request.GET.get('page', 1)
