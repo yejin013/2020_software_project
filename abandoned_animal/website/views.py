@@ -143,7 +143,7 @@ def myinfo_update(request):
 
 @login_required
 def Mypost(request):
-    posts = Post.objects.fiter(user=request.user)
+    posts = Post.objects.filter(user=request.user)
     page = request.GET.get('page', 1)
 
     paginator = Paginator(posts, 12)
