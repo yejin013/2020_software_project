@@ -202,7 +202,7 @@ def postLose(request):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            post.menu = True
+            post.menu = False
             post.pub_date = timezone.datetime.now()
             post.up_date = timezone.datetime.now()
             post.user = request.user

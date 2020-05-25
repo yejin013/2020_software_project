@@ -8,6 +8,7 @@
     <!-- <div class="intro">
         <h1 style="text-align: center">게시글 작성</h1>
     </div> -->
+    {% if user.is_authenticated %}
     <div class="form">
         <form class="post-form" method="post" enctype="multipart/form-data" action="{% url 'website:postLose' %}">
             {% csrf_token %}

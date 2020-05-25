@@ -43,7 +43,7 @@ def collect_shelter():
         location = addr
 
         # Production(실제 서비스) 환경 - https 요청이 필수이고, API Key 발급(사용설정) 및 과금 설정이 반드시 필요합니다.
-        URL = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCAQHutKTDQok1dWeNv8jO73HcZpcyHgqo' \
+        URL = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBK5FnlFJs_b62gAX7q6GIaA4sv_tN3GX4' \
               '&sensor=false&language=ko&address={}'.format(location)
 
         # URL로 보낸 Requst의 Response를 response 변수에 할당
@@ -73,7 +73,7 @@ def collect_shelter():
             location = name
 
             # Production(실제 서비스) 환경 - https 요청이 필수이고, API Key 발급(사용설정) 및 과금 설정이 반드시 필요합니다.
-            URL = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCAQHutKTDQok1dWeNv8jO73HcZpcyHgqo' \
+            URL = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBK5FnlFJs_b62gAX7q6GIaA4sv_tN3GX4' \
                   '&sensor=false&language=ko&address={}'.format(location)
 
             # URL로 보낸 Requst의 Response를 response 변수에 할당
