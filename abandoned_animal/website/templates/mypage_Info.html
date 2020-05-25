@@ -8,7 +8,12 @@
 <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 <div class="mypageInfo">
     <!-- 혜원 : ../img/dog.png 부분에 로그인 된 유저 이미지 받아오기(기존 유저 이미지 없으면 기본 이미지) -->
+    {% if user.image %}
+    <img src="{{ user.image }}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="mypagePhoto">
+    {% else %}
     <img src="../img/dog.png" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="mypagePhoto">
+    {% endif %}
+    
     <!-- 혜원 : 기존 이미지란에 수정한 이미지 뜨게 하기 -->
     <div class="container">
         <input type="text" id="fileName" class="file_input_textbox" readonly="readonly">
