@@ -9,21 +9,26 @@
 <div class="mypageInfo">
     <!-- 혜원 : ../img/dog.png 부분에 로그인 된 유저 이미지 받아오기(기존 유저 이미지 없으면 기본 이미지) -->
     {% if user.image %}
-    <img src="{{ user.image }}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="mypagePhoto">
+    <img src="{{ user.image.url }}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="mypagePhoto">
     {% else %}
-    <img src="../img/dog.png" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="mypagePhoto">
+    <img src="{% static 'img/dog.png' %}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="mypagePhoto">
     {% endif %}
     
     <!-- 혜원 : 기존 이미지란에 수정한 이미지 뜨게 하기 -->
     <div class="container">
-        <input type="text" id="fileName" class="file_input_textbox" readonly="readonly">
-        <div class="file_input_div">
-            <input type="button" value="+" class="file_input_button">
-            <input type="file" class="file_input_hidden"
-                onchange="javascript:document.getElementById('fileName').value = this.value.split('\\')[this.value.split('\\').length-1]">
-        </div>
+        <form class="image-form" method="post" enctype="multipart/form-data" action="{% url 'website:mypage_Info' %}">
+            {% csrf_token %}
+            <input type="text" id="fileName" class="file_input_textbox" readonly="readonly">
+            <div class="file_input_div">
+                <input type="button" value="+" class="file_input_button">
+                <input type="file" class="file_input_hidden" name="image"
+                    onchange="javascript:document.getElementById('fileName').value = this.value.split('\\')[this.value.split('\\').length-1]">
+                <br>
+                <button type="image_submit" class="btn btn-default">사진 등록</button>
+            </div>
+        </form>
     </div>
-
+     
     <br>
     <p style="text-align: center;">{{user.username}}</p>
 </div>
@@ -70,7 +75,7 @@
                 {{error}}
                 {{notice}}
                 <div class="button">
-                    <input type="submit" id="button" value="완료">
+                    <input type="info_submit" id="button" value="완료">
                     <!-- 회원탈퇴 버튼 누르면 선택창 나옴 -> 확인 누르면 탈퇴(탈퇴함수 만들어주면 js에 넣어볼게!) -->
                     <!-- 혜원 : 탈퇴함수 만들기 -->
                     <!-- 아현 : js에 탈퇴함수 넣기 -->
