@@ -53,9 +53,9 @@ def login(request):
             auth.login(request,user)
             return redirect(reverse('website:homePost'))
         else:
-            return render(request,'login.html',{'error':'아이디 혹은 비밀번호를 잘못 입력하였습니다.'})
+            return render(request,'login.html',{'error':'잘못 입력하였습니다.'})
     else:
-        return render(request,'login.html')
+        return render(request,'login.html',{'error':'잘못 입력하였습니다.'})
 
 # 로그인 유지 - 세션에 user정보 존재시
 def home_login(request):
@@ -142,14 +142,16 @@ def myinfo_update(request):
         return render(request,'mypage_Info.html') 
 
 @login_required
-def user_delete(request):
+def user_delete(request,user_id):
     user = request.user
     if user is not None:
         user.delete()
-        return redirect(reverse('website:mypage_Info', args=[str(user.id)]))
+        logout(request)
+        messages.success(request,"회원탈퇴가 완료되었습니다.")
+        return redirect(reverse('website:homePost'), args=[str(user.id)])
     else:
         messages.warning(request, "권한 없음")
-        return redirect(reverse('website:mypage_Info', args=[str(user.id)]))
+        return redirect(reverse('website:homePost', args=[str(user.id)]))
         
 
 @login_required
@@ -181,7 +183,6 @@ def Mypost(request):
 
 @login_required
 def myMessage(request):
-    Usermodel = get_user_model()
     if request.method == "POST":
         msg_form = MessageForm(request.POST)
         recipient1 = request.POST['recipient']
