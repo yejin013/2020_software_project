@@ -87,16 +87,20 @@ def homePost(request):
 @csrf_exempt
 def home2(request):
     if request.method == "POST":
-        image = request.FILES['image']
+        # image = request.FILES['image']
         species = request.POST.get('species', '')
-        inputState = request.POST.get('inputState', '')
-        inputCity = request.POST.get('inputCity', '')
-        location = inputState + ' ' + inputCity
-        inputDate = request.POST.get('inputDate', '')
-        return render(request, 'home_result.html', {'image' : image, 'species':species, 'location' : location, 'date':inputDate})
+        # inputState = request.POST.get('inputState', '')
+        # inputCity = request.POST.get('inputCity', '')
+        # location = inputState + ' ' + inputCity
+        # inputDate = request.POST.get('inputDate', '')
+        return redirect(reverse('website:postCheck', args=[str(species)]))
 
     else:
         return render(request, 'home2.html')
+
+def home_result(request, species):
+    posts = Post.objects.filter(species=species)
+    return render(request, 'home_result.html', {'post':posts})
 
 def findBoard(request):
     posts = Post.objects.filter(menu=True)
