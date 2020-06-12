@@ -428,7 +428,7 @@ def myinfo_update(request):
                 user.save()
                 return render(request,'mypage_Info.html',{'notice':'수정이 완료되었습니다.'})
             else:
-                return render(request,'mypage_Info.html',{'error':'잘못 입력하셨습니다.'})
+                return render(request,'mypage_Info.html',{'error':'잘못 잘못 입력하셨습니다.'})
         else: 
             if check_password(old_password,user.password)is False or phone != user.phone or question != user.question or answer != user.answer:
                 return render(request,'mypage_Info.html',{'error':'입력한 기존 정보가 잘못되었습니다.'})

@@ -24,7 +24,7 @@
                 <input type="file" class="file_input_hidden" name="image"
                     onchange="javascript:document.getElementById('fileName').value = this.value.split('\\')[this.value.split('\\').length-1]">
                 <br>
-                <button type="image_submit" class="btn btn-default">사진 등록</button>
+                <button type="submit" name="image_submit" class="btn btn-default">사진 등록</button>
             </div>
         </form>
     </div>
@@ -75,7 +75,7 @@
                 {{error}}
                 {{notice}}
                 <div class="button">
-                    <input type="info_submit" id="button" value="완료">
+                    <input type="submit" id="button" value="완료">
                     <!-- 회원탈퇴 버튼 누르면 선택창 나옴 -> 확인 누르면 탈퇴(탈퇴함수 만들어주면 js에 넣어볼게!) -->
                     <!-- 혜원 : 탈퇴함수 만들기 -->
                     <!-- 아현 : js에 탈퇴함수 넣기 -->
