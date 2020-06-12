@@ -10,6 +10,8 @@ urlpatterns = [
     path('shelterDB/', web_shelter.shelterDB, name='shelterDB'),
     path('signup/', views.signup, name='signup'),
     path('login/',views.login,name='login'),
+    path('login/findID/',views.findID,name='findID'),
+    path('login/findPW/',views.findPW,name='findPW'),
     path('', views.homePost, name='homePost'),
     path('2/', views.home2, name='home2'),
     path('search/', views.search, name='search'),
@@ -24,5 +26,12 @@ urlpatterns = [
     path('comment/delete/<int:comment_id>/', views.comment_delete, name="comment_delete"),
     path('comment/edit/<int:comment_id>/', views.comment_edit, name="comment_edit"),
     path('shelter/', views.shelterInformation, name="shelterInformation"),
+    path('mypage/',views.mypage,name='mypage'),
+    path('mypage/myinfo/',views.myinfo_update,name='mypage_Info'),
+    path('mypage/myinfo/delete/<int:user_id>',views.user_delete,name="user_delete"),
+    path('mypage/mypost/',views.mypost,name='mypost'),
+    path('mypage/mymessage/',views.myMessage,name='mymessage'),
+    path('mypage/receivelist/',views.receiveListMsg,name='receivelist'),
+    path('mypage/sendlist/',views.sendListMsg,name='sendlist'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

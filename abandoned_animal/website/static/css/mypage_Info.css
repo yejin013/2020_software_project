@@ -1,0 +1,165 @@
+@import url(https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap);
+
+    .mypageInfo{
+        text-align: center;
+    }
+
+    .mypageInfo p{
+        font-size: 30px;
+        color: #8B7862;
+        font-family: 'Noto Serif KR', serif;
+    }
+
+    .info-page {
+        width: 320px;
+        padding-top: 30px;
+        margin: auto;
+        padding-bottom: 100px;
+    }
+
+    #mypagePhoto{
+        width: 150px;
+        height: 150px;
+        display: block; margin: 0px auto;
+        margin-top: 40px;
+        margin-bottom: 25px;
+    }
+
+    #name, #phone{
+        font-family: 'Noto Serif KR', serif;
+        outline: 0;
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+        border-radius: 30px;
+        color: #8B7862;
+        white-space: nowrap; 
+    }
+
+    #phone{
+        font-family: 'Noto Serif KR', serif;
+        outline: 0;
+        background: #f2f2f2;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+        border-radius: 30px;
+        color: #8B7862;
+    }
+
+    #modify{
+        font-family: 'Noto Serif KR', serif;
+        outline: 0;
+        background: #8B7862;
+        width: 50%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+        border-radius: 30px;
+        color: #000;
+        margin-left: 125px;
+
+    }
+    
+    .form input {
+        font-family: 'Noto Serif KR', serif;
+        outline: 0;
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+        border-radius: 30px;
+    }
+
+    .form #button {
+        font-family: 'Noto Serif KR', serif;
+        text-transform: uppercase;
+        outline: 0;
+        background:#c7bc97;
+        width: 100%;
+        border: 0;
+        padding: 15px;
+        color: #FFFFFF;
+        font-size: 14px;
+        -webkit-transition: all 0.3 ease;
+        transition: all 0.3 ease;
+        cursor: pointer;
+        border-radius: 30px;
+    }
+
+    .form #cancle {
+        border-radius: 30px;
+        color: gray;
+    }
+
+    .form #secede{
+        border-radius: 30px;
+        background:#dbd6c8;
+        color: #7a7373;
+    }
+
+    .form .message {
+        font-family: 'Noto Serif KR', serif;
+        margin: 15px 0 0;
+        color: #b3b3b3;
+        font-size: 11px;
+        margin-top: -8px;
+        margin-bottom: 25px;
+        padding-left: 15px;
+    }
+
+    select{
+        width: 95%; 
+        margin-bottom: 10px;
+        border-width: 0;
+        color:gray;
+        margin-left: 10px;
+    }
+
+    .file_input_textbox{
+        display: inline;
+        border: none;
+        margin-left: -50px;
+    }
+
+    .file_input_div{
+        display: inline;
+        position:relative;
+        overflow:hidden;
+    }
+
+    .file_input_button{
+        width:50px;
+        position:absolute;
+        background-color:#c7bc97; 
+        color:#fff; 
+        border-style:solid;
+        border-radius: 10px;
+    }
+
+    .file_input_hidden{
+        width:50px;
+        font-size:45px; 
+        position:absolute; 
+        opacity:0; 
+
+
+        filter:alpha(opacity=0); 
+
+        -ms-filter:"alpha(opacity=0)"; 
+
+        -khtml-opacity:0; 
+
+        -moz-opacity:0;
+    }

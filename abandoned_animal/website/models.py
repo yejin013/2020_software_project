@@ -7,6 +7,7 @@ from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.core.files import File
 from django.db import models
+from django.utils import timezone
 from .file import download
 
 # Create your models here.
@@ -157,3 +158,30 @@ class Comment(models.Model):
 
     def approved_comments(self):
         return self.comments.filter(approved_comment=True)
+
+class Message(models.Model):
+    id = models.AutoField(
+        primary_key=True,
+        unique=True,
+        editable=False,
+        verbose_name='pk'
+    )
+
+    sender = models.ForeignKey(User,related_name="message_sender",on_delete=models.CASCADE) 
+    recipient = models.ForeignKey(User,related_name="message_reciever",on_delete=models.CASCADE) 
+    sentAt = models.DateTimeField(auto_now_add=True)
+    content = models.TextField(max_length=150) #text 길이 정하기
+#   isRead = models.BooleanField(default=False)
+
+    objects = models.Manager()
+
+    def save(self,**kwargs):
+        if not self.id:
+            self.sentAt = timezone.now()
+        super(Message, self).save(**kwargs)
+    
+    class Meta:
+        ordering = ['-sentAt']
+    
+    def __str__(self):
+        return self.content

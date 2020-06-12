@@ -1,0 +1,32 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/findIDPW.css' %}"><div class="find-page">
+    <h1>비밀번호 찾기</h1>
+    <div class="form">
+        <form class="PW-form" method="post" action="">
+        {% csrf_token %}
+            <input type="text" name="name" placeholder="아이디를 입력하세요">
+            <select name="findQuestion">
+                <option value="" selected="selected">비밀번호 확인 질문을 선택해주세요</option>
+                <option value="기억에 남는 추억의 장소는?">기억에 남는 추억의 장소는?</option>
+                <option value="자신의 인생 좌우명은?">자신의 인생 좌우명은?</option>
+                <option value="자신의 보물 제1호는?">자신의 보물 제1호는?</option>
+                <option value="가장 기억에 남는 선생님 성함은?">가장 기억에 남는 선생님 성함은?</option>
+                <option value="추억하고 싶은 날짜가 있다면?">추억하고 싶은 날짜가 있다면?</option>
+                <option value="유년시절 가장 생각나는 친구 이름은?">유년시절 가장 생각나는 친구 이름은?</option>
+                <option value="인상 깊게 읽은 책 이름은?">인상 깊게 읽은 책 이름은?</option>
+                <option value="읽은 책 중에서 좋아하는 구절이 있다면?">읽은 책 중에서 좋아하는 구절이 있다면?</option>
+                <option value="자신이 두번째로 존경하는 인물은?">자신이 두번째로 존경하는 인물은?</option>
+                <option value="초등학교 때 기억에 남는 짝궁 이름은?">초등학교 때 기억에 남는 짝궁 이름은?</option>
+                <option value="다시 태어나면 되고 싶은 것은?">다시 태어나면 되고 싶은 것은?</option>
+                <option value="내가 좋아하는 캐릭터는?">내가 좋아하는 캐릭터는?</option>
+                <option value="자신의 반려동물의 이름은?">자신의 반려동물의 이름은?</option>
+            </select>
+            <input type="text" name="findAnswer" placeholder="답변을 입력해주세요">
+            <div class="button">
+                <input type="submit" id="complete" value="비밀번호 찾기">
+                <input type="button" id="cancle" value="홈으로">
+            </div>
+        </form>
+    </div>
+</div>
