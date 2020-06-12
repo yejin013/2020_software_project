@@ -1,80 +1,146 @@
 {% extends 'menu_template.html' %}
-
+{% load static %}
 {% block content %}
+
+<link rel="stylesheet" href="{% static 'css/image.css' %}">
+<script type="text/javascript" src="{% static 'js/class.js' %}"></script>
 
 <div id="background" class="jumbotron">
     <h1 id="introhead" class="display-4">고영희 찾기</h1>
     <p id="introtext" class="lead">서로를 찾고 있는 반려동물과 당신의 마음.<br> 똑똑하게 AI로 당신의 고양이를 찾아보세요!</p>
-    
-    <!--예진 : 사진파일, 품종, 시, 구, 실종날짜 제출-->
+
     {% csrf_token %}
-    <form class="post-form" method="post" enctype="multipart/form-data" action="{% url 'website:home2' %}">
-        <div class="form-row">
+    <!-- <form class="post-form" method="post" enctype="multipart/form-data" action="{% url 'website:home2' %}"> -->
+    <!-- <div class="form-row">
             <div class="form-group col-md-6">
                 <div class="custom-file">
                     <label for="image" class="custom-file-label">사진을 입력하세요</label>
                     <input type="file" class="custom-file-input" id="image" name="image">
                 </div>
             </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <select class="custom-select" name="species" id="species">
-                    <label for="species">종</label>
-                    <option selected name="species" onchange="alert(this.options[this.selectedIndex].text)">종을 선택하세요</option>
-                    <option value="러시안 블루">러시안 블루</option>
-                    <option value="샴">샴</option>
-                    <option value="뱅갈">뱅갈</option>
-                    <option value="페르시안">페르시안</option>
-                    <option value="브리티쉬 숏헤어">브리티쉬 숏헤어</option>
-                    <option value="스코티쉬 폴드">스코티쉬 폴드</option>
-                    <option value="먼치킨">먼치킨</option>
-                    <option value="스핑크스">스핑크스</option>
-                    <option value="메인 쿤">메인 쿤</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputState">시</label>
-                <select id="inputState" class="form-control" name="inputState">
-                    <option selected name="inputState" onchange="alert(this.options[this.selectedIndex].text)">시를 입력하세요</option>
-                    <option value="서울특별시">서울특별시</option>
-                    <option value="부산광역시">부산광역시</option>
-                    <option value="대구광역시">대구광역시</option>
-                    <option value="인천광역시">인천광역시</option>
-                    <option value="광주광역시">광주광역시</option>
-                    <option value="대전광역시">대전광역시</option>
-                    <option value="울산광역시">울산광역시</option>
-                    <option value="세종특별자치시">세종특별자치시</option>
-                    <option value="경기도">경기도</option>
-                    <option value="전라북도">전라북도</option>
-                    <option value="전라남도">전라남도</option>
-                    <option value="경상북도">경상북도</option>
-                    <option value="경상남도">경상남도</option>
-                    <option value="제주특별자치도">제주특별자치도 </option>
-                </select>
-            </div>
-            <div class="form-group col-md-6">
-                <label for="inputCity">구</label>
-                <input type="text" class="form-control" id="inputCity" name="inputCity">
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputDate">실종 날짜</label>
-                <input type="date" name="inputDate" value="2020-01-01" id="inputDate">
-            </div>
-        </div>
+        </div> -->
+    
+</div>
 
-        <!--예진 : 버튼 누를때 home.result로 이동!  -->
-        <input type="submit" id="submit" value="찾기">
-    </form>
+<div class="buttons">
+    <button class="btn btn-default pull-right" type="button" onclick="init()">Start</button>
+    <button class="btn btn-default pull-right" onclick="predict()">Predict</button>
+</div>
+<div class="classification">
+    <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <div class="file-upload">
+        <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">
+            고양이 사진을 드래그하거나 파일을 선택해주세요</button>
+
+        <div class="image-upload-wrap">
+            <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+            <div class="drag-text">
+                <h3>
+                    당신의 고양이를 찾아드립니다</h3>
+                <h6 style="margin-top: -50px; margin-bottom: 50px;">1. Start 버튼을 누른다.<br>
+                    2. 이미지를 업로드 한다.<br>
+                    3. Predict 버튼을 눌러 추천된 고양이 정보들을 확인한다.</h6>
+            </div>
+        </div>
+        <div class="file-upload-content">
+            <img class="file-upload-image" id="cat_image" src="#" alt="your image" />
+            <div class="image-title-wrap">
+                <button type="button" onclick="removeUpload()" class="remove-image">Remove
+                    <span class="image-title">Uploaded Image</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- <div id="webcam-container"></div> -->
+    <div id="label-container"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.image-upload-wrap').hide();
+                    $('.file-upload-image').attr('src', e.target.result);
+                    $('.file-upload-content').show();
+                    $('.image-title').html(input.files[0].name);
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                removeUpload();
+            }
+        }
+
+        function removeUpload() {
+            $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+            $('.file-upload-content').hide();
+            $('.image-upload-wrap').show();
+        }
+        $('.image-upload-wrap').bind('dragover', function () {
+            $('.image-upload-wrap').addClass('image-dropping');
+        });
+        $('.image-upload-wrap').bind('dragleave', function () {
+            $('.image-upload-wrap').removeClass('image-dropping');
+        });
+    </script>
+    <script type="text/javascript">
+        // More API functions here:
+        // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+        // the link to your model provided by Teachable Machine export panel
+        const URL = "https://teachablemachine.withgoogle.com/models/vmkxtYpkC/";
+        let model, webcam, labelContainer, maxPredictions;
+        // Load the image model and setup the webcam
+        async function init() {
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
+            // load the model and metadata
+            // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+            // or files from your local hard drive
+            // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+            model = await tmImage.load(modelURL, metadataURL);
+            maxPredictions = model.getTotalClasses();
+            labelContainer = document.getElementById("label-container");
+            for (let i = 0; i < maxPredictions; i++) { // and class labels
+                labelContainer.appendChild(document.createElement("div"));
+            }
+        }
+        // run the webcam image through the image model
+        async function predict() {
+            var img = document.getElementById("cat_image");
+            // predict can take in an image, video or canvas html element
+            const prediction = await model.predict(img, false);
+            var predictionValue = new Array();
+            for (let i = 0; i < maxPredictions; i++) {
+                const classPrediction =
+                    prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+                labelContainer.childNodes[i].innerHTML = classPrediction;
+                predictionValue.push(prediction[i].probability.toFixed(2));
+            }
+
+            if (predictionValue.length === 0) {
+                return -1;
+            }
+
+            var max = predictionValue[0];
+            var maxIndex = 0;
+
+            for (var i = 1; i < predictionValue.length; i++) {
+                if (predictionValue[i] > max) {
+                    maxIndex = i;
+                    max = predictionValue[i];
+                }
+            }
+            var predictionClass = prediction[maxIndex].className;
+            window.location.href = "/website/home_result?" + "species=" + predictionClass;
+        }
+    </script>
+
 </div>
 
 <div class="container-fluid">
 
-<!--수현 : 홈페이지 소개페이지? -->
+    <!--수현 : 홈페이지 소개페이지? -->
 
 </div>
 <!-- /.container-fluid -->

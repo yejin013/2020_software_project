@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
+from django.urls import path, re_path
 from . import views, animalDB, web_shelter
 
 app_name = 'website'
@@ -14,6 +14,7 @@ urlpatterns = [
     path('login/findPW/',views.findPW,name='findPW'),
     path('', views.homePost, name='homePost'),
     path('2/', views.home2, name='home2'),
+    re_path(r'^home_result(?P<species>.*)/$', views.home_result, name='home_result'),
     path('search/', views.search, name='search'),
     path('findBoard/', views.findBoard, name='findBoard'),
     path('missBoard/', views.missBoard, name='missBoard'),
