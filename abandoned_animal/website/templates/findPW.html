@@ -25,7 +25,7 @@
             <input type="text" name="findAnswer" placeholder="답변을 입력해주세요">
             <div class="button">
                 <input type="submit" id="complete" value="비밀번호 찾기">
-                <input type="button" id="cancle" value="홈으로">
+                <input type="button" id="cancle" onClick="location.href='{% url 'website:homePost' %}'" value="홈으로">
             </div>
         </form>
     </div>
