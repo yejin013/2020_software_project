@@ -23,14 +23,14 @@
                     <p class="card-text" id="up_date" style="text-align:right;" id="updateDate">수정날짜 : {{ post.up_date }}</p>
                     <br>
                     {% if post.shelter %}
-                    <p class="card-text" id="shelter">글작성자 : {{ post.shelter.name }} <button class="btn btn-link" onclick="window.open('./popupPlace.html','보호소 위치','width=430,height=500,location=no,status=no,resizable=no');"><img width="20" height="20" style="margin-left: -13px; margin-top: -9px" src="{% static 'img/gps.png' %}"></button></p> 
+                    <p class="card-text" id="shelter">글작성자 : {{ post.shelter.name }} <button class="btn btn-link" onclick="window.open('{% url 'website:shelter' %}','보호소 위치','width=430,height=500,location=no,status=no,resizable=no');"><img width="20" height="20" style="margin-left: -13px; margin-top: -9px" src="{% static 'img/gps.png' %}"></button></p> 
                     <p class="card-text" id="species">종 : {{ post.species }}</p>
                     <p class="card-text" id="location">잃어버린 위치(찾은 위치) : {{ post.location }}</p>
                     <p class="card-text" id="date">잃어버린 날짜 : {{ post.date }}</p>
                     <p class="card-text" id="feature">특징 : {{ post.feature }}</p>
                     <p class="card-text" id="contact">연락처 : {{ post.shelter.phone }}</p>
                     {% else %}
-                    <p class="card-text" id="name">글작성자 : {{ post.user.username }} <button class="btn btn-link" onclick="window.open('./popupMSG.html','쪽지 쓰기','width=430,height=500,location=no,status=no,resizable=no');"><img width="20" height="20" style="margin-left: -13px; margin-top: -9px" src="{% static 'img/email.png' %}"></button></p>
+                    <p class="card-text" id="name">글작성자 : {{ post.user.username }} <button class="btn btn-link" onclick="window.open('{% url 'website:mymessage' %}','쪽지 쓰기','width=430,height=500,location=no,status=no,resizable=no');"><img width="20" height="20" style="margin-left: -13px; margin-top: -9px" src="{% static 'img/email.png' %}"></button></p>
                     <p class="card-text" id="species">종 : {{ post.species }}</p>
                     <p class="card-text" id="location">잃어버린 위치(찾은 위치) : {{ post.location }}</p>
                     <p class="card-text" id="date">잃어버린 날짜 : {{ post.date }}</p>

@@ -3,11 +3,7 @@
 {% block content %}
 
 <link rel="stylesheet" href="{% static 'css/post.css' %}">
-<!-- <script type="text/javascript" src="../js/post.js"></script> -->
 <div class="post-page">
-    <!-- <div class="intro">
-        <h1 style="text-align: center">게시글 작성</h1>
-    </div> -->
     {% if user.is_authenticated %}
     <div class="form">
         <form class="post-form" method="post" enctype="multipart/form-data" action="{% url 'website:postFind' %}">
@@ -31,7 +27,7 @@
                 <p id="info" for="feature">특징을 입력해주세요</p>
                 {{ form.feature }}
                 <button type="submit" class="btn btn-default" id="button">등록</button>
-                <a class="btn btn-default" href="{% url 'website:homePost' %}" role="button" id="button">취소</a>
+                <a class="btn btn-default" href="{% url 'website:findBoard' %}" role="button" id="button">취소</a>
             </div>
         </form>
     </div>
