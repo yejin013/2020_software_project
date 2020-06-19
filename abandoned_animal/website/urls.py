@@ -14,8 +14,7 @@ urlpatterns = [
     path('login/findPW/',views.findPW,name='findPW'),
     path('', views.homePost, name='homePost'),
     path('2/', views.home2, name='home2'),
-    re_path(r'^home_result(?P<species>.*)/$', views.home_result, name='home_result'),
-    path('search/', views.search, name='search'),
+    path('home_result/<species>/', views.home_result, name='home_result'),
     path('findBoard/', views.findBoard, name='findBoard'),
     path('missBoard/', views.missBoard, name='missBoard'),
     path('posterBoard/', views.posterBoard, name='posterBoard'),
@@ -34,6 +33,6 @@ urlpatterns = [
     path('mypage/mymessage/',views.myMessage,name='mymessage'),
     path('mypage/receivelist/',views.receiveListMsg,name='receivelist'),
     path('mypage/sendlist/',views.sendListMsg,name='sendlist'),
-    re_path(r'^logout/$',views.logout,{'next_page':settings.LOGOUT_REDIRECT_URL},name='logout'),
+    path('logout/',views.logout,name='logout'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
