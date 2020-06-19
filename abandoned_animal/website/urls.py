@@ -34,5 +34,6 @@ urlpatterns = [
     path('mypage/mymessage/',views.myMessage,name='mymessage'),
     path('mypage/receivelist/',views.receiveListMsg,name='receivelist'),
     path('mypage/sendlist/',views.sendListMsg,name='sendlist'),
+    re_path(r'^logout/$',views.logout,{'next_page':settings.LOGOUT_REDIRECT_URL},name='logout'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

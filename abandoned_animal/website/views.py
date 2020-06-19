@@ -105,7 +105,7 @@ def logout(request):
     auth.logout(request)
     return redirect(reverse('website:homePost'))
 
-def homePost(request):
+def home2(request):
     posts = Post.objects.all()
     page = request.GET.get('page', 1)
 
@@ -132,7 +132,7 @@ def homePost(request):
     return render(request, 'home.html', {'post' : post, 'p_range':p_range}) # 데이터 튜플로 들어감!
 
 @csrf_exempt
-def home2(request):
+def homePost(request):
     if request.method == "POST":
         # image = request.FILES['image']
         species = request.POST.get('species', '')
@@ -429,7 +429,9 @@ def myinfo_update(request):
                 return render(request,'mypage_Info.html',{'notice':'수정이 완료되었습니다.'})
             else:
                 return render(request,'mypage_Info.html',{'error':'잘못 잘못 입력하셨습니다.'})
-        else: 
+        elif 'delete_submit' in request.POST:
+            return redirect(reverse('website:homePost'))
+        else:
             if check_password(old_password,user.password)is False or phone != user.phone or question != user.question or answer != user.answer:
                 return render(request,'mypage_Info.html',{'error':'입력한 기존 정보가 잘못되었습니다.'})
             else:
@@ -448,7 +450,6 @@ def user_delete(request,user_id):
     user = request.user
     if user is not None:
         user.delete()
-        logout(request)
         messages.success(request,"회원탈퇴가 완료되었습니다.")
         return redirect(reverse('website:homePost'), args=[str(user.id)])
     else:

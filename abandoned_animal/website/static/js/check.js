@@ -8,7 +8,7 @@ function deleteCheck(){
 
 function deleteConfirm(n) {
   if (confirm("이 포스트를 삭제하시겠습니까?")) {
-      window.location.href = "/website/delete/" + n;
+      window.location.href = "/website/detail/delete/" + n;
   } else {
       return false;
   }

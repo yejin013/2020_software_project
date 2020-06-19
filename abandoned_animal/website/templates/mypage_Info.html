@@ -79,7 +79,7 @@
                     <!-- 회원탈퇴 버튼 누르면 선택창 나옴 -> 확인 누르면 탈퇴(탈퇴함수 만들어주면 js에 넣어볼게!) -->
                     <!-- 혜원 : 탈퇴함수 만들기 -->
                     <!-- 아현 : js에 탈퇴함수 넣기 -->
-                    <input type="submit" id="secede" value="회원탈퇴" onclick="secedeForm({{ user.id }});">
+                    <input type="submit" id="secede" name="delete_submit" value="회원탈퇴" onclick="secedeForm({{ user.id }});">
                     <input type="button" id="cancle" value="취소" onclick="cancleForm();">
                     <!-- 아현 : 취소 버튼 누르면 마이페이지로 돌아가게 하기 -->
                 </div>

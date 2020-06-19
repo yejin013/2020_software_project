@@ -7,8 +7,6 @@
 
 {% if image %}
 <img class="card-img-top" src="{{ image.url }}" alt="Card image">
-{% else %}
-No
 {% endif %}
 <div class="card-body">
     <h5 class="card-title">{{ species }}</h5>
@@ -31,7 +29,7 @@ No
                     <p class="card-text">{{ postRow.location }}</p>
                     <p class="card-text">{{ postRow.date }}</p>
                     {% if postRow.user.username == None %}
-                    <p class="card-text">{{ postRow.shelter.name }}</p>
+                    <p class="card-text">{{ postRow.shelter }}</p>
                     {% else %}
                     <p class="card-text">{{ postRow.user.username }}</p>
                     {% endif %}
@@ -43,6 +41,8 @@ No
 
     </div>
 </div>
+{% else %}
+No
 {% endif %}
 <!--End of card-deck-->
 

@@ -63,6 +63,8 @@ def collect_info():
         # 검색할 주소
         location = careaddr
 
+        kindcd = kindcd[6:]
+
         # Production(실제 서비스) 환경 - https 요청이 필수이고, API Key 발급(사용설정) 및 과금 설정이 반드시 필요합니다.
         URL = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBK5FnlFJs_b62gAX7q6GIaA4sv_tN3GX4' \
               '&sensor=false&language=ko&address={}'.format(location)
@@ -93,8 +95,8 @@ def collect_info():
             lat = data['results'][0]['geometry']['location']['lat']
             lng = data['results'][0]['geometry']['location']['lng']
 
-        shelter = Shelter.objects.create_shelter(name=carenm, address=careaddr, phone=caretel, lat=lat, lng=lng)
-        Post(menu=True, species=kindcd, date=date, location=happenplace, feature=specialmark, image_url=poster_src, shelter=shelter).save()
+        # shelter = Shelter.objects.create_shelter(name=carenm, address=careaddr, phone=caretel, lat=lat, lng=lng)
+        Post(menu=True, species=kindcd, date=date, location=happenplace, feature=specialmark, image_url=poster_src, shelter=carenm, phone=caretel).save()
 
 
 

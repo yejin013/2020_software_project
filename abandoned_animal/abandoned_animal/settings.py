@@ -133,3 +133,5 @@ MEDIA_URL = '/images/' # 업로드 할 경로
 MEDIA_ROOT = os.path.join(BASE_DIR, 'images') #로컬 디렉토리 어디에 저장할 것인지
 
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
+
+LOGOUT_REDIRECT_URL = 'website.homePost'
