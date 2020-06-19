@@ -1,0 +1,91 @@
+{% extends 'menu_template.html' %}
+{% load static %}
+{% block content %}
+
+<br><br>
+<link rel="stylesheet" href="{% static 'css/mypage_Info.css' %}">
+<script type="text/javascript" src="{% static 'js/check.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+<div class="mypageInfo">
+    <!-- 혜원 : ../img/dog.png 부분에 로그인 된 유저 이미지 받아오기(기존 유저 이미지 없으면 기본 이미지) -->
+    {% if user.image %}
+    <img src="{{ user.image.url }}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="mypagePhoto">
+    {% else %}
+    <img src="{% static 'img/user.svg' %}" alt="유저 아이콘" class="img-fluid rounded rounded-circle" id="mypagePhoto">
+    {% endif %}
+    
+    <!-- 혜원 : 기존 이미지란에 수정한 이미지 뜨게 하기 -->
+    <div class="container">
+        <form class="image-form" method="post" enctype="multipart/form-data" action="{% url 'website:mypage_Info' %}">
+            {% csrf_token %}
+            <input type="text" id="fileName" class="file_input_textbox" readonly="readonly">
+            <div class="file_input_div">
+                <input type="button" value="+" class="file_input_button">
+                <input type="file" class="file_input_hidden" name="image"
+                    onchange="javascript:document.getElementById('fileName').value = this.value.split('\\')[this.value.split('\\').length-1]">
+                <br>
+                <button type="submit" name="image_submit" class="btn btn-default">사진 등록</button>
+            </div>
+        </form>
+    </div>
+     
+    <br>
+    <p style="text-align: center;">{{user.username}}</p>
+</div>
+<div class="container">
+    <div class="info-page">
+        <div class="form">
+            <form class="info-form" method="post" action="">
+                <!-- 혜원 : 회원의 이름 받아오기 -->
+                <p id="name">{{user.username}}</p>
+                {% csrf_token %}
+                <input type="password" id="pw" name="oldPw" placeholder="기존 비밀번호를 입력하세요">
+                <input type="password" id="pw" name="userPw" placeholder="새로운 비밀번호를 입력하세요">
+                <input type="password" id="pwChk" name="userPwChk" onchange="fn_pw_check()"
+                    placeholder="다시 한 번 더 입력하세요">
+                <!-- 기존에 선택한 질문도 받아올 수 있으려나?? 찾아보기 -->
+                <select name="findQuestion">
+                    <option value="" selected="selected">비밀번호 확인 질문을 선택해주세요</option>
+                    <option value="기억에 남는 추억의 장소는?">기억에 남는 추억의 장소는?</option>
+                    <option value="자신의 인생 좌우명은?">자신의 인생 좌우명은?</option>
+                    <option value="자신의 보물 제1호는?">자신의 보물 제1호는?</option>
+                    <option value="가장 기억에 남는 선생님 성함은?">가장 기억에 남는 선생님 성함은?</option>
+                    <option value="추억하고 싶은 날짜가 있다면?">추억하고 싶은 날짜가 있다면?</option>
+                    <option value="유년시절 가장 생각나는 친구 이름은?">유년시절 가장 생각나는 친구 이름은?</option>
+                    <option value="인상 깊게 읽은 책 이름은?">인상 깊게 읽은 책 이름은?</option>
+                    <option value="읽은 책 중에서 좋아하는 구절이 있다면?">읽은 책 중에서 좋아하는 구절이 있다면?</option>
+                    <option value="자신이 두번째로 존경하는 인물은?">자신이 두번째로 존경하는 인물은?</option>
+                    <option value="초등학교 때 기억에 남는 짝궁 이름은?">초등학교 때 기억에 남는 짝궁 이름은?</option>
+                    <option value="다시 태어나면 되고 싶은 것은?">다시 태어나면 되고 싶은 것은?</option>
+                    <option value="내가 좋아하는 캐릭터는?">내가 좋아하는 캐릭터는?</option>
+                    <option value="자신의 반려동물의 이름은?">자신의 반려동물의 이름은?</option>
+                </select>
+                <input type="text" name="findAnswer" placeholder="답변을 입력해주세요">
+                <!-- 혜원 : 회원의 핸드폰 번호 받아오기 -->
+                <input type="text" name="phone" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'
+                    placeholder="핸드폰 번호를 입력하세요">
+                <p class="message" style="text-align: left;">단, 숫자만 입력해주세요. ex) 01011112222</p>
+                <!-- <span id="phone">회원의 핸드폰 번호<span id="modify" class="btn btn-mini">수정</span></span> -->
+                <!-- <button id="modify">수정</button>
+                                <div id="divToggle" style="display: none;">
+                                    <input type="text" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'
+                                    placeholder="핸드폰 번호를 입력하세요">
+                                    <p class="message" style="text-align: left;">단, 숫자만 입력해주세요. ex) 01011112222</p>
+                                </div> -->
+                {{error}}
+                {{notice}}
+                <div class="button">
+                    <input type="submit" id="button" value="완료">
+                    <!-- 회원탈퇴 버튼 누르면 선택창 나옴 -> 확인 누르면 탈퇴(탈퇴함수 만들어주면 js에 넣어볼게!) -->
+                    <!-- 혜원 : 탈퇴함수 만들기 -->
+                    <!-- 아현 : js에 탈퇴함수 넣기 -->
+                    <input type="submit" id="secede" name="delete_submit" value="회원탈퇴" onclick="secedeForm({{ user.id }});">
+                    <input type="button" id="cancle" value="취소" onclick="cancleForm();">
+                    <!-- 아현 : 취소 버튼 누르면 마이페이지로 돌아가게 하기 -->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

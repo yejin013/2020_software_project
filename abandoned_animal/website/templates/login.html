@@ -1,0 +1,21 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<div class="login-page">
+    <div class="intro">
+        <h1 style="text-align: center">찾아Zoo</h1>
+        <p style="text-align: center">서로를 찾고 있는 반려동물과 당신의 마음.</p>
+        <p style="text-align: center" class="next">똑똑하게 AI로 당신의 강아지를 찾아보세요!</p>
+    </div>
+    <div class="form">
+        {% csrf_token %}
+        <form class="login-form" method="post" action="{% url 'website:login' %}">
+            <input type="text" id="username" name="username" placeholder="아이디">
+            <input type="password" id="password" name="password" placeholder="비밀번호">
+            {{error}}
+            <input type="submit" value="로그인" id = "login">
+        </form>
+            <a href="{% url 'website:signup' %}"><input type="submit" value="회원가입" id = "signup"></a>
+            <p class="message">아이디를 잊으셨나요? <a href="findID">아이디/비밀번호 찾기</a></p>
+    </div>
+</div>

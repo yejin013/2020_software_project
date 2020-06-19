@@ -1,0 +1,95 @@
+{% extends 'menu_template.html' %}
+{% load static %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">쪽지함</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/website/mypage/mymessage">쪽지쓰기</a>
+            <li class="nav-item">
+                <a class="nav-link" href="/website/mypage/receivelist">받은쪽지함</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/website/mypage/sendlist">보낸쪽지함</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- 보낸 쪽지함 -->
+<!-- 혜원 : if문 이용해서 로그인이 되어 있으면 for문 통해서 보낸 쪽지 db 받아오기 -->
+{% if user.is_authenticated %}
+<form style=" text-align: center" method="post" action="">
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table" style="margin-top: 50px;">
+                <tr>
+                    <th style="width: 120px">받는사람</td>
+                    <th>내용</th>
+                    <th style="width: 120px">날짜</th>
+                </tr>
+                <!-- if문 이용해서 db가 있으면 -->
+                <!-- db 받아올 때 받는사람, 내용, 날짜 지우고 하면 돼요~ -->
+                {% if slist %}
+                    {% for s_msg in slist %}
+                        <tr>
+                            <td>{{s_msg.recipient}}</td>
+                            {% if s_msg.content%}
+                                <td>{{s_msg.content}}</td>
+                            {% else %}
+                                <th>내용 없음</th>
+                            {% endif %}
+                            <th>{{s_msg.sentAt}}</th>
+                        </tr>
+                    {% endfor %}
+                <!-- db 없으면 empty?문 이용해서 쪽지가 없습니다?? 출력하기 -->
+                {% else %}
+                    <td></td>
+                    <td>쪽지함이 비어있습니다.</td>
+                    <td></td>
+                {% endif %}
+            </table>
+        </div>
+    </div>
+</form>
+<!-- 로그인 하지 않았을 경우 -->
+{% else %}
+<li><a href="{% url 'website:login' %}">Login</a></li>
+<li><a href="{% url 'website:signup' %}">Signup</a></li>
+{% endif %}
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% if slist.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo; 처음으로</a></li>
+            <li class="page-item"><a class="page-link" href="{{slist.previous_page_number}}">이전으로</a></li>
+            {% endif %}
+            {% for i in p_range %}
+            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+            {% endfor %}
+            {% if post.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{slist.next_page_number}}">다음으로</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{slist.paginator.num_page}}">끝으로 &raquo;</a></li>
+        {% endif %}
+        {% comment %} <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">4</a></li>
+        <li class="page-item"><a class="page-link" href="#">5</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a> {% endcomment %}
+        </li>
+        
+    </ul>
+</nav>
+
+{% endblock content %}

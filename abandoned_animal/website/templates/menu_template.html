@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>home</title>
+    <link href="{% static 'css/home.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <script>
+        function gpsCheck() {
+            if (confirm("GPS 기능을 사용하시겠습니까? (미사용시, 서비스 이용이 불가능할 수도 있습니다.)")) {
+                if (navigator.geolocation) { // GPS를 지원하면
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        mylat = position.coords.latitude;
+                        mylng = position.coords.longitude;
+                        window.location.href = "/website/shelter?" + "lat=" + mylat + "&lng=" + mylng;
+                    }, function (error) {
+                        console.error(error);
+                    }, {
+                        enableHighAccuracy: false,
+                        maximumAge: 0,
+                        timeout: Infinity
+                    });
+                } else {
+                    alert('GPS를 지원하지 않습니다');
+                    window.location.href = "/website/shelter/";
+                }
+            } else {
+                window.location.href = "/website/shelter/";
+            }
+        }
+    </script>
+    <div id="wrapper">
+
+        <ul id="Sidebar" class="navbar-nav sidebar sidebar-dark accordion">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'website:homePost' %}">
+                <img id="menuicon" src="{% static 'img/logo.svg' %}" width="30px" height="30px" alt="menu">
+                <div id="Service-name" class="sidebar-brand-text mx-3">고영희 찾기</div>
+            </a>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'website:homePost' %}">
+                    <span>Home</span></a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">
+                Board
+            </div>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'website:missBoard' %}">
+                    <span>실종동물 게시판</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'website:findBoard' %}">
+                    <span>발견동물 게시판</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'website:posterBoard' %}">
+                    <span>포스터 게시판</span></a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">
+                Infomation
+            </div>
+            <li class="nav-item">
+                <!-- 예진 : 주변 보호소 정보 끝났다면 href 넣어주세요!-->
+                <a class="nav-link" href="{% url 'website:shelterInformation' %}" onclick="gpsCheck();">
+                    <span>주변 보호소 정보</span></a>
+            </li>
+            <li class="nav-item">
+                <!-- 예진 : 마이페이지 끝났다면 href 넣어주세요! -->
+                <a class="nav-link" href="{% url 'website:mypage' %}">
+                    <span>마이페이지</span></a>
+            </li>
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+
+                <nav id="Topbar" class="navbar navbar-expand navbar-light topbar static-top">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <img id="menuicon" src="{% static 'img/menu.png' %}" width="20px" height="20px" alt="menu">
+                    </button>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+
+                            {% if user.is_authenticated %}
+                            <!-- 예진 : 로그인한 경우 href 마이페이지로 바꿔주세요! -->
+                            <a class="nav-link dropdown-toggle" href="#" id="user" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ user.userID }} </span>
+
+                                {% if user.image %}
+                                <img class="img-profile rounded-circle" src="{{ user.image.url }}">
+                                {% else %}
+                                <img class="img-profile rounded-circle" src="{% static 'img/user.svg' %}">
+                                {% endif %}
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{% url 'website:mypage' %}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    MyPage
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                            {% else %}
+                            <a class="nav-link" href="{% url 'website:login' %}" id="user" role="button">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Log in </span>
+                                <img class="img-profile rounded-circle" src="{% static 'img/user.svg' %}">
+                            </a>
+                            {% endif %}
+                            
+                        </li>
+                    </ul>
+                </nav>
+
+                {% block content %}
+                {% endblock %}
+
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; SSU Software18 made by 강형욱(수현,아현,혜원,예진) </span>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/home.min.js' %}"></script>
+
+</body>
+
+</html>

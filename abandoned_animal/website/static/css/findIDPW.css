@@ -1,0 +1,99 @@
+@import url(https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap);
+
+    h1{
+        color: #8B7862;
+        padding-top: 75px;
+        padding-bottom: 20px;
+        font-family: 'Noto Serif KR', serif;
+        text-align: center;
+    }
+
+    p{
+        font-family: 'Noto Serif KR', serif;
+        padding-bottom: 20px;
+        color: #8B7862;
+    }
+
+    .find-page {
+        width: 400px;
+        padding-top: 50px;
+        margin: auto;
+    }
+    
+    .form {
+        position: relative;
+        z-index: 1;
+        background: #FFFFFF;
+        max-width: 360px;
+        margin: 0 auto 15px;
+        padding: 45px;
+        text-align: center;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        margin-bottom: 50px;
+    }
+    .form input {
+        font-family: 'Noto Serif KR', serif;
+        outline: 0;
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+        border-radius: 30px;
+    }
+    
+    #complete {
+        font-family: 'Noto Serif KR', serif;
+        text-transform: uppercase;
+        outline: 0;
+        background:#c7bc97;
+        width: 100%;
+        border: 0;
+        padding: 15px;
+        color: #FFFFFF;
+        font-size: 14px;
+        -webkit-transition: all 0.3 ease;
+        transition: all 0.3 ease;
+        cursor: pointer;
+    }
+
+    #cancle {
+        margin-bottom: -20px;
+    }
+
+    #home {
+        font-family: 'Noto Serif KR', serif;
+        text-transform: uppercase;
+        outline: 0;
+        background:#c7bc97;
+        width: 100%;
+        border: 0;
+        padding: 15px;
+        color: #FFFFFF;
+        font-size: 14px;
+        -webkit-transition: all 0.3 ease;
+        transition: all 0.3 ease;
+        cursor: pointer;
+        margin-top: -5px;
+        margin-bottom: -20px;
+    }
+
+    .form p.message{
+        font-family: 'Noto Serif KR', serif;
+        color: #8B7862;
+        text-decoration: none;
+        font-size: 9px;
+        margin-top: -5px;
+        padding-left: 15px;
+        margin-bottom: -5px;
+    }
+
+    select{
+        font-family: 'Noto Serif KR', serif;
+        width: 95%; 
+        margin-bottom: 10px;
+        border-width: 0;
+        color:gray
+    }

@@ -1,0 +1,26 @@
+#google_map{
+    width: 500px;
+    height: 500px;
+    margin: auto;
+}
+
+.container{
+    margin-top: 40px;
+    margin-bottom: 50px;
+}
+
+.table{
+    margin-top: 70px;
+}
+
+#info{
+    text-align: center;
+    width: 200px;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.button{
+    text-align: center;
+    margin-top: 30px;
+}
