@@ -103,7 +103,7 @@ def findPW(request):
 @login_required()
 def logout(request):
     auth.logout(request)
-    return redirect(reverse('website:homePost'))
+    return render(request,'home2.html')
 
 def home2(request):
     posts = Post.objects.all()
