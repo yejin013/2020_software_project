@@ -93,20 +93,26 @@
 
                             {% if user.is_authenticated %}
                             <!-- 예진 : 로그인한 경우 href 마이페이지로 바꿔주세요! -->
-                            <a class="nav-link" href="#" id="user" role="button">
+                            <a class="nav-link dropdown-toggle" href="#" id="user" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ user.userID }} </span>
 
                                 {% if user.image %}
-                                <img class="img-profile rounded-circle" src="{{ user.image }}">
+                                <img class="img-profile rounded-circle" src="{{ user.image.url }}">
                                 {% else %}
                                 <img class="img-profile rounded-circle" src="{% static 'img/user.svg' %}">
                                 {% endif %}
-                                
-                                <!-- 예진 : 쪽지 개수 표시 (3+를 쪽지개수로 바꿔주세요)-->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                                <!-- 아직 마이페이지 끝 X -->
                             </a>
-                            
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{% url 'website:mypage' %}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    MyPage
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
                             {% else %}
                             <a class="nav-link" href="{% url 'website:login' %}" id="user" role="button">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Log in </span>

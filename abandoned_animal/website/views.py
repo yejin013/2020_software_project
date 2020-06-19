@@ -133,16 +133,11 @@ def home2(request):
 
 @csrf_exempt
 def homePost(request):
-    if request.method == "POST":
-        # image = request.FILES['image']
-        species = request.POST.get('species', '')
-        # inputState = request.POST.get('inputState', '')
-        # inputCity = request.POST.get('inputCity', '')
-        # location = inputState + ' ' + inputCity
-        # inputDate = request.POST.get('inputDate', '')
-        return redirect(reverse('website:postCheck', args=[str(species)]))
+    # if request.method == "POST":
+    #     # species = request.POST.get('species', '')
 
-    else:
+    #     return redirect(reverse('website:postCheck', args=[str(species)]))
+    # else:
         return render(request, 'home2.html')
 
 def home_result(request, species):
