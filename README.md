@@ -1,7 +1,5 @@
 # 2020_software_project
------------
 ## 프로젝트명 : 고영희 찾기
------------
 
 ### 1. 프로젝트의 개요
 #### 1-1. 프로젝트 개발 배경
@@ -10,19 +8,19 @@
 &nbsp;고양이의 경우 현재 반려동물 등록제의 의무 대상이 아니기 때문에 발견이 되어도 주인을 빠르게 찾아주기 어렵다. 또한 경계심이 강하고 예민해 보호소로 옮겨져도 자연사하는 비율이 41.8%로 개가 15.5%에 비하면 현저히 높은 것을 알 수 있다. 이러한 이유로 고양이의 경우 빠르게 원래 주인을 찾아주는 것이 가장 바람직하다. 따라서 본 팀은 인도 비율이 가장 낮은 고양이를 원래 주인에게 빠르게 찾아주기 위해 <고영희 찾기>를 개발한다.
 
 <p align="center" style="color:gray">
-  [그림 1]<br>
+  [그림 1] 유기동물 처리 체계도<br>
   <img style="margin:50px 0 10px 0" src="https://user-images.githubusercontent.com/44939208/103543456-e6b28780-4ee1-11eb-9a37-d7bec2c6c112.png" alt="유기동물 처리 체계도" width="50%" height="50%"  />
 </p> 
 
 <p align="center" style="color:gray">
-  [그림 2]<br>
+  [그림 2] 연도별 주인에게 인도되는 비율<br>
   <img style="margin:50px 0 10px 0" src="https://user-images.githubusercontent.com/44939208/103543521-0053cf00-4ee2-11eb-9c15-d2d5c146fc7e.png" alt="연도별 인도 비율" width="50%" height="50%"  />
 </p> 
 
 #### 1-2. 프로젝트 최종 목표
-##### 최종 목표 : AI 기술을 이용해 주인에게 유실묘를 최대한 빠르게 찾아주는 것을 주요 목적으로 한다. 
+#### 최종 목표 : AI 기술을 이용해 주인에게 유실묘를 최대한 빠르게 찾아주는 것을 주요 목적으로 한다. 
 
-##### 세부 목표
+#### 세부 목표
 - 웹 서비스 구현
 &nbsp;사용자가 고양이를 쉽게 찾고 고양이가 쉽게 주인을 찾을 수 있도록 공고, 검색, 자체 실종신고 및 발견신고 게시판, 사용자 주변 보호소 조회 등의 기능을 제공한다. 또한 사용자가 이러한 기능을 쉽게 사용하도록 웹 서비스를 제공한다.
 
@@ -49,7 +47,7 @@
 &nbsp;본 프로젝트의 구조도는 [그림 3]과 같다. 아래의 표는 주요 모듈의 세부 설명이다.
 
 <p align="center" style="color:gray">
-  [그림 3]<br>
+  [그림 3] 시스템 구조도<br>
   <img style="margin:50px 0 10px 0" src="https://user-images.githubusercontent.com/44939208/103543700-4dd03c00-4ee2-11eb-961b-87ee655e41cc.png" alt="구조도" width="50%" height="50%"  />
 </p> 
  
@@ -67,22 +65,22 @@
 <p align="center" style="color:gray">
   [그림 4] 고영희 찾기 메인 화면 <br>
   <img style="margin:50px 0 10px 0" src="https://user-images.githubusercontent.com/44939208/103544493-84f31d00-4ee3-11eb-872f-58a436307655.png" alt="메인 화면" width="50%" height="50%"  />
-</p> 
+</p> <br>
 
 <p align="center" style="color:gray">
   [그림 5] 사진 업로드 <br>
   <img style="margin:50px 0 10px 0" src="https://user-images.githubusercontent.com/44939208/103544478-80c6ff80-4ee3-11eb-9db7-ae1be0cb1235.png" alt="사진 업로드" width="50%" height="50%"  />
-</p> 
+</p> <br>
 
 <p align="center" style="color:gray">
   [그림 6] 품종 분류 결과 페이지 <br>
   <img style="margin:50px 0 10px 0" src="https://user-images.githubusercontent.com/44939208/103544469-7d337880-4ee3-11eb-80e1-36e89a04c584.png" alt="품종 분류 결과" width="50%" height="50%"  />
-</p> 
+</p> <br>
 
 <p align="center" style="color:gray">
   [그림 7] 주변보호소정보 <br>
   <img style="margin:50px 0 10px 0" src="https://user-images.githubusercontent.com/44939208/103544467-7c024b80-4ee3-11eb-8ed7-09c471f477c4.png" alt="주변보호소정보" width="50%" height="50%"  />
-</p> 
+</p> <br>
 
 -----------------
 ## Contributor
