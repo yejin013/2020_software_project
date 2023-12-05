@@ -8,7 +8,7 @@ import pandas as pd
 
 
 # 본인 serviceKey 입력
-serviceKey = "718617iI2GVV0AWrip1dEkJMt3Jl9GPvl%2Flz28ktLjA7EYSXhYwCFjFlH9LovIRqzDDkAeUy29%2FaugkKim%2Fa%2Fw%3D%3D"
+serviceKey = "key를 입력하세요"
 
 
 # SQLite3 이용
